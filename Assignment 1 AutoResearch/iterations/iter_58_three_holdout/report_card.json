@@ -1,0 +1,179 @@
+{
+  "iteration": 58,
+  "timestamp": "2026-04-11T09:17:52.903395",
+  "git_hash": "048bd35",
+  "hypothesis": "Best EDA combo (iter_52 config) with 3 holdout patients. Smaller holdout = more training data.",
+  "change_summary": "Best EDA combo but n_holdout_patients=3. More training data.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7,
+      "f1_macro": 0.683127572016461,
+      "per_class_f1": [
+        0.8271604938271605,
+        0.6666666666666666,
+        0.5555555555555556
+      ],
+      "per_class_precision": [
+        0.8271604938271605,
+        0.704225352112676,
+        0.5172413793103449
+      ],
+      "per_class_recall": [
+        0.8271604938271605,
+        0.6329113924050633,
+        0.6
+      ],
+      "confusion_matrix": [
+        [
+          67,
+          6,
+          8
+        ],
+        [
+          9,
+          50,
+          20
+        ],
+        [
+          5,
+          15,
+          30
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5476190476190477,
+      "f1_macro": 0.5219630208461185,
+      "per_class_f1": [
+        0.8354430379746836,
+        0.2689075630252101,
+        0.46153846153846156
+      ],
+      "per_class_precision": [
+        0.8571428571428571,
+        0.4,
+        0.3548387096774194
+      ],
+      "per_class_recall": [
+        0.8148148148148148,
+        0.20253164556962025,
+        0.66
+      ],
+      "confusion_matrix": [
+        [
+          66,
+          10,
+          5
+        ],
+        [
+          8,
+          16,
+          55
+        ],
+        [
+          3,
+          14,
+          33
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.3883651681641192,
+      "rmse": 0.6231895122385479,
+      "mae": 0.42932278671213925,
+      "r2": 0.46524650338724516
+    },
+    "gru": {
+      "mse": 0.2952386140823364,
+      "rmse": 0.5433586422266019,
+      "mae": 0.36117035150527954,
+      "r2": 0.5934756994247437
+    }
+  },
+  "baselines": {},
+  "n_features": 94,
+  "n_train_samples": 1755,
+  "n_test_samples": 210,
+  "pipeline_config": {
+    "iteration": 58,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1755,
+    "n_test": 210,
+    "n_features": 94
+  },
+  "q33": 6.8,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.005749618634581566,
+    0.008165495470166206,
+    0.007349641993641853,
+    0.007971293292939663,
+    0.0066321189515292645,
+    0.007553324569016695,
+    0.011390403844416142,
+    0.005448931362479925,
+    0.005047013517469168,
+    0.006095954217016697
+  ],
+  "reg_importances_top10": [
+    0.0004026520760800943,
+    0.010910567966795176,
+    0.015297237998058032,
+    0.0010038580549853308,
+    0.004918745572111909,
+    0.0021786947175801317,
+    0.003568991340070964,
+    0.0,
+    0.003231554722816759,
+    0.0026123464159479456
+  ]
+}

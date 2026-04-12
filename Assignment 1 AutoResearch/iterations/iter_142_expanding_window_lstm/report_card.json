@@ -1,0 +1,57 @@
+{
+  "iteration": 142,
+  "timestamp": "2026-04-11T14:37:54.217015",
+  "git_hash": "88e6951",
+  "hypothesis": "Per-patient expanding window LSTM adapts to each patient.",
+  "change_summary": "Per-patient expanding window LSTM (start 80%, expand by 1)",
+  "classification": {
+    "lstm_expanding": {
+      "accuracy": 0.4391891891891892,
+      "f1_macro": 0.41283625294514587,
+      "per_class_f1": [
+        0.5266457680250783,
+        0.45789473684210524,
+        0.25396825396825395
+      ],
+      "per_class_precision": [
+        0.45161290322580644,
+        0.4009216589861751,
+        0.5853658536585366
+      ],
+      "per_class_recall": [
+        0.631578947368421,
+        0.5337423312883436,
+        0.16216216216216217
+      ],
+      "confusion_matrix": [
+        [
+          84,
+          45,
+          4
+        ],
+        [
+          63,
+          87,
+          13
+        ],
+        [
+          39,
+          85,
+          24
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "lstm_expanding": {
+      "mse": 0.5333491480510356,
+      "rmse": 0.7303075708569887,
+      "mae": 0.5505097092450918,
+      "r2": -0.04184811290126045
+    }
+  },
+  "baselines": {},
+  "n_features": 12,
+  "n_train_samples": 0,
+  "n_test_samples": 444
+}

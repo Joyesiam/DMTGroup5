@@ -1,0 +1,76 @@
+{
+  "iteration": 98,
+  "timestamp": "2026-04-11T11:38:55.553195",
+  "git_hash": "88e6951",
+  "hypothesis": "Bootstrap confidence intervals quantify uncertainty in our estimates.",
+  "change_summary": "95% CI via bootstrap (200 resamples) + normal approximation",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7014084507042253,
+      "f1_macro": 0.6508369934616568,
+      "per_class_f1": [
+        0.8191489361702128,
+        0.6395348837209303,
+        0.49382716049382713
+      ],
+      "per_class_precision": [
+        0.7938144329896907,
+        0.6626506024096386,
+        0.5128205128205128
+      ],
+      "per_class_recall": [
+        0.8461538461538461,
+        0.6179775280898876,
+        0.47619047619047616
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          11,
+          17
+        ],
+        [
+          13,
+          55,
+          21
+        ],
+        [
+          27,
+          17,
+          40
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.27096314897052365,
+      "rmse": 0.5205412077545097,
+      "mae": 0.34266862081234484,
+      "r2": 0.4783929257896431
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "ci_95": {
+    "f1": [
+      0.6019205126937337,
+      0.7005256581664683
+    ],
+    "r2": [
+      0.38196160504566806,
+      0.5840108153095362
+    ],
+    "acc_bootstrap": [
+      0.6591549295774648,
+      0.7438028169014085
+    ],
+    "acc_normal": [
+      0.6538019622838701,
+      0.7490149391245805
+    ]
+  },
+  "n_bootstraps": 200
+}

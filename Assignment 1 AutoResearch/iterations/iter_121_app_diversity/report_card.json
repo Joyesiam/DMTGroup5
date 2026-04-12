@@ -1,0 +1,188 @@
+{
+  "iteration": 121,
+  "timestamp": "2026-04-11T14:20:19.706033",
+  "git_hash": "88e6951",
+  "hypothesis": "App diversity (count of active categories) captures behavioral engagement patterns.",
+  "change_summary": "Add app_diversity: count of non-zero app categories per day",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7380281690140845,
+      "f1_macro": 0.6920161899536407,
+      "per_class_f1": [
+        0.8533333333333334,
+        0.6496815286624203,
+        0.5730337078651685
+      ],
+      "per_class_precision": [
+        0.8290155440414507,
+        0.75,
+        0.5425531914893617
+      ],
+      "per_class_recall": [
+        0.8791208791208791,
+        0.5730337078651685,
+        0.6071428571428571
+      ],
+      "confusion_matrix": [
+        [
+          160,
+          6,
+          16
+        ],
+        [
+          11,
+          51,
+          27
+        ],
+        [
+          22,
+          11,
+          51
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.2776801629025296,
+      "rmse": 0.526953662955795,
+      "mae": 0.350680219075785,
+      "r2": 0.465462599293899
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 97,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 121,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 97
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006923074834048748,
+    0.008139874786138535,
+    0.006200889125466347,
+    0.007404203526675701,
+    0.006013483740389347,
+    0.007305216044187546,
+    0.00812857411801815,
+    0.004035959951579571,
+    0.005483372136950493,
+    0.0070641678757965565
+  ],
+  "reg_importances_top10": [
+    1.7409161040419033e-05,
+    0.005729092123751601,
+    0.008176658115280667,
+    0.0,
+    0.0013396662946286858,
+    0.005077137395849178,
+    0.0016378252248580162,
+    0.0006195696681112451,
+    0.002732422500806319,
+    0.0026010906723307847
+  ]
+}

@@ -1,0 +1,18 @@
+"""Iteration 9: Stricter outliers (IQR*2.0) + prolonged gap handling."""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from shared.pipeline import run_full_pipeline
+
+if __name__ == "__main__":
+    run_full_pipeline(
+        iteration=9,
+        hypothesis="Tighter outlier removal + excluding prolonged gaps produces cleaner training data.",
+        change_summary="iqr_multiplier=2.0, max_gap_days=5. Addresses assignment requirement on gap handling.",
+        outlier_method="iqr", iqr_multiplier=2.0,
+        imputation_method="ffill", max_gap_days=5,
+        window_sizes=[7], n_lags=3,
+        include_volatility=True, include_interactions=True,
+        tabular_cls="xgboost", tabular_reg="gb", temporal="gru",
+        split_method="chronological", test_fraction=0.2,
+    )

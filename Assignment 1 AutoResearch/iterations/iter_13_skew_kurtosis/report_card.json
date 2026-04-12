@@ -1,0 +1,181 @@
+{
+  "iteration": 13,
+  "timestamp": "2026-04-10T22:21:12.214580",
+  "git_hash": "ef077b0",
+  "hypothesis": "Skewness and kurtosis capture distribution shape within window, adding predictive signal.",
+  "change_summary": "Added 'skew' and 'kurtosis' to agg_functions (7 aggs total).",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.5106382978723404,
+      "f1_macro": 0.43606253312135673,
+      "per_class_f1": [
+        0.65,
+        0.5405405405405406,
+        0.11764705882352941
+      ],
+      "per_class_precision": [
+        0.6842105263157895,
+        0.45454545454545453,
+        0.16666666666666666
+      ],
+      "per_class_recall": [
+        0.6190476190476191,
+        0.6666666666666666,
+        0.09090909090909091
+      ],
+      "confusion_matrix": [
+        [
+          13,
+          5,
+          3
+        ],
+        [
+          3,
+          10,
+          2
+        ],
+        [
+          3,
+          7,
+          1
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.42,
+      "f1_macro": 0.3728138528138529,
+      "per_class_f1": [
+        0.56,
+        0.2857142857142857,
+        0.2727272727272727
+      ],
+      "per_class_precision": [
+        0.5,
+        0.36363636363636365,
+        0.2727272727272727
+      ],
+      "per_class_recall": [
+        0.6363636363636364,
+        0.23529411764705882,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          14,
+          4,
+          4
+        ],
+        [
+          9,
+          4,
+          4
+        ],
+        [
+          5,
+          3,
+          3
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.3240741246106423,
+      "rmse": 0.5692750869400858,
+      "mae": 0.4005810290510492,
+      "r2": 0.25304961244753366
+    },
+    "gru": {
+      "mse": 0.4244823753833771,
+      "rmse": 0.6515231196077212,
+      "mae": 0.5024293661117554,
+      "r2": 0.0059798359870910645
+    }
+  },
+  "baselines": {},
+  "n_features": 145,
+  "n_train_samples": 1918,
+  "n_test_samples": 47,
+  "pipeline_config": {
+    "iteration": 13,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend",
+      "skew",
+      "kurtosis"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "chronological",
+    "test_fraction": 0.2,
+    "n_train": 1918,
+    "n_test": 47,
+    "n_features": 145
+  },
+  "q33": 6.8,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "activity_skew",
+    "activity_kurtosis",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.arousal_skew",
+    "circumplex.arousal_kurtosis",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "circumplex.valence_skew"
+  ],
+  "cls_importances_top10": [
+    0.00489185331389308,
+    0.00727867940440774,
+    0.006415299605578184,
+    0.005146687384694815,
+    0.004072102718055248,
+    0.004785383120179176,
+    0.00466515077278018,
+    0.005134197883307934,
+    0.01374650839716196,
+    0.004980502184480429
+  ],
+  "reg_importances_top10": [
+    0.0001572892195955492,
+    0.006159819998442879,
+    0.021946208944147148,
+    0.0,
+    0.0061083367123664755,
+    0.0014055771078683617,
+    0.0008037389395851988,
+    0.0050043091175779935,
+    0.0005122061315953809,
+    0.0
+  ]
+}

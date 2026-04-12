@@ -1,0 +1,188 @@
+{
+  "iteration": 110,
+  "timestamp": "2026-04-11T14:03:57.754849",
+  "git_hash": "88e6951",
+  "hypothesis": "Removing long mood gap stretches reduces noise from interpolated values.",
+  "change_summary": "Delete >2 consecutive missing mood day stretches",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.5862068965517241,
+      "f1_macro": 0.5727745591115793,
+      "per_class_f1": [
+        0.6825396825396826,
+        0.41509433962264153,
+        0.6206896551724138
+      ],
+      "per_class_precision": [
+        0.6935483870967742,
+        0.4583333333333333,
+        0.5806451612903226
+      ],
+      "per_class_recall": [
+        0.671875,
+        0.3793103448275862,
+        0.6666666666666666
+      ],
+      "confusion_matrix": [
+        [
+          43,
+          10,
+          11
+        ],
+        [
+          8,
+          22,
+          28
+        ],
+        [
+          11,
+          16,
+          54
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.49261083743842365,
+      "f1_macro": 0.48620048030211366,
+      "per_class_f1": [
+        0.6551724137931034,
+        0.2807017543859649,
+        0.5227272727272727
+      ],
+      "per_class_precision": [
+        0.7307692307692307,
+        0.2857142857142857,
+        0.4842105263157895
+      ],
+      "per_class_recall": [
+        0.59375,
+        0.27586206896551724,
+        0.5679012345679012
+      ],
+      "confusion_matrix": [
+        [
+          38,
+          13,
+          13
+        ],
+        [
+          6,
+          16,
+          36
+        ],
+        [
+          8,
+          27,
+          46
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.4293645191890729,
+      "rmse": 0.6552591236976963,
+      "mae": 0.4724577743627647,
+      "r2": 0.2108333668428286
+    },
+    "gru": {
+      "mse": 0.48935478925704956,
+      "rmse": 0.6995389833719415,
+      "mae": 0.5251095294952393,
+      "r2": 0.10057199001312256
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 910,
+  "n_test_samples": 203,
+  "pipeline_config": {
+    "iteration": 110,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 910,
+    "n_test": 203,
+    "n_features": 96
+  },
+  "q33": 6.8,
+  "q66": 7.25,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.009039522148668766,
+    0.008443621918559074,
+    0.0101343197748065,
+    0.009033501148223877,
+    0.008448384702205658,
+    0.010725636035203934,
+    0.008327429182827473,
+    0.014096088707447052,
+    0.010080692358314991,
+    0.007625109050422907
+  ],
+  "reg_importances_top10": [
+    0.008453232117503104,
+    0.004754327336884865,
+    0.009282059500072062,
+    0.000357979054196714,
+    0.003880779905244157,
+    0.01029053527982009,
+    0.00363914421899,
+    0.0006441239555892624,
+    0.006006702739986062,
+    0.0019666636707186378
+  ]
+}

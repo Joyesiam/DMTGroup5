@@ -1,0 +1,188 @@
+{
+  "iteration": 114,
+  "timestamp": "2026-04-11T14:10:02.794392",
+  "git_hash": "88e6951",
+  "hypothesis": "Geometric circumplex representation (magnitude + angle) captures emotional states better than separate arousal/valence.",
+  "change_summary": "Add emotion_intensity and affect_angle from circumplex geometry",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7380281690140845,
+      "f1_macro": 0.6970739313887361,
+      "per_class_f1": [
+        0.8478260869565217,
+        0.6455696202531646,
+        0.5978260869565217
+      ],
+      "per_class_precision": [
+        0.8387096774193549,
+        0.7391304347826086,
+        0.55
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.5730337078651685,
+        0.6547619047619048
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          7,
+          19
+        ],
+        [
+          12,
+          51,
+          26
+        ],
+        [
+          18,
+          11,
+          55
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.271523369750193,
+      "rmse": 0.521079043668226,
+      "mae": 0.3477872436435959,
+      "r2": 0.4773144945605059
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 98,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 114,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 98
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.008362899534404278,
+    0.006763481069356203,
+    0.005332590080797672,
+    0.006509065628051758,
+    0.007139594294130802,
+    0.006091150920838118,
+    0.010422274470329285,
+    0.0031671805772930384,
+    0.00349218281917274,
+    0.006248205900192261
+  ],
+  "reg_importances_top10": [
+    0.0019427209017080554,
+    0.005420181326077478,
+    0.007662672321645295,
+    0.0,
+    0.0015801741547077468,
+    0.005627611673853641,
+    0.0017195809646715237,
+    0.0,
+    0.002310087844093154,
+    0.002640807670404724
+  ]
+}

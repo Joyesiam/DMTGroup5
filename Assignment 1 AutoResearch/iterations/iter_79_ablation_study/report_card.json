@@ -1,0 +1,63 @@
+{
+  "iteration": 79,
+  "timestamp": "2026-04-11T10:44:14.401191",
+  "git_hash": "88e6951",
+  "hypothesis": "Ablation reveals which feature groups are load-bearing.",
+  "change_summary": "Remove one feature group at a time, measure impact",
+  "classification": {
+    "xgboost": {
+      "f1_macro": 0.6835086429960345,
+      "accuracy": 0.6835086429960345,
+      "per_class_f1": []
+    }
+  },
+  "regression": {
+    "gb": {
+      "r2": 0.4834303908006602,
+      "rmse": 0,
+      "mae": 0,
+      "mse": 0
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 0,
+  "n_test_samples": 0,
+  "ablation_results": {
+    "full": {
+      "cls_f1": 0.6835086429960345,
+      "reg_r2": 0.4834303908006602,
+      "n_features": 96
+    },
+    "no_volatility": {
+      "cls_f1": 0.686707756050383,
+      "reg_r2": 0.47770557833521243,
+      "n_features": 93
+    },
+    "no_interactions": {
+      "cls_f1": 0.6918262479156395,
+      "reg_r2": 0.4721607829629758,
+      "n_features": 93
+    },
+    "no_momentum": {
+      "cls_f1": 0.6938685782556749,
+      "reg_r2": 0.47037318131405303,
+      "n_features": 93
+    },
+    "no_lagged_valence": {
+      "cls_f1": 0.680717865120258,
+      "reg_r2": 0.47981433360364145,
+      "n_features": 92
+    },
+    "no_lags": {
+      "cls_f1": 0.6780748663101605,
+      "reg_r2": 0.4506031033764246,
+      "n_features": 91
+    },
+    "no_log_transform": {
+      "cls_f1": 0.6560846560846562,
+      "reg_r2": 0.45689569146749887,
+      "n_features": 96
+    }
+  }
+}

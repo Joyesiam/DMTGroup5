@@ -1,0 +1,57 @@
+{
+  "iteration": 143,
+  "timestamp": "2026-04-11T14:38:02.690565",
+  "git_hash": "88e6951",
+  "hypothesis": "Clustered models balance between global (1 model) and per-patient (27 models).",
+  "change_summary": "KMeans(4) patient clusters, separate XGBoost per cluster",
+  "classification": {
+    "xgboost_clustered": {
+      "accuracy": 0.6394366197183099,
+      "f1_macro": 0.4625859060641669,
+      "per_class_f1": [
+        0.6260869565217392,
+        0.0,
+        0.7616707616707616
+      ],
+      "per_class_precision": [
+        0.5806451612903226,
+        0.0,
+        0.6828193832599119
+      ],
+      "per_class_recall": [
+        0.6792452830188679,
+        0.0,
+        0.8611111111111112
+      ],
+      "confusion_matrix": [
+        [
+          72,
+          0,
+          34
+        ],
+        [
+          31,
+          0,
+          38
+        ],
+        [
+          21,
+          4,
+          155
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb_clustered": {
+      "mse": 0.3464396140256569,
+      "rmse": 0.5885912113051441,
+      "mae": 0.4219784212252105,
+      "r2": 0.3330998914463237
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1610,
+  "n_test_samples": 355
+}

@@ -1,0 +1,50 @@
+{
+  "iteration": 95,
+  "timestamp": "2026-04-11T11:36:20.949263",
+  "git_hash": "88e6951",
+  "hypothesis": "5-fold GroupKFold gives robust estimate where every patient is in test once.",
+  "change_summary": "GroupKFold CV (5 folds, patients as groups)",
+  "classification": {
+    "xgboost": {
+      "f1_macro": 0.6550687099093049,
+      "f1_std": 0.06210051113270802,
+      "accuracy": 0.6550687099093049,
+      "per_class_f1": [
+        0.7066334087560969,
+        0.7121106618853624,
+        0.5450164914450628,
+        0.6307203016909838,
+        0.6808626857690184
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "r2": 0.4997161472592725,
+      "r2_std": 0.058084255067556156,
+      "rmse": 0,
+      "mae": 0,
+      "mse": 0
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1965,
+  "n_test_samples": 0,
+  "fold_results": {
+    "cls_f1": [
+      0.7066334087560969,
+      0.7121106618853624,
+      0.5450164914450628,
+      0.6307203016909838,
+      0.6808626857690184
+    ],
+    "reg_r2": [
+      0.45738210688777303,
+      0.5087062400717768,
+      0.5762724031052588,
+      0.5421466958256695,
+      0.41407329040588436
+    ]
+  }
+}

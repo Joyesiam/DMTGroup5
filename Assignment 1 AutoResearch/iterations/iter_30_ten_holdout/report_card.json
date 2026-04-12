@@ -1,0 +1,179 @@
+{
+  "iteration": 30,
+  "timestamp": "2026-04-10T23:13:47.074927",
+  "git_hash": "f611091",
+  "hypothesis": "Use 10 holdout patients instead of 5. More patients in test = more robust estimate, fewer in train may hurt.",
+  "change_summary": "n_holdout_patients=10. Larger test set, smaller train set trade-off.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.6045197740112994,
+      "f1_macro": 0.5833299185357348,
+      "per_class_f1": [
+        0.6767830045523521,
+        0.55,
+        0.5232067510548524
+      ],
+      "per_class_precision": [
+        0.6501457725947521,
+        0.5860655737704918,
+        0.512396694214876
+      ],
+      "per_class_recall": [
+        0.7056962025316456,
+        0.5181159420289855,
+        0.5344827586206896
+      ],
+      "confusion_matrix": [
+        [
+          223,
+          78,
+          15
+        ],
+        [
+          89,
+          143,
+          44
+        ],
+        [
+          31,
+          23,
+          62
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.4025423728813559,
+      "f1_macro": 0.38722496033250486,
+      "per_class_f1": [
+        0.45528455284552843,
+        0.37305699481865284,
+        0.3333333333333333
+      ],
+      "per_class_precision": [
+        0.4682274247491639,
+        0.3564356435643564,
+        0.3490566037735849
+      ],
+      "per_class_recall": [
+        0.4430379746835443,
+        0.391304347826087,
+        0.31896551724137934
+      ],
+      "confusion_matrix": [
+        [
+          140,
+          161,
+          15
+        ],
+        [
+          114,
+          108,
+          54
+        ],
+        [
+          45,
+          34,
+          37
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.282458041112409,
+      "rmse": 0.5314678175698027,
+      "mae": 0.3856482744168651,
+      "r2": 0.35649908657874063
+    },
+    "gru": {
+      "mse": 0.7978662252426147,
+      "rmse": 0.8932335782104336,
+      "mae": 0.5058814883232117,
+      "r2": -0.8177129030227661
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1257,
+  "n_test_samples": 708,
+  "pipeline_config": {
+    "iteration": 30,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1257,
+    "n_test": 708,
+    "n_features": 107
+  },
+  "q33": 7.0,
+  "q66": 7.5,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006013164296746254,
+    0.005864134524017572,
+    0.006478846073150635,
+    0.007043030578643084,
+    0.006029392592608929,
+    0.006622716318815947,
+    0.010806510224938393,
+    0.0061799404211342335,
+    0.007064837962388992,
+    0.005148767028003931
+  ],
+  "reg_importances_top10": [
+    0.010516027803715694,
+    0.010639518082722213,
+    0.005688567798440239,
+    0.0004364167383444605,
+    0.00569562799736357,
+    0.0028476794648439317,
+    0.0012442260974980211,
+    0.0017723434624592985,
+    0.004061167953637867,
+    0.0018866289230453864
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "iteration": 92,
+  "timestamp": "2026-04-11T11:31:13.261358",
+  "git_hash": "88e6951",
+  "hypothesis": "MLP (feedforward neural network from Lecture 3) as tabular model.",
+  "change_summary": "MLP classifier + MLP regressor (2 hidden layers: 64, 32)",
+  "classification": {
+    "mlp": {
+      "accuracy": 0.5014084507042254,
+      "f1_macro": 0.4604639804639805,
+      "per_class_f1": [
+        0.6461538461538462,
+        0.24,
+        0.49523809523809526
+      ],
+      "per_class_precision": [
+        0.7342657342657343,
+        0.2441860465116279,
+        0.4126984126984127
+      ],
+      "per_class_recall": [
+        0.5769230769230769,
+        0.23595505617977527,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          105,
+          57,
+          20
+        ],
+        [
+          14,
+          21,
+          54
+        ],
+        [
+          24,
+          8,
+          52
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "mlp": {
+      "mse": 0.97346191866448,
+      "rmse": 0.9866417377470305,
+      "mae": 0.7938803231383811,
+      "r2": -0.8739250159253804
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 92,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "mlp",
+    "tabular_reg": "mlp",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 96
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [],
+  "reg_importances_top10": []
+}

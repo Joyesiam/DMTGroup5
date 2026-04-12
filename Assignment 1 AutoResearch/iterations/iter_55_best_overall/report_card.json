@@ -1,0 +1,179 @@
+{
+  "iteration": 55,
+  "timestamp": "2026-04-11T09:15:02.177585",
+  "git_hash": "048bd35",
+  "hypothesis": "Same as 54 but with linear interpolation (helps GRU).",
+  "change_summary": "All EDA features + linear interpolation. Optimized for temporal model.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7267605633802817,
+      "f1_macro": 0.6825305848259821,
+      "per_class_f1": [
+        0.8409703504043127,
+        0.6242038216560509,
+        0.5824175824175825
+      ],
+      "per_class_precision": [
+        0.8253968253968254,
+        0.7205882352941176,
+        0.5408163265306123
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.550561797752809,
+        0.6309523809523809
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          8,
+          18
+        ],
+        [
+          13,
+          49,
+          27
+        ],
+        [
+          20,
+          11,
+          53
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.28095611737445814,
+      "rmse": 0.530052938275469,
+      "mae": 0.35341628281594845,
+      "r2": 0.45915635051490034
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 99,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 55,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 99
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.005744988564401865,
+    0.008049611002206802,
+    0.005627122242003679,
+    0.007695076055824757,
+    0.004570193123072386,
+    0.005965197458863258,
+    0.012804688885807991,
+    0.004488489590585232,
+    0.004139347467571497,
+    0.004734992515295744
+  ],
+  "reg_importances_top10": [
+    0.0005984705525048431,
+    0.004824359053724923,
+    0.009870961766646109,
+    0.0,
+    0.001127316834559794,
+    0.003906183717697233,
+    0.0017072697607012864,
+    0.0,
+    0.0017437324726385808,
+    0.001905805483728585
+  ]
+}

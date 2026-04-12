@@ -1,0 +1,188 @@
+{
+  "iteration": 116,
+  "timestamp": "2026-04-11T15:01:07.974145",
+  "git_hash": "88e6951",
+  "hypothesis": "Sleep timing features are the strongest lifestyle predictor of mood.",
+  "change_summary": "Add bed_time, wakeup_time, sleep_duration from raw timestamps",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7436619718309859,
+      "f1_macro": 0.6994636485772004,
+      "per_class_f1": [
+        0.8579088471849866,
+        0.6580645161290323,
+        0.5824175824175825
+      ],
+      "per_class_precision": [
+        0.837696335078534,
+        0.7727272727272727,
+        0.5408163265306123
+      ],
+      "per_class_recall": [
+        0.8791208791208791,
+        0.5730337078651685,
+        0.6309523809523809
+      ],
+      "confusion_matrix": [
+        [
+          160,
+          4,
+          18
+        ],
+        [
+          11,
+          51,
+          27
+        ],
+        [
+          20,
+          11,
+          53
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6197183098591549,
+      "f1_macro": 0.5264498133422983,
+      "per_class_f1": [
+        0.8342541436464088,
+        0.2706766917293233,
+        0.4744186046511628
+      ],
+      "per_class_precision": [
+        0.8388888888888889,
+        0.4090909090909091,
+        0.3893129770992366
+      ],
+      "per_class_recall": [
+        0.8296703296703297,
+        0.20224719101123595,
+        0.6071428571428571
+      ],
+      "confusion_matrix": [
+        [
+          151,
+          13,
+          18
+        ],
+        [
+          9,
+          18,
+          62
+        ],
+        [
+          20,
+          13,
+          51
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.27874835319128155,
+      "rmse": 0.5279662424732111,
+      "mae": 0.350627116473931,
+      "r2": 0.4634063211124093
+    },
+    "gru": {
+      "mse": 0.3350638747215271,
+      "rmse": 0.578847021864609,
+      "mae": 0.42242419719696045,
+      "r2": 0.35499823093414307
+    }
+  },
+  "baselines": {},
+  "n_features": 111,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 116,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 111
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.007748756092041731,
+    0.006603189278393984,
+    0.005623139441013336,
+    0.006971454713493586,
+    0.004795203451067209,
+    0.007096220273524523,
+    0.013554044999182224,
+    0.006383241154253483,
+    0.0058577414602041245,
+    0.005146834999322891
+  ],
+  "reg_importances_top10": [
+    0.0011584514503182165,
+    0.004057122480119819,
+    0.00729573194682892,
+    0.0,
+    0.0012062368869601317,
+    0.005891939678703025,
+    0.001778208087476299,
+    0.00031227828056086944,
+    0.0022014071712693826,
+    0.0034038939058661085
+  ]
+}

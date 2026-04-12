@@ -1,0 +1,179 @@
+{
+  "iteration": 12,
+  "timestamp": "2026-04-10T22:18:55.260894",
+  "git_hash": "ef077b0",
+  "hypothesis": "Log-transforming skewed duration variables before aggregation improves feature quality.",
+  "change_summary": "log_transform_before_agg=True for screen/app durations.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.5531914893617021,
+      "f1_macro": 0.49259259259259264,
+      "per_class_f1": [
+        0.7,
+        0.5555555555555556,
+        0.2222222222222222
+      ],
+      "per_class_precision": [
+        0.7368421052631579,
+        0.47619047619047616,
+        0.2857142857142857
+      ],
+      "per_class_recall": [
+        0.6666666666666666,
+        0.6666666666666666,
+        0.18181818181818182
+      ],
+      "confusion_matrix": [
+        [
+          14,
+          4,
+          3
+        ],
+        [
+          3,
+          10,
+          2
+        ],
+        [
+          2,
+          7,
+          2
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.42,
+      "f1_macro": 0.3728138528138529,
+      "per_class_f1": [
+        0.56,
+        0.2857142857142857,
+        0.2727272727272727
+      ],
+      "per_class_precision": [
+        0.5,
+        0.36363636363636365,
+        0.2727272727272727
+      ],
+      "per_class_recall": [
+        0.6363636363636364,
+        0.23529411764705882,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          14,
+          4,
+          4
+        ],
+        [
+          9,
+          4,
+          4
+        ],
+        [
+          5,
+          3,
+          3
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.32488528214388995,
+      "rmse": 0.569987089453691,
+      "mae": 0.40641152321106755,
+      "r2": 0.2511799956289944
+    },
+    "gru": {
+      "mse": 0.4244823753833771,
+      "rmse": 0.6515231196077212,
+      "mae": 0.5024293661117554,
+      "r2": 0.0059798359870910645
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1918,
+  "n_test_samples": 47,
+  "pipeline_config": {
+    "iteration": 12,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "chronological",
+    "test_fraction": 0.2,
+    "n_train": 1918,
+    "n_test": 47,
+    "n_features": 107
+  },
+  "q33": 6.8,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006455502472817898,
+    0.008615292608737946,
+    0.0069697145372629166,
+    0.006028533913195133,
+    0.005639437586069107,
+    0.007103149779140949,
+    0.016631783917546272,
+    0.006033400539308786,
+    0.006352528929710388,
+    0.00588447879999876
+  ],
+  "reg_importances_top10": [
+    0.0,
+    0.011712939664428733,
+    0.020655712547727616,
+    0.0004024179870573855,
+    0.005327890974020297,
+    0.005110974985937197,
+    0.0009235157613026654,
+    0.00022975182177328496,
+    0.0,
+    0.006281875738831724
+  ]
+}

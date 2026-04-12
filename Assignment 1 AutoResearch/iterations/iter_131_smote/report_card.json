@@ -1,0 +1,57 @@
+{
+  "iteration": 131,
+  "timestamp": "2026-04-11T14:24:05.945981",
+  "git_hash": "88e6951",
+  "hypothesis": "SMOTE creates synthetic minority class samples.",
+  "change_summary": "SMOTE oversampling for classification training",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.6957746478873239,
+      "f1_macro": 0.651637704736164,
+      "per_class_f1": [
+        0.7926509186351706,
+        0.6432748538011696,
+        0.5189873417721519
+      ],
+      "per_class_precision": [
+        0.7587939698492462,
+        0.6707317073170732,
+        0.5540540540540541
+      ],
+      "per_class_recall": [
+        0.8296703296703297,
+        0.6179775280898876,
+        0.4880952380952381
+      ],
+      "confusion_matrix": [
+        [
+          151,
+          15,
+          16
+        ],
+        [
+          17,
+          55,
+          17
+        ],
+        [
+          31,
+          12,
+          41
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.2775680106661256,
+      "rmse": 0.5268472365554607,
+      "mae": 0.34881083112325834,
+      "r2": 0.46567849359583313
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1725,
+  "n_test_samples": 355
+}

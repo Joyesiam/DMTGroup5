@@ -1,0 +1,188 @@
+{
+  "iteration": 149,
+  "timestamp": "2026-04-11T15:01:43.070186",
+  "git_hash": "88e6951",
+  "hypothesis": "Replicating matushalak's full pipeline with our honest evaluation.",
+  "change_summary": "matushalak pipeline: remove negatives, bed/wake, first/last mood, quadrants, EWM, MinMax, GRU",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.5774647887323944,
+      "f1_macro": 0.4139593192990955,
+      "per_class_f1": [
+        0.7215189873417721,
+        0.4172661870503597,
+        0.10309278350515463
+      ],
+      "per_class_precision": [
+        0.5856164383561644,
+        0.58,
+        0.38461538461538464
+      ],
+      "per_class_recall": [
+        0.9395604395604396,
+        0.3258426966292135,
+        0.05952380952380952
+      ],
+      "confusion_matrix": [
+        [
+          171,
+          8,
+          3
+        ],
+        [
+          55,
+          29,
+          5
+        ],
+        [
+          66,
+          13,
+          5
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6225352112676056,
+      "f1_macro": 0.5353427469610992,
+      "per_class_f1": [
+        0.8268156424581006,
+        0.2992125984251969,
+        0.48
+      ],
+      "per_class_precision": [
+        0.8409090909090909,
+        0.5,
+        0.3829787234042553
+      ],
+      "per_class_recall": [
+        0.8131868131868132,
+        0.21348314606741572,
+        0.6428571428571429
+      ],
+      "confusion_matrix": [
+        [
+          148,
+          7,
+          27
+        ],
+        [
+          10,
+          19,
+          60
+        ],
+        [
+          18,
+          12,
+          54
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.472315903897865,
+      "rmse": 0.6872524309872355,
+      "mae": 0.525099682041692,
+      "r2": 0.09078663400835463
+    },
+    "gru": {
+      "mse": 0.3049076199531555,
+      "rmse": 0.5521844075606949,
+      "mae": 0.40264126658439636,
+      "r2": 0.4130493998527527
+    }
+  },
+  "baselines": {},
+  "n_features": 128,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 149,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 128
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006343542598187923,
+    0.006761300843209028,
+    0.0071485936641693115,
+    0.009294223971664906,
+    0.0063914526253938675,
+    0.004717222880572081,
+    0.004400997422635555,
+    0.013057407923042774,
+    0.009498841129243374,
+    0.004857458174228668
+  ],
+  "reg_importances_top10": [
+    0.004245347991383142,
+    0.007616995281737926,
+    0.026752229498822146,
+    0.0004582351970316794,
+    0.010430987220750929,
+    0.005014070877711351,
+    0.004942398383831201,
+    0.002329180527750743,
+    0.0033434066501246596,
+    0.00303927152209582
+  ]
+}

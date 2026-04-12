@@ -1,0 +1,187 @@
+{
+  "iteration": 68,
+  "timestamp": "2026-04-11T10:17:20.528552",
+  "git_hash": "88e6951",
+  "hypothesis": "Linear interp for continuous vars + ffill for app categories avoids fractional app counts.",
+  "change_summary": "Hybrid imputation (linear for mood/activity, ffill for app categories)",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7267605633802817,
+      "f1_macro": 0.683048817011081,
+      "per_class_f1": [
+        0.8409703504043127,
+        0.6415094339622641,
+        0.5666666666666667
+      ],
+      "per_class_precision": [
+        0.8253968253968254,
+        0.7285714285714285,
+        0.53125
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.5730337078651685,
+        0.6071428571428571
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          8,
+          18
+        ],
+        [
+          11,
+          51,
+          27
+        ],
+        [
+          22,
+          11,
+          51
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6704225352112676,
+      "f1_macro": 0.5968196457326892,
+      "per_class_f1": [
+        0.8532608695652174,
+        0.4444444444444444,
+        0.4927536231884058
+      ],
+      "per_class_precision": [
+        0.8440860215053764,
+        0.6521739130434783,
+        0.4146341463414634
+      ],
+      "per_class_recall": [
+        0.8626373626373627,
+        0.33707865168539325,
+        0.6071428571428571
+      ],
+      "confusion_matrix": [
+        [
+          157,
+          2,
+          23
+        ],
+        [
+          10,
+          30,
+          49
+        ],
+        [
+          19,
+          14,
+          51
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.27320029339587043,
+      "rmse": 0.5226856544768284,
+      "mae": 0.34925826514434477,
+      "r2": 0.47408639789932083
+    },
+    "gru": {
+      "mse": 0.24983848631381989,
+      "rmse": 0.49983846021871897,
+      "mae": 0.3394344449043274,
+      "r2": 0.519058108329773
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 68,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "hybrid",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 96
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.007215319667011499,
+    0.00658223032951355,
+    0.004666586872190237,
+    0.008167502470314503,
+    0.005448365118354559,
+    0.005948300007730722,
+    0.011805417016148567,
+    0.006424093618988991,
+    0.0066549708135426044,
+    0.004562785848975182
+  ],
+  "reg_importances_top10": [
+    0.0005093163792247606,
+    0.005202408117253266,
+    0.008445864384142044,
+    0.0003675506726259038,
+    0.0011934819256161876,
+    0.003803634645033617,
+    0.0007212221243055493,
+    0.0,
+    0.002382213809291432,
+    0.0026815751553974027
+  ]
+}

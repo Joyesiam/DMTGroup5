@@ -1,0 +1,179 @@
+{
+  "iteration": 24,
+  "timestamp": "2026-04-10T23:05:14.761260",
+  "git_hash": "f611091",
+  "hypothesis": "Log-transform durations (iter_12) was comparable. Try it with leave-patients-out to see if the larger test set reveals an improvement.",
+  "change_summary": "log_transform_before_agg + leave-patients-out.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7323943661971831,
+      "f1_macro": 0.6912551729024171,
+      "per_class_f1": [
+        0.8476454293628809,
+        0.6214689265536724,
+        0.6046511627906976
+      ],
+      "per_class_precision": [
+        0.85,
+        0.632183908045977,
+        0.5909090909090909
+      ],
+      "per_class_recall": [
+        0.8453038674033149,
+        0.6111111111111112,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          153,
+          15,
+          13
+        ],
+        [
+          12,
+          55,
+          23
+        ],
+        [
+          15,
+          17,
+          52
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5774647887323944,
+      "f1_macro": 0.47546418080096836,
+      "per_class_f1": [
+        0.77,
+        0.3247863247863248,
+        0.3316062176165803
+      ],
+      "per_class_precision": [
+        0.7031963470319634,
+        0.7037037037037037,
+        0.29357798165137616
+      ],
+      "per_class_recall": [
+        0.850828729281768,
+        0.2111111111111111,
+        0.38095238095238093
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          1,
+          26
+        ],
+        [
+          20,
+          19,
+          51
+        ],
+        [
+          45,
+          7,
+          32
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.3225730329232373,
+      "rmse": 0.5679551328434644,
+      "mae": 0.411102064124332,
+      "r2": 0.4280443712658184
+    },
+    "gru": {
+      "mse": 0.3233383595943451,
+      "rmse": 0.5686284899601365,
+      "mae": 0.38876333832740784,
+      "r2": 0.4266873002052307
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 24,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 107
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.005929715931415558,
+    0.009036161005496979,
+    0.0078132888302207,
+    0.00662235775962472,
+    0.00452485540881753,
+    0.00741122430190444,
+    0.014132557436823845,
+    0.006845108699053526,
+    0.011022252961993217,
+    0.005444645415991545
+  ],
+  "reg_importances_top10": [
+    0.00048300320204440987,
+    0.003855870699500059,
+    0.018418782812860142,
+    0.0,
+    0.0017861063116404584,
+    0.00495771551643703,
+    0.0009427412653422387,
+    0.0002466661995970419,
+    0.004377989165069962,
+    0.0005762122875319373
+  ]
+}

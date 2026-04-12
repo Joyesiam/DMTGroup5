@@ -1,0 +1,179 @@
+{
+  "iteration": 36,
+  "timestamp": "2026-04-10T23:22:53.286651",
+  "git_hash": "f611091",
+  "hypothesis": "Exponentially weighted features. Recent days weighted more than older days in the window.",
+  "change_summary": "Exponential weighting in rolling window (decay=0.9). Recent days matter more.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7070422535211267,
+      "f1_macro": 0.6591542641152847,
+      "per_class_f1": [
+        0.8235294117647058,
+        0.611764705882353,
+        0.5421686746987951
+      ],
+      "per_class_precision": [
+        0.7979274611398963,
+        0.65,
+        0.5487804878048781
+      ],
+      "per_class_recall": [
+        0.850828729281768,
+        0.5777777777777777,
+        0.5357142857142857
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          10,
+          17
+        ],
+        [
+          18,
+          52,
+          20
+        ],
+        [
+          21,
+          18,
+          45
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5774647887323944,
+      "f1_macro": 0.47546418080096836,
+      "per_class_f1": [
+        0.77,
+        0.3247863247863248,
+        0.3316062176165803
+      ],
+      "per_class_precision": [
+        0.7031963470319634,
+        0.7037037037037037,
+        0.29357798165137616
+      ],
+      "per_class_recall": [
+        0.850828729281768,
+        0.2111111111111111,
+        0.38095238095238093
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          1,
+          26
+        ],
+        [
+          20,
+          19,
+          51
+        ],
+        [
+          45,
+          7,
+          32
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.3190747733566309,
+      "rmse": 0.5648670404233468,
+      "mae": 0.4068893649371782,
+      "r2": 0.4342471503132841
+    },
+    "gru": {
+      "mse": 0.3233383595943451,
+      "rmse": 0.5686284899601365,
+      "mae": 0.38876333832740784,
+      "r2": 0.4266873002052307
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 36,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 107
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006821589544415474,
+    0.009939676150679588,
+    0.007789707742631435,
+    0.006052027922123671,
+    0.005484079010784626,
+    0.0058824350126087666,
+    0.012300609610974789,
+    0.006527172401547432,
+    0.004976118914783001,
+    0.00538281723856926
+  ],
+  "reg_importances_top10": [
+    0.0014859243526427436,
+    0.005454944741640275,
+    0.019933301089229603,
+    0.00022018129320925238,
+    0.0020573539881112448,
+    0.0033593850404320578,
+    0.0007799981065015091,
+    0.0005430895697953477,
+    0.0026086345178357095,
+    0.0002543248663026693
+  ]
+}

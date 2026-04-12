@@ -1,0 +1,179 @@
+{
+  "iteration": 10,
+  "timestamp": "2026-04-10T22:13:45.292551",
+  "git_hash": "c75e0d3",
+  "hypothesis": "Domain-only outliers preserve more data; KNN imputation uses actual neighbor values.",
+  "change_summary": "outlier_method='domain_only', imputation_method='knn'. Minimal outlier removal.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.5319148936170213,
+      "f1_macro": 0.47428830325454957,
+      "per_class_f1": [
+        0.6829268292682927,
+        0.5294117647058824,
+        0.21052631578947367
+      ],
+      "per_class_precision": [
+        0.6666666666666666,
+        0.5,
+        0.25
+      ],
+      "per_class_recall": [
+        0.7,
+        0.5625,
+        0.18181818181818182
+      ],
+      "confusion_matrix": [
+        [
+          14,
+          3,
+          3
+        ],
+        [
+          4,
+          9,
+          3
+        ],
+        [
+          3,
+          6,
+          2
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.56,
+      "f1_macro": 0.42374051069703245,
+      "per_class_f1": [
+        0.6521739130434783,
+        0.6190476190476191,
+        0.0
+      ],
+      "per_class_precision": [
+        0.6,
+        0.5416666666666666,
+        0.0
+      ],
+      "per_class_recall": [
+        0.7142857142857143,
+        0.7222222222222222,
+        0.0
+      ],
+      "confusion_matrix": [
+        [
+          15,
+          5,
+          1
+        ],
+        [
+          5,
+          13,
+          0
+        ],
+        [
+          5,
+          6,
+          0
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.36145062051670834,
+      "rmse": 0.6012076351117877,
+      "mae": 0.44804412275035227,
+      "r2": 0.16882866991848144
+    },
+    "gru": {
+      "mse": 0.7025948166847229,
+      "rmse": 0.8382092916955305,
+      "mae": 0.5874378681182861,
+      "r2": -0.6416604518890381
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1918,
+  "n_test_samples": 47,
+  "pipeline_config": {
+    "iteration": 10,
+    "seed": 42,
+    "outlier_method": "domain_only",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "knn",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "chronological",
+    "test_fraction": 0.2,
+    "n_train": 1918,
+    "n_test": 47,
+    "n_features": 107
+  },
+  "q33": 6.8,
+  "q66": 7.25,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.007242532912641764,
+    0.010042762383818626,
+    0.009503736160695553,
+    0.008779413998126984,
+    0.006691942922770977,
+    0.009826692752540112,
+    0.007810918148607016,
+    0.007126170676201582,
+    0.008813750930130482,
+    0.007078525610268116
+  ],
+  "reg_importances_top10": [
+    0.0015727169941314946,
+    0.011638732077135113,
+    0.007244966993782681,
+    0.0019575054544244586,
+    0.005313028291112799,
+    0.004610670647630364,
+    0.0034198727403879333,
+    0.0008317400238673654,
+    0.003120337947895653,
+    0.02838980648445917
+  ]
+}

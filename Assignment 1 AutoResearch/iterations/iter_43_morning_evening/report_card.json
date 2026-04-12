@@ -1,0 +1,179 @@
+{
+  "iteration": 43,
+  "timestamp": "2026-04-11T08:57:49.596296",
+  "git_hash": "048bd35",
+  "hypothesis": "Morning/evening mood separation captures intra-day variation (1.6pt range found in EDA).",
+  "change_summary": "add_morning_evening=True. Adds mood_morning, mood_evening, mood_intraday_slope.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7183098591549296,
+      "f1_macro": 0.6687393982401381,
+      "per_class_f1": [
+        0.8501362397820164,
+        0.6024096385542169,
+        0.5536723163841808
+      ],
+      "per_class_precision": [
+        0.8387096774193549,
+        0.6578947368421053,
+        0.5268817204301075
+      ],
+      "per_class_recall": [
+        0.861878453038674,
+        0.5555555555555556,
+        0.5833333333333334
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          7,
+          18
+        ],
+        [
+          14,
+          50,
+          26
+        ],
+        [
+          16,
+          19,
+          49
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.43661971830985913,
+      "f1_macro": 0.41794069865429556,
+      "per_class_f1": [
+        0.5135135135135135,
+        0.4344262295081967,
+        0.3058823529411765
+      ],
+      "per_class_precision": [
+        0.6608695652173913,
+        0.34415584415584416,
+        0.3023255813953488
+      ],
+      "per_class_recall": [
+        0.4198895027624309,
+        0.5888888888888889,
+        0.30952380952380953
+      ],
+      "confusion_matrix": [
+        [
+          76,
+          68,
+          37
+        ],
+        [
+          14,
+          53,
+          23
+        ],
+        [
+          25,
+          33,
+          26
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.32179019949552634,
+      "rmse": 0.5672655458385661,
+      "mae": 0.40661641127727377,
+      "r2": 0.4294324165753812
+    },
+    "gru": {
+      "mse": 1.025091290473938,
+      "rmse": 1.0124679207135099,
+      "mae": 0.6636786460876465,
+      "r2": -0.8175939321517944
+    }
+  },
+  "baselines": {},
+  "n_features": 122,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 43,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 122
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.005297695752233267,
+    0.007493201643228531,
+    0.0063020274974405766,
+    0.004985515493899584,
+    0.005475802347064018,
+    0.005540797486901283,
+    0.009554615244269371,
+    0.005348908714950085,
+    0.005866428837180138,
+    0.004707403015345335
+  ],
+  "reg_importances_top10": [
+    0.0007132536501302191,
+    0.00484882404823257,
+    0.01810953649980453,
+    0.00020899819221575526,
+    0.0011831340024612241,
+    0.002155276416327987,
+    0.0008972640493696814,
+    0.0,
+    0.003701776538541046,
+    0.00022720415738178523
+  ]
+}

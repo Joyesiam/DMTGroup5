@@ -1,0 +1,58 @@
+{
+  "iteration": 88,
+  "timestamp": "2026-04-11T11:29:21.353086",
+  "git_hash": "88e6951",
+  "hypothesis": "Per-patient models capture individual mood patterns.",
+  "change_summary": "27 separate XGBoost/GB models, one per patient",
+  "classification": {
+    "xgboost_per_patient": {
+      "accuracy": 0.5903614457831325,
+      "f1_macro": 0.5578350325256962,
+      "per_class_f1": [
+        0.5669291338582677,
+        0.4126984126984127,
+        0.6938775510204082
+      ],
+      "per_class_precision": [
+        0.6792452830188679,
+        0.41935483870967744,
+        0.6343283582089553
+      ],
+      "per_class_recall": [
+        0.4864864864864865,
+        0.40625,
+        0.7657657657657657
+      ],
+      "confusion_matrix": [
+        [
+          36,
+          16,
+          22
+        ],
+        [
+          11,
+          26,
+          27
+        ],
+        [
+          6,
+          20,
+          85
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb_per_patient": {
+      "mse": 0.510147040219215,
+      "rmse": 0.7142457841802183,
+      "mae": 0.549367758066757,
+      "r2": 0.02761820968732609
+    }
+  },
+  "baselines": {},
+  "n_features": 74,
+  "n_train_samples": 0,
+  "n_test_samples": 0,
+  "n_patients_used": 27
+}

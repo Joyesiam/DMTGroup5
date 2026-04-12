@@ -1,0 +1,99 @@
+{
+  "iteration": 5,
+  "timestamp": "2026-04-10T21:32:52.247249",
+  "git_hash": "1e9ea66",
+  "hypothesis": "A stacking ensemble (XGBoost + RF + SVM, meta=LogisticRegression) will outperform\nany single model by capturing different patterns. Expected: +2-5% F1, +0.02 R2.",
+  "change_summary": "- Stacking classifier: XGBoost + RF + SVM -> LogisticRegression meta-learner\n- Stacking regressor: XGBoost + GB + RF -> Ridge meta-learner\n- Keep GRU as temporal model (best from iter_04)\n- Use iter_0",
+  "classification": {
+    "ensemble": {
+      "accuracy": 0.3829787234042553,
+      "f1_macro": 0.3569112879457707,
+      "per_class_f1": [
+        0.5641025641025641,
+        0.27586206896551724,
+        0.23076923076923078
+      ],
+      "per_class_precision": [
+        0.6111111111111112,
+        0.2857142857142857,
+        0.2
+      ],
+      "per_class_recall": [
+        0.5238095238095238,
+        0.26666666666666666,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          11,
+          6,
+          4
+        ],
+        [
+          3,
+          4,
+          8
+        ],
+        [
+          4,
+          4,
+          3
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.42,
+      "f1_macro": 0.3728138528138529,
+      "per_class_f1": [
+        0.56,
+        0.2857142857142857,
+        0.2727272727272727
+      ],
+      "per_class_precision": [
+        0.5,
+        0.36363636363636365,
+        0.2727272727272727
+      ],
+      "per_class_recall": [
+        0.6363636363636364,
+        0.23529411764705882,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          14,
+          4,
+          4
+        ],
+        [
+          9,
+          4,
+          4
+        ],
+        [
+          5,
+          3,
+          3
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "ensemble": {
+      "mse": 0.32507055238053717,
+      "rmse": 0.5701495877228512,
+      "mae": 0.4079049928053903,
+      "r2": 0.2507529708696685
+    },
+    "gru": {
+      "mse": 0.4244823753833771,
+      "rmse": 0.6515231196077212,
+      "mae": 0.5024293661117554,
+      "r2": 0.0059798359870910645
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1918,
+  "n_test_samples": 47
+}

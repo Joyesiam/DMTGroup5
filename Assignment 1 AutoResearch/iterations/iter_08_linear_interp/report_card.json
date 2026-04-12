@@ -1,0 +1,179 @@
+{
+  "iteration": 8,
+  "timestamp": "2026-04-10T22:08:59.092946",
+  "git_hash": "c75e0d3",
+  "hypothesis": "Linear interpolation produces smoother features than forward fill, improving trend-based features.",
+  "change_summary": "imputation_method='linear' (was 'ffill'). Assignment Task 1B comparison.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.5319148936170213,
+      "f1_macro": 0.44948912326961105,
+      "per_class_f1": [
+        0.6829268292682927,
+        0.5405405405405406,
+        0.125
+      ],
+      "per_class_precision": [
+        0.7,
+        0.45454545454545453,
+        0.2
+      ],
+      "per_class_recall": [
+        0.6666666666666666,
+        0.6666666666666666,
+        0.09090909090909091
+      ],
+      "confusion_matrix": [
+        [
+          14,
+          5,
+          2
+        ],
+        [
+          3,
+          10,
+          2
+        ],
+        [
+          3,
+          7,
+          1
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.42,
+      "f1_macro": 0.32765658367799316,
+      "per_class_f1": [
+        0.576271186440678,
+        0.09090909090909091,
+        0.3157894736842105
+      ],
+      "per_class_precision": [
+        0.4594594594594595,
+        0.2,
+        0.375
+      ],
+      "per_class_recall": [
+        0.7727272727272727,
+        0.058823529411764705,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          17,
+          2,
+          3
+        ],
+        [
+          14,
+          1,
+          2
+        ],
+        [
+          6,
+          2,
+          3
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.31904801024661533,
+      "rmse": 0.5648433501835843,
+      "mae": 0.39596105215734695,
+      "r2": 0.2646341784063355
+    },
+    "gru": {
+      "mse": 0.3729611337184906,
+      "rmse": 0.6107054394047023,
+      "mae": 0.4673028290271759,
+      "r2": 0.1266283392906189
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1918,
+  "n_test_samples": 47,
+  "pipeline_config": {
+    "iteration": 8,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "chronological",
+    "test_fraction": 0.2,
+    "n_train": 1918,
+    "n_test": 47,
+    "n_features": 107
+  },
+  "q33": 6.8,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.005645186174660921,
+    0.009115967899560928,
+    0.0085575170814991,
+    0.004764311946928501,
+    0.005796159617602825,
+    0.008505241014063358,
+    0.01854000985622406,
+    0.005260921083390713,
+    0.005311223678290844,
+    0.005367363803088665
+  ],
+  "reg_importances_top10": [
+    6.800545670603978e-05,
+    0.006945097642426417,
+    0.017901352150791423,
+    7.928115649558487e-06,
+    0.007370904290400805,
+    0.00713362293332292,
+    0.0020241968641761727,
+    0.0022505461786531825,
+    0.0003729006555068121,
+    0.004909189020886032
+  ]
+}

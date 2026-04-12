@@ -1,0 +1,179 @@
+{
+  "iteration": 54,
+  "timestamp": "2026-04-11T09:13:03.592923",
+  "git_hash": "048bd35",
+  "hypothesis": "Best EDA features + log transform + 5 lags. Combining everything that helped individually.",
+  "change_summary": "EDA features + log_transform + n_lags=5. Maximum feature combination.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7295774647887324,
+      "f1_macro": 0.6905838113149327,
+      "per_class_f1": [
+        0.8397790055248618,
+        0.6341463414634146,
+        0.5978260869565217
+      ],
+      "per_class_precision": [
+        0.8397790055248618,
+        0.7027027027027027,
+        0.55
+      ],
+      "per_class_recall": [
+        0.8397790055248618,
+        0.5777777777777777,
+        0.6547619047619048
+      ],
+      "confusion_matrix": [
+        [
+          152,
+          10,
+          19
+        ],
+        [
+          12,
+          52,
+          26
+        ],
+        [
+          17,
+          12,
+          55
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6732394366197183,
+      "f1_macro": 0.6035130328608589,
+      "per_class_f1": [
+        0.8516483516483516,
+        0.4492753623188406,
+        0.5096153846153846
+      ],
+      "per_class_precision": [
+        0.8469945355191257,
+        0.6458333333333334,
+        0.4274193548387097
+      ],
+      "per_class_recall": [
+        0.856353591160221,
+        0.34444444444444444,
+        0.6309523809523809
+      ],
+      "confusion_matrix": [
+        [
+          155,
+          4,
+          22
+        ],
+        [
+          10,
+          31,
+          49
+        ],
+        [
+          18,
+          13,
+          53
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.2970120353050274,
+      "rmse": 0.5449881056546348,
+      "mae": 0.3695424365162167,
+      "r2": 0.4733666858167537
+    },
+    "gru": {
+      "mse": 0.2618598937988281,
+      "rmse": 0.5117224773242115,
+      "mae": 0.3448915183544159,
+      "r2": 0.5356950759887695
+    }
+  },
+  "baselines": {},
+  "n_features": 99,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 54,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 99
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.005188522394746542,
+    0.005639904644340277,
+    0.005986509378999472,
+    0.005601227283477783,
+    0.005179987754672766,
+    0.005270436871796846,
+    0.010365001857280731,
+    0.00401285570114851,
+    0.00613119313493371,
+    0.004249380435794592
+  ],
+  "reg_importances_top10": [
+    0.00025535819152281623,
+    0.005991564759344612,
+    0.012653526434430582,
+    0.0004343111845791188,
+    0.005092590573679966,
+    0.0051840386947220336,
+    0.0013867275701567809,
+    0.0015456410081326325,
+    0.0017331934228778654,
+    0.0018187182893963565
+  ]
+}

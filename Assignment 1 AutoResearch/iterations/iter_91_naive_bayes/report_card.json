@@ -1,0 +1,177 @@
+{
+  "iteration": 91,
+  "timestamp": "2026-04-11T11:30:56.933831",
+  "git_hash": "88e6951",
+  "hypothesis": "Naive Bayes (from Lecture 2) is a probabilistic model, good with small data.",
+  "change_summary": "Naive Bayes classifier (GB regression unchanged)",
+  "classification": {
+    "naive_bayes": {
+      "accuracy": 0.532394366197183,
+      "f1_macro": 0.49252377942327374,
+      "per_class_f1": [
+        0.6548672566371682,
+        0.45535714285714285,
+        0.3673469387755102
+      ],
+      "per_class_precision": [
+        0.7070063694267515,
+        0.37777777777777777,
+        0.42857142857142855
+      ],
+      "per_class_recall": [
+        0.6098901098901099,
+        0.5730337078651685,
+        0.32142857142857145
+      ],
+      "confusion_matrix": [
+        [
+          111,
+          59,
+          12
+        ],
+        [
+          14,
+          51,
+          24
+        ],
+        [
+          32,
+          25,
+          27
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.26834629914293956,
+      "rmse": 0.5180215238220701,
+      "mae": 0.3421577284525702,
+      "r2": 0.4834303908006602
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 91,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "naive_bayes",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 96
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [],
+  "reg_importances_top10": [
+    3.285874522760643e-06,
+    0.0038923875165357644,
+    0.0082446443478759,
+    0.0003359979172758697,
+    0.0020286578909627546,
+    0.00613104455670635,
+    0.00123156271819407,
+    0.0,
+    0.002283526086460741,
+    0.0025225716401167946
+  ]
+}

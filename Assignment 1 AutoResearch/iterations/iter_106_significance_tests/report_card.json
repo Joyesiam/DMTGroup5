@@ -1,0 +1,104 @@
+{
+  "iteration": 106,
+  "timestamp": "2026-04-11T11:45:02.315271",
+  "git_hash": "88e6951",
+  "hypothesis": "Significance tests prove our models are better than baselines.",
+  "change_summary": "McNemar (cls vs majority) + Wilcoxon (reg vs mean predict)",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7014084507042253,
+      "f1_macro": 0.6508369934616568,
+      "per_class_f1": [
+        0.8191489361702128,
+        0.6395348837209303,
+        0.49382716049382713
+      ],
+      "per_class_precision": [
+        0.7938144329896907,
+        0.6626506024096386,
+        0.5128205128205128
+      ],
+      "per_class_recall": [
+        0.8461538461538461,
+        0.6179775280898876,
+        0.47619047619047616
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          11,
+          17
+        ],
+        [
+          13,
+          55,
+          21
+        ],
+        [
+          27,
+          17,
+          40
+        ]
+      ]
+    },
+    "majority_baseline": {
+      "accuracy": 0.23661971830985915,
+      "f1_macro": 0.1275626423690205,
+      "per_class_f1": [
+        0.0,
+        0.0,
+        0.3826879271070615
+      ],
+      "per_class_precision": [
+        0.0,
+        0.0,
+        0.23661971830985915
+      ],
+      "per_class_recall": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "confusion_matrix": [
+        [
+          0,
+          0,
+          182
+        ],
+        [
+          0,
+          0,
+          89
+        ],
+        [
+          0,
+          0,
+          84
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.27096314897052365,
+      "rmse": 0.5205412077545097,
+      "mae": 0.34266862081234484,
+      "r2": 0.4783929257896431
+    },
+    "mean_baseline": {
+      "mse": 0.5931280766085519,
+      "rmse": 0.770148087453674,
+      "mae": 0.6104683025690374,
+      "r2": -0.14177814159319002
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "mcnemar_cls": {
+    "B": 209,
+    "C": 44,
+    "chi2": 107.6086956521739,
+    "p_value": 0.0,
+    "significant": 

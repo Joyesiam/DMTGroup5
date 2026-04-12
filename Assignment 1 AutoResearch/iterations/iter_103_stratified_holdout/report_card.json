@@ -1,0 +1,71 @@
+{
+  "iteration": 103,
+  "timestamp": "2026-04-11T11:43:21.159847",
+  "git_hash": "88e6951",
+  "hypothesis": "Stratified holdout ensures test patients cover the full mood range.",
+  "change_summary": "Stratified leave-patients-out: holdout patients span low-to-high mood",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.6868131868131868,
+      "f1_macro": 0.6569462329224343,
+      "per_class_f1": [
+        0.7348242811501597,
+        0.4840764331210191,
+        0.751937984496124
+      ],
+      "per_class_precision": [
+        0.7142857142857143,
+        0.4810126582278481,
+        0.782258064516129
+      ],
+      "per_class_recall": [
+        0.756578947368421,
+        0.48717948717948717,
+        0.7238805970149254
+      ],
+      "confusion_matrix": [
+        [
+          115,
+          25,
+          12
+        ],
+        [
+          25,
+          38,
+          15
+        ],
+        [
+          21,
+          16,
+          97
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.36015512463107135,
+      "rmse": 0.6001292566031683,
+      "mae": 0.43621969285274154,
+      "r2": 0.5036482803523519
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1601,
+  "n_test_samples": 364,
+  "holdout_patients": [
+    "AS14.19",
+    "AS14.01",
+    "AS14.24",
+    "AS14.26",
+    "AS14.30"
+  ],
+  "holdout_mood_means": {
+    "AS14.19": 6.05868544600939,
+    "AS14.01": 6.817370892018779,
+    "AS14.24": 6.967272727272727,
+    "AS14.26": 7.1000000000000005,
+    "AS14.30": 7.517840375586855
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "iteration": 85,
+  "timestamp": "2026-04-11T11:25:18.616609",
+  "git_hash": "88e6951",
+  "hypothesis": "Raw yesterday values without rolling windows tests if feature engineering helps.",
+  "change_summary": "No rolling windows: only raw lag features (n_lags=5), no aggregations",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7532467532467533,
+      "f1_macro": 0.7103228771922255,
+      "per_class_f1": [
+        0.858560794044665,
+        0.6632124352331606,
+        0.6091954022988506
+      ],
+      "per_class_precision": [
+        0.8522167487684729,
+        0.6956521739130435,
+        0.5888888888888889
+      ],
+      "per_class_recall": [
+        0.865,
+        0.6336633663366337,
+        0.6309523809523809
+      ],
+      "confusion_matrix": [
+        [
+          173,
+          14,
+          13
+        ],
+        [
+          13,
+          64,
+          24
+        ],
+        [
+          17,
+          14,
+          53
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6704225352112676,
+      "f1_macro": 0.6014518854066266,
+      "per_class_f1": [
+        0.8446866485013624,
+        0.4520547945205479,
+        0.5076142131979695
+      ],
+      "per_class_precision": [
+        0.8378378378378378,
+        0.5789473684210527,
+        0.4424778761061947
+      ],
+      "per_class_recall": [
+        0.8516483516483516,
+        0.3707865168539326,
+        0.5952380952380952
+      ],
+      "confusion_matrix": [
+        [
+          155,
+          10,
+          17
+        ],
+        [
+          10,
+          33,
+          46
+        ],
+        [
+          20,
+          14,
+          50
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.2727796412256001,
+      "rmse": 0.5222831044803193,
+      "mae": 0.3529741174517064,
+      "r2": 0.4683172545908817
+    },
+    "gru": {
+      "mse": 0.2540876269340515,
+      "rmse": 0.5040710534577952,
+      "mae": 0.3343845307826996,
+      "r2": 0.5108784437179565
+    }
+  },
+  "baselines": {},
+  "n_features": 20,
+  "n_train_samples": 1742,
+  "n_test_samples": 385,
+  "pipeline_config": {
+    "iteration": 85,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      1
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean"
+    ],
+    "include_volatility": false,
+    "include_interactions": false,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1742,
+    "n_test": 385,
+    "n_features": 20
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "circumplex.arousal_mean",
+    "circumplex.valence_mean",
+    "mood_mean",
+    "appCat.builtin_mean",
+    "appCat.communication_mean",
+    "appCat.entertainment_mean",
+    "appCat.other_mean",
+    "appCat.social_mean",
+    "screen_mean",
+    "call_mean",
+    "sms_mean",
+    "mood_lag1",
+    "mood_lag2",
+    "mood_lag3",
+    "mood_lag4",
+    "mood_lag5",
+    "dow_sin",
+    "dow_cos",
+    "is_weekend"
+  ],
+  "cls_importances_top10": [
+    0.02191433310508728,
+    0.01757146790623665,
+    0.021785395219922066,
+    0.24695062637329102,
+    0.023842761293053627,
+    0.022505292668938637,
+    0.022756915539503098,
+    0.033133529126644135,
+    0.018556661903858185,
+    0.02158970758318901
+  ],
+  "reg_importances_top10": [
+    0.012668833514705968,
+    0.004179857322464513,
+    0.010735055531145453,
+    0.3779455305735624,
+    0.014530482765234599,
+    0.007983948568204016,
+    0.004777391194421019,
+    0.012798182598671326,
+    0.00929797804787293,
+    0.013533889017392838
+  ]
+}

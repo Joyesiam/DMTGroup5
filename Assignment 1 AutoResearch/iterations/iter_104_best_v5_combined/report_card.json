@@ -1,0 +1,188 @@
+{
+  "iteration": 104,
+  "timestamp": "2026-04-11T15:12:06.946746",
+  "git_hash": "88e6951",
+  "hypothesis": "Robustness seed=1234",
+  "change_summary": "v5 best config, seed=1234",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7235772357723578,
+      "f1_macro": 0.6901903386341551,
+      "per_class_f1": [
+        0.591304347826087,
+        0.6870229007633588,
+        0.7922437673130194
+      ],
+      "per_class_precision": [
+        0.5964912280701754,
+        0.75,
+        0.7447916666666666
+      ],
+      "per_class_recall": [
+        0.5862068965517241,
+        0.6338028169014085,
+        0.8461538461538461
+      ],
+      "confusion_matrix": [
+        [
+          34,
+          14,
+          10
+        ],
+        [
+          13,
+          90,
+          39
+        ],
+        [
+          10,
+          16,
+          143
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5907859078590786,
+      "f1_macro": 0.5193588859914869,
+      "per_class_f1": [
+        0.3883495145631068,
+        0.4473684210526316,
+        0.7223587223587223
+      ],
+      "per_class_precision": [
+        0.4444444444444444,
+        0.5930232558139535,
+        0.6176470588235294
+      ],
+      "per_class_recall": [
+        0.3448275862068966,
+        0.3591549295774648,
+        0.8698224852071006
+      ],
+      "confusion_matrix": [
+        [
+          20,
+          18,
+          20
+        ],
+        [
+          20,
+          51,
+          71
+        ],
+        [
+          5,
+          17,
+          147
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.2643283861982486,
+      "rmse": 0.514128764219868,
+      "mae": 0.3625868707929011,
+      "r2": 0.46504156090895965
+    },
+    "gru": {
+      "mse": 0.26252150535583496,
+      "rmse": 0.5123685249464832,
+      "mae": 0.371964693069458,
+      "r2": 0.4686983823776245
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1596,
+  "n_test_samples": 369,
+  "pipeline_config": {
+    "iteration": 104,
+    "seed": 1234,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1596,
+    "n_test": 369,
+    "n_features": 96
+  },
+  "q33": 6.75,
+  "q66": 7.25,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.01137547381222248,
+    0.005883118603378534,
+    0.011003957130014896,
+    0.006410552188754082,
+    0.005394403822720051,
+    0.015329276211559772,
+    0.008926931768655777,
+    0.011601120233535767,
+    0.008813046850264072,
+    0.006446367595344782
+  ],
+  "reg_importances_top10": [
+    0.0026595027570350534,
+    0.003953417381700673,
+    0.02095006037742809,
+    0.0013645647686611577,
+    0.006067273239448535,
+    0.0068428436830768255,
+    0.0023256619114961435,
+    0.0007276296314180393,
+    0.0020603800899395815,
+    0.009456357560212222
+  ]
+}

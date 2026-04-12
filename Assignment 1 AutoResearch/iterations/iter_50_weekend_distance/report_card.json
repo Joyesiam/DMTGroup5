@@ -1,0 +1,179 @@
+{
+  "iteration": 50,
+  "timestamp": "2026-04-11T09:08:53.351785",
+  "git_hash": "048bd35",
+  "hypothesis": "Weekend distance (0-3) captures approach to weekend. Weekend mood is 0.21 higher.",
+  "change_summary": "include_weekend_distance=True. Distance to nearest weekend day.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.6901408450704225,
+      "f1_macro": 0.6443414843414844,
+      "per_class_f1": [
+        0.8054054054054054,
+        0.5942857142857143,
+        0.5333333333333333
+      ],
+      "per_class_precision": [
+        0.7883597883597884,
+        0.611764705882353,
+        0.5432098765432098
+      ],
+      "per_class_recall": [
+        0.8232044198895028,
+        0.5777777777777777,
+        0.5238095238095238
+      ],
+      "confusion_matrix": [
+        [
+          149,
+          15,
+          17
+        ],
+        [
+          18,
+          52,
+          20
+        ],
+        [
+          22,
+          18,
+          44
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5774647887323944,
+      "f1_macro": 0.47546418080096836,
+      "per_class_f1": [
+        0.77,
+        0.3247863247863248,
+        0.3316062176165803
+      ],
+      "per_class_precision": [
+        0.7031963470319634,
+        0.7037037037037037,
+        0.29357798165137616
+      ],
+      "per_class_recall": [
+        0.850828729281768,
+        0.2111111111111111,
+        0.38095238095238093
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          1,
+          26
+        ],
+        [
+          20,
+          19,
+          51
+        ],
+        [
+          45,
+          7,
+          32
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.3202296380312361,
+      "rmse": 0.5658883618093202,
+      "mae": 0.4082519419650094,
+      "r2": 0.4321994548035858
+    },
+    "gru": {
+      "mse": 0.3233383595943451,
+      "rmse": 0.5686284899601365,
+      "mae": 0.38876333832740784,
+      "r2": 0.4266873002052307
+    }
+  },
+  "baselines": {},
+  "n_features": 108,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 50,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 108
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.007864795625209808,
+    0.010525701567530632,
+    0.008236211724579334,
+    0.006880105007439852,
+    0.006467482540756464,
+    0.006357551086694002,
+    0.011835378594696522,
+    0.007428180892020464,
+    0.00506944302469492,
+    0.005599356722086668
+  ],
+  "reg_importances_top10": [
+    0.0013788625079902556,
+    0.005651229921277146,
+    0.019750722237524873,
+    0.00014190370331241409,
+    0.0016790131426818648,
+    0.0033601005132600508,
+    0.0007798500800928114,
+    0.0006082761530598206,
+    0.0024795199142403582,
+    0.0002764497396526607
+  ]
+}

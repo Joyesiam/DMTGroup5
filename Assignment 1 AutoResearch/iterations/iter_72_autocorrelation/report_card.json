@@ -1,0 +1,187 @@
+{
+  "iteration": 72,
+  "timestamp": "2026-04-11T10:23:39.956615",
+  "git_hash": "88e6951",
+  "hypothesis": "Mood autocorrelation captures how predictable each patient's mood is.",
+  "change_summary": "Added mood_autocorr1 and mood_autocorr2 features",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7380281690140845,
+      "f1_macro": 0.6997406351469074,
+      "per_class_f1": [
+        0.842391304347826,
+        0.6666666666666666,
+        0.5901639344262295
+      ],
+      "per_class_precision": [
+        0.8333333333333334,
+        0.7571428571428571,
+        0.5454545454545454
+      ],
+      "per_class_recall": [
+        0.8516483516483516,
+        0.5955056179775281,
+        0.6428571428571429
+      ],
+      "confusion_matrix": [
+        [
+          155,
+          7,
+          20
+        ],
+        [
+          11,
+          53,
+          25
+        ],
+        [
+          20,
+          10,
+          54
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.27757757502331715,
+      "rmse": 0.5268563134511317,
+      "mae": 0.3537157131738205,
+      "r2": 0.46566008210190724
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 98,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 72,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": true,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 98
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.007339210249483585,
+    0.0072837150655686855,
+    0.004958631936460733,
+    0.006498612929135561,
+    0.006577641703188419,
+    0.006633730139583349,
+    0.008969591930508614,
+    0.0026692559476941824,
+    0.004543918184936047,
+    0.005865979474037886
+  ],
+  "reg_importances_top10": [
+    0.0009617099760002506,
+    0.004761864800840187,
+    0.008768851825700747,
+    0.000683076251161108,
+    0.0017322798083351445,
+    0.0056310221179502705,
+    0.0012456120362550952,
+    0.0,
+    0.0016133898798937206,
+    0.003558741436027262
+  ]
+}

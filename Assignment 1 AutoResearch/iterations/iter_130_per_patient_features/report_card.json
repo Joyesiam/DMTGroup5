@@ -1,0 +1,79 @@
+{
+  "iteration": 130,
+  "timestamp": "2026-04-11T14:23:54.974138",
+  "git_hash": "88e6951",
+  "hypothesis": "Per-patient feature selection captures individual differences.",
+  "change_summary": "Per-patient top-15 correlation features (union=91)",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.6957746478873239,
+      "f1_macro": 0.6542752632241703,
+      "per_class_f1": [
+        0.8021680216802168,
+        0.6162790697674418,
+        0.5443786982248521
+      ],
+      "per_class_precision": [
+        0.7914438502673797,
+        0.6385542168674698,
+        0.5411764705882353
+      ],
+      "per_class_recall": [
+        0.8131868131868132,
+        0.5955056179775281,
+        0.5476190476190477
+      ],
+      "confusion_matrix": [
+        [
+          148,
+          15,
+          19
+        ],
+        [
+          16,
+          53,
+          20
+        ],
+        [
+          23,
+          15,
+          46
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.27566362050524457,
+      "rmse": 0.5250367801452053,
+      "mae": 0.35200268823776976,
+      "r2": 0.4693444658276519
+    }
+  },
+  "baselines": {},
+  "n_features": 91,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "union_features": [
+    "mood_intraday_slope_std",
+    "mood_evening_mean",
+    "call_std",
+    "mood_intraday_slope_min",
+    "consec_up_days",
+    "appCat.other_max",
+    "screen_trend",
+    "appCat.social_max",
+    "appCat.communication_mean",
+    "appCat.communication_trend",
+    "dow_sin",
+    "mean_reversion",
+    "appCat.other_mean",
+    "mood_range",
+    "appCat.social_min",
+    "dow_cos",
+    "screen_mean",
+    "sms_min",
+    "mood_std",
+    "appCat.communication_max"
+  ]
+}

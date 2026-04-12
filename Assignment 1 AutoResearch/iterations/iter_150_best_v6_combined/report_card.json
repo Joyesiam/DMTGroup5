@@ -1,0 +1,188 @@
+{
+  "iteration": 150,
+  "timestamp": "2026-04-11T15:03:51.988331",
+  "git_hash": "88e6951",
+  "hypothesis": "Combining all KEEP decisions from v6 iterations for the ultimate pipeline.",
+  "change_summary": "Best v6 combined: all KEEP decisions from iters 107-149",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7014084507042253,
+      "f1_macro": 0.6521781931325041,
+      "per_class_f1": [
+        0.8315217391304348,
+        0.593939393939394,
+        0.5310734463276836
+      ],
+      "per_class_precision": [
+        0.8225806451612904,
+        0.6447368421052632,
+        0.5053763440860215
+      ],
+      "per_class_recall": [
+        0.8406593406593407,
+        0.550561797752809,
+        0.5595238095238095
+      ],
+      "confusion_matrix": [
+        [
+          153,
+          11,
+          18
+        ],
+        [
+          12,
+          49,
+          28
+        ],
+        [
+          21,
+          16,
+          47
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5126760563380282,
+      "f1_macro": 0.4412596099979,
+      "per_class_f1": [
+        0.7025316455696202,
+        0.18803418803418803,
+        0.4332129963898917
+      ],
+      "per_class_precision": [
+        0.8283582089552238,
+        0.39285714285714285,
+        0.31088082901554404
+      ],
+      "per_class_recall": [
+        0.6098901098901099,
+        0.12359550561797752,
+        0.7142857142857143
+      ],
+      "confusion_matrix": [
+        [
+          111,
+          7,
+          64
+        ],
+        [
+          9,
+          11,
+          69
+        ],
+        [
+          14,
+          10,
+          60
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.29851707611799383,
+      "rmse": 0.5463671623715995,
+      "mae": 0.3772176803484581,
+      "r2": 0.42535130969903334
+    },
+    "gru": {
+      "mse": 0.3155779242515564,
+      "rmse": 0.5617632279275285,
+      "mae": 0.40793851017951965,
+      "r2": 0.39250892400741577
+    }
+  },
+  "baselines": {},
+  "n_features": 148,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 150,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 148
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.004452201072126627,
+    0.006460689008235931,
+    0.013191445730626583,
+    0.004848956596106291,
+    0.0035252913367003202,
+    0.0039930338971316814,
+    0.007164911366999149,
+    0.005886216647922993,
+    0.0026955362409353256,
+    0.002382038626819849
+  ],
+  "reg_importances_top10": [
+    0.0006448557816693048,
+    0.0008169576526222506,
+    0.010195515072855262,
+    0.0006830611556144741,
+    0.001489550760878644,
+    0.002406495557919175,
+    0.003045240875713178,
+    0.00017402662166890473,
+    0.003663192663474174,
+    0.0011530802445149997
+  ]
+}

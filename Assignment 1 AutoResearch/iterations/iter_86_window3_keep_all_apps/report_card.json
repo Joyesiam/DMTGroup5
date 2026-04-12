@@ -1,0 +1,188 @@
+{
+  "iteration": 86,
+  "timestamp": "2026-04-11T11:26:56.170957",
+  "git_hash": "88e6951",
+  "hypothesis": "Window=3 + all 19 features (no drop_sparse) tests whether drop_sparse was overfitting.",
+  "change_summary": "window=3, drop_sparse=False (keep all 19 daily features)",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7306666666666667,
+      "f1_macro": 0.6859245154205643,
+      "per_class_f1": [
+        0.8497409326424871,
+        0.6270270270270271,
+        0.5810055865921788
+      ],
+      "per_class_precision": [
+        0.8541666666666666,
+        0.6590909090909091,
+        0.5473684210526316
+      ],
+      "per_class_recall": [
+        0.845360824742268,
+        0.5979381443298969,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          164,
+          12,
+          18
+        ],
+        [
+          14,
+          58,
+          25
+        ],
+        [
+          14,
+          18,
+          52
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5887323943661972,
+      "f1_macro": 0.49589987209806274,
+      "per_class_f1": [
+        0.7735368956743003,
+        0.34782608695652173,
+        0.36633663366336633
+      ],
+      "per_class_precision": [
+        0.7203791469194313,
+        0.7692307692307693,
+        0.3135593220338983
+      ],
+      "per_class_recall": [
+        0.8351648351648352,
+        0.2247191011235955,
+        0.44047619047619047
+      ],
+      "confusion_matrix": [
+        [
+          152,
+          1,
+          29
+        ],
+        [
+          17,
+          20,
+          52
+        ],
+        [
+          42,
+          5,
+          37
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.306531956194031,
+      "rmse": 0.5536532815707237,
+      "mae": 0.3983839877216199,
+      "r2": 0.40509103865883267
+    },
+    "gru": {
+      "mse": 0.2885533571243286,
+      "rmse": 0.5371716272517831,
+      "mae": 0.39845365285873413,
+      "r2": 0.44453155994415283
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1698,
+  "n_test_samples": 375,
+  "pipeline_config": {
+    "iteration": 86,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      3
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1698,
+    "n_test": 375,
+    "n_features": 107
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.0074776639230549335,
+    0.0061735413037240505,
+    0.0059214383363723755,
+    0.007471104618161917,
+    0.006133158225566149,
+    0.006786629557609558,
+    0.01874036341905594,
+    0.006221429910510778,
+    0.006858333479613066,
+    0.006131778471171856
+  ],
+  "reg_importances_top10": [
+    0.00185457986850104,
+    0.0012134480667845714,
+    0.001126740512699112,
+    0.002069295565096748,
+    0.006715370272031384,
+    0.001836392275349411,
+    0.0004373056161825566,
+    7.028755192688617e-06,
+    0.0,
+    0.0036820386201107504
+  ]
+}

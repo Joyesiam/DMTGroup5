@@ -1,0 +1,191 @@
+{
+  "iteration": 102,
+  "timestamp": "2026-04-11T11:42:07.716946",
+  "git_hash": "88e6951",
+  "hypothesis": "Deeper GRU (2 layers) learns more complex temporal patterns.",
+  "change_summary": "GRU n_layers=2 (was 1)",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7267605633802817,
+      "f1_macro": 0.6835086429960345,
+      "per_class_f1": [
+        0.8401084010840109,
+        0.6341463414634146,
+        0.576271186440678
+      ],
+      "per_class_precision": [
+        0.8288770053475936,
+        0.6933333333333334,
+        0.5483870967741935
+      ],
+      "per_class_recall": [
+        0.8516483516483516,
+        0.5842696629213483,
+        0.6071428571428571
+      ],
+      "confusion_matrix": [
+        [
+          155,
+          10,
+          17
+        ],
+        [
+          12,
+          52,
+          25
+        ],
+        [
+          20,
+          13,
+          51
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.26834629914293956,
+      "rmse": 0.5180215238220701,
+      "mae": 0.3421577284525702,
+      "r2": 0.4834303908006602
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 102,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": {
+      "n_layers": 2,
+      "dropout": 0.3
+    },
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 96
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006200718227773905,
+    0.004790994804352522,
+    0.004454595036804676,
+    0.008328968659043312,
+    0.006026492919772863,
+    0.006330775562673807,
+    0.010598540306091309,
+    0.00485506234690547,
+    0.004633492324501276,
+    0.005801675375550985
+  ],
+  "reg_importances_top10": [
+    3.285874522760643e-06,
+    0.0038923875165357644,
+    0.0082446443478759,
+    0.0003359979172758697,
+    0.0020286578909627546,
+    0.00613104455670635,
+    0.00123156271819407,
+    0.0,
+    0.002283526086460741,
+    0.0025225716401167946
+  ]
+}

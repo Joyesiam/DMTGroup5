@@ -1,0 +1,188 @@
+{
+  "iteration": 126,
+  "timestamp": "2026-04-11T15:04:30.228041",
+  "git_hash": "88e6951",
+  "hypothesis": "Nighttime screen/activity use is a robust marker of circadian disruption and depression.",
+  "change_summary": "Add screen_day, screen_night, activity_day, activity_night from raw timestamps",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7267605633802817,
+      "f1_macro": 0.678766818453023,
+      "per_class_f1": [
+        0.8421052631578947,
+        0.6405228758169934,
+        0.5536723163841808
+      ],
+      "per_class_precision": [
+        0.8080808080808081,
+        0.765625,
+        0.5268817204301075
+      ],
+      "per_class_recall": [
+        0.8791208791208791,
+        0.550561797752809,
+        0.5833333333333334
+      ],
+      "confusion_matrix": [
+        [
+          160,
+          6,
+          16
+        ],
+        [
+          12,
+          49,
+          28
+        ],
+        [
+          26,
+          9,
+          49
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5915492957746479,
+      "f1_macro": 0.4374267434134396,
+      "per_class_f1": [
+        0.8292682926829268,
+        0.020202020202020204,
+        0.4628099173553719
+      ],
+      "per_class_precision": [
+        0.8181818181818182,
+        0.1,
+        0.35443037974683544
+      ],
+      "per_class_recall": [
+        0.8406593406593407,
+        0.011235955056179775,
+        0.6666666666666666
+      ],
+      "confusion_matrix": [
+        [
+          153,
+          3,
+          26
+        ],
+        [
+          12,
+          1,
+          76
+        ],
+        [
+          22,
+          6,
+          56
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.28184568032642304,
+      "rmse": 0.5308914016316548,
+      "mae": 0.34951813658302777,
+      "r2": 0.45744393194262134
+    },
+    "gru": {
+      "mse": 0.2879601716995239,
+      "rmse": 0.5366192054888866,
+      "mae": 0.3729092478752136,
+      "r2": 0.445673406124115
+    }
+  },
+  "baselines": {},
+  "n_features": 116,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 126,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 116
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.009688480757176876,
+    0.0070135872811079025,
+    0.005500085186213255,
+    0.007426145486533642,
+    0.005330480635166168,
+    0.00678292429074645,
+    0.009871930815279484,
+    0.004949458409100771,
+    0.003992415498942137,
+    0.00595540925860405
+  ],
+  "reg_importances_top10": [
+    0.0003943676375785949,
+    0.0036676616931254897,
+    0.007740673482691485,
+    0.0008128652017364515,
+    0.0005815046889932668,
+    0.0053013136655356815,
+    0.00047340576808591544,
+    0.0011081857796809815,
+    0.002374208070913176,
+    0.0026945929333380175
+  ]
+}

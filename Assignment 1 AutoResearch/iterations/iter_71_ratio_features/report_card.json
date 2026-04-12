@@ -1,0 +1,187 @@
+{
+  "iteration": 71,
+  "timestamp": "2026-04-11T10:22:14.715192",
+  "git_hash": "88e6951",
+  "hypothesis": "Ratios (social/screen, active/screen) capture behavioral balance.",
+  "change_summary": "Added ratio features: social_screen, active_screen, comm_social",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7070422535211267,
+      "f1_macro": 0.6605850011013096,
+      "per_class_f1": [
+        0.8169761273209549,
+        0.6467065868263473,
+        0.5180722891566265
+      ],
+      "per_class_precision": [
+        0.7897435897435897,
+        0.6923076923076923,
+        0.524390243902439
+      ],
+      "per_class_recall": [
+        0.8461538461538461,
+        0.6067415730337079,
+        0.5119047619047619
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          10,
+          18
+        ],
+        [
+          14,
+          54,
+          21
+        ],
+        [
+          27,
+          14,
+          43
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.26736969935407506,
+      "rmse": 0.5170780399070096,
+      "mae": 0.34599057826494684,
+      "r2": 0.485310356251606
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 99,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 71,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": true,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 99
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006236494053155184,
+    0.0079189483076334,
+    0.006551981903612614,
+    0.006706012412905693,
+    0.005652760621160269,
+    0.006601774133741856,
+    0.009513141587376595,
+    0.005027099046856165,
+    0.00994941033422947,
+    0.006059416104108095
+  ],
+  "reg_importances_top10": [
+    0.0001249803166014797,
+    0.003364325305081286,
+    0.007108240469075498,
+    0.0,
+    0.0022940813818456865,
+    0.005489132421400452,
+    0.0015527277917386883,
+    0.0,
+    0.0030830521531978587,
+    0.002264015057394305
+  ]
+}

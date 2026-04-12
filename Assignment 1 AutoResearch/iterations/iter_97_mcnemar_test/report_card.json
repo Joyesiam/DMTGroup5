@@ -1,0 +1,93 @@
+{
+  "iteration": 97,
+  "timestamp": "2026-04-11T11:38:46.800558",
+  "git_hash": "88e6951",
+  "hypothesis": "McNemar test determines if XGB is significantly better than RF.",
+  "change_summary": "McNemar test: XGB vs RF on same test set",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7014084507042253,
+      "f1_macro": 0.6508369934616568,
+      "per_class_f1": [
+        0.8191489361702128,
+        0.6395348837209303,
+        0.49382716049382713
+      ],
+      "per_class_precision": [
+        0.7938144329896907,
+        0.6626506024096386,
+        0.5128205128205128
+      ],
+      "per_class_recall": [
+        0.8461538461538461,
+        0.6179775280898876,
+        0.47619047619047616
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          11,
+          17
+        ],
+        [
+          13,
+          55,
+          21
+        ],
+        [
+          27,
+          17,
+          40
+        ]
+      ]
+    },
+    "rf": {
+      "accuracy": 0.723943661971831,
+      "f1_macro": 0.6737613992105621,
+      "per_class_f1": [
+        0.8253164556962025,
+        0.6709677419354839,
+        0.525
+      ],
+      "per_class_precision": [
+        0.7652582159624414,
+        0.7878787878787878,
+        0.5526315789473685
+      ],
+      "per_class_recall": [
+        0.8956043956043956,
+        0.5842696629213483,
+        0.5
+      ],
+      "confusion_matrix": [
+        [
+          163,
+          5,
+          14
+        ],
+        [
+          17,
+          52,
+          20
+        ],
+        [
+          33,
+          9,
+          42
+        ]
+      ]
+    }
+  },
+  "regression": {},
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "mcnemar": {
+    "A": 229,
+    "B": 20,
+    "C": 28,
+    "D": 78,
+    "chi2": 1.3333333333333333,
+    "p_value": 0.24821307898992362,
+    "significant": 

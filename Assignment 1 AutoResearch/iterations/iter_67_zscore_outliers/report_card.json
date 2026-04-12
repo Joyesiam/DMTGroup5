@@ -1,0 +1,187 @@
+{
+  "iteration": 67,
+  "timestamp": "2026-04-11T10:15:58.201804",
+  "git_hash": "88e6951",
+  "hypothesis": "Z-score outlier removal (|z|>3) is more adaptive per-variable than IQR.",
+  "change_summary": "outlier_method=zscore (was IQR*3)",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.723943661971831,
+      "f1_macro": 0.6813602900559422,
+      "per_class_f1": [
+        0.8378378378378378,
+        0.6410256410256411,
+        0.5652173913043478
+      ],
+      "per_class_precision": [
+        0.824468085106383,
+        0.746268656716418,
+        0.52
+      ],
+      "per_class_recall": [
+        0.8516483516483516,
+        0.5617977528089888,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          155,
+          7,
+          20
+        ],
+        [
+          11,
+          50,
+          28
+        ],
+        [
+          22,
+          10,
+          52
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6704225352112676,
+      "f1_macro": 0.5977704830546279,
+      "per_class_f1": [
+        0.8547945205479452,
+        0.43356643356643354,
+        0.504950495049505
+      ],
+      "per_class_precision": [
+        0.8524590163934426,
+        0.5740740740740741,
+        0.4322033898305085
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.34831460674157305,
+        0.6071428571428571
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          7,
+          19
+        ],
+        [
+          10,
+          31,
+          48
+        ],
+        [
+          17,
+          16,
+          51
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.29994350823581334,
+      "rmse": 0.5476709853879548,
+      "mae": 0.38938915420222003,
+      "r2": 0.42260541201382273
+    },
+    "gru": {
+      "mse": 0.256232351064682,
+      "rmse": 0.5061939856069825,
+      "mae": 0.3560815751552582,
+      "r2": 0.5067498683929443
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 67,
+    "seed": 42,
+    "outlier_method": "zscore",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 96
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.005872664973139763,
+    0.005591774359345436,
+    0.005143353249877691,
+    0.00952205341309309,
+    0.006404591724276543,
+    0.006310819182544947,
+    0.01101766712963581,
+    0.005407612305134535,
+    0.0047194743528962135,
+    0.0054053012281656265
+  ],
+  "reg_importances_top10": [
+    0.0005864938208110724,
+    0.0018006697452971451,
+    0.018252903949266912,
+    0.00028078199524060273,
+    0.00039967355719404255,
+    0.0007635311737865736,
+    0.0010055188482484005,
+    6.551498577047501e-05,
+    0.004367585045569833,
+    0.001058001818830054
+  ]
+}

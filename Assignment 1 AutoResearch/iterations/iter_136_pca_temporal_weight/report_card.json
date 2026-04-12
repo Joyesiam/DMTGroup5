@@ -1,0 +1,58 @@
+{
+  "iteration": 136,
+  "timestamp": "2026-04-11T14:31:29.861806",
+  "git_hash": "88e6951",
+  "hypothesis": "PCA reduces dimensionality; may help on small data.",
+  "change_summary": "PCA(10) on features",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.5746478873239437,
+      "f1_macro": 0.534133267645873,
+      "per_class_f1": [
+        0.7068965517241379,
+        0.4692737430167598,
+        0.4262295081967213
+      ],
+      "per_class_precision": [
+        0.7409638554216867,
+        0.4666666666666667,
+        0.3939393939393939
+      ],
+      "per_class_recall": [
+        0.6758241758241759,
+        0.47191011235955055,
+        0.4642857142857143
+      ],
+      "confusion_matrix": [
+        [
+          123,
+          30,
+          29
+        ],
+        [
+          16,
+          42,
+          31
+        ],
+        [
+          27,
+          18,
+          39
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.393039122354026,
+      "rmse": 0.6269283231391177,
+      "mae": 0.4710237397340707,
+      "r2": 0.24339531984258167
+    }
+  },
+  "baselines": {},
+  "n_features": 10,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "explained_variance": 0.6294321963200683
+}

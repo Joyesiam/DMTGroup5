@@ -1,0 +1,179 @@
+{
+  "iteration": 9,
+  "timestamp": "2026-04-10T22:10:46.411743",
+  "git_hash": "c75e0d3",
+  "hypothesis": "Tighter outlier removal + excluding prolonged gaps produces cleaner training data.",
+  "change_summary": "iqr_multiplier=2.0, max_gap_days=5. Addresses assignment requirement on gap handling.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.5319148936170213,
+      "f1_macro": 0.47719298245614034,
+      "per_class_f1": [
+        0.631578947368421,
+        0.55,
+        0.25
+      ],
+      "per_class_precision": [
+        0.7058823529411765,
+        0.44,
+        0.4
+      ],
+      "per_class_recall": [
+        0.5714285714285714,
+        0.7333333333333333,
+        0.18181818181818182
+      ],
+      "confusion_matrix": [
+        [
+          12,
+          7,
+          2
+        ],
+        [
+          3,
+          11,
+          1
+        ],
+        [
+          2,
+          7,
+          2
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.4,
+      "f1_macro": 0.31267562846510216,
+      "per_class_f1": [
+        0.5614035087719298,
+        0.09090909090909091,
+        0.2857142857142857
+      ],
+      "per_class_precision": [
+        0.45714285714285713,
+        0.2,
+        0.3
+      ],
+      "per_class_recall": [
+        0.7272727272727273,
+        0.058823529411764705,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          16,
+          2,
+          4
+        ],
+        [
+          13,
+          1,
+          3
+        ],
+        [
+          6,
+          2,
+          3
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.3256566918851482,
+      "rmse": 0.57066337878398,
+      "mae": 0.3990553484523661,
+      "r2": 0.2494019925073726
+    },
+    "gru": {
+      "mse": 0.41859692335128784,
+      "rmse": 0.6469906671284277,
+      "mae": 0.4930042326450348,
+      "r2": 0.019761979579925537
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1918,
+  "n_test_samples": 47,
+  "pipeline_config": {
+    "iteration": 9,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 2.0,
+    "imputation_method": "ffill",
+    "max_gap_days": 5,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "chronological",
+    "test_fraction": 0.2,
+    "n_train": 1918,
+    "n_test": 47,
+    "n_features": 107
+  },
+  "q33": 6.8,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.0057206591591238976,
+    0.010513943620026112,
+    0.0086949048563838,
+    0.006550254300236702,
+    0.006417334079742432,
+    0.006829172372817993,
+    0.014653460122644901,
+    0.007157950662076473,
+    0.006326332688331604,
+    0.005984542425721884
+  ],
+  "reg_importances_top10": [
+    0.002454816206226593,
+    0.0010679880623941946,
+    0.02466802119183908,
+    0.001887163023916233,
+    0.0042313542048827485,
+    0.003217127397025474,
+    0.00020948919182095383,
+    0.0,
+    0.0,
+    0.006905246956616581
+  ]
+}

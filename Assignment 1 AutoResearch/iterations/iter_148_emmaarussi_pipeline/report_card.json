@@ -1,0 +1,188 @@
+{
+  "iteration": 148,
+  "timestamp": "2026-04-11T14:43:04.594938",
+  "git_hash": "88e6951",
+  "hypothesis": "Replicating emmaarussi's best ideas with our honest leave-patients-out split.",
+  "change_summary": "emmaarussi pipeline: window=4, app grouping, emotion geometry, is_weekend",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.745945945945946,
+      "f1_macro": 0.6964752599815212,
+      "per_class_f1": [
+        0.8571428571428571,
+        0.650887573964497,
+        0.5813953488372093
+      ],
+      "per_class_precision": [
+        0.8221153846153846,
+        0.7432432432432432,
+        0.5681818181818182
+      ],
+      "per_class_recall": [
+        0.8952879581151832,
+        0.5789473684210527,
+        0.5952380952380952
+      ],
+      "confusion_matrix": [
+        [
+          171,
+          8,
+          12
+        ],
+        [
+          14,
+          55,
+          26
+        ],
+        [
+          23,
+          11,
+          50
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6366197183098592,
+      "f1_macro": 0.578098905193676,
+      "per_class_f1": [
+        0.8228571428571428,
+        0.4578313253012048,
+        0.4536082474226804
+      ],
+      "per_class_precision": [
+        0.8571428571428571,
+        0.4935064935064935,
+        0.4
+      ],
+      "per_class_recall": [
+        0.7912087912087912,
+        0.42696629213483145,
+        0.5238095238095238
+      ],
+      "confusion_matrix": [
+        [
+          144,
+          14,
+          24
+        ],
+        [
+          9,
+          38,
+          42
+        ],
+        [
+          15,
+          25,
+          44
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.2773553513890485,
+      "rmse": 0.5266453753609239,
+      "mae": 0.36728266910017354,
+      "r2": 0.46284564121656024
+    },
+    "gru": {
+      "mse": 0.25892123579978943,
+      "rmse": 0.5088430365051578,
+      "mae": 0.3469114303588867,
+      "r2": 0.5015736818313599
+    }
+  },
+  "baselines": {},
+  "n_features": 72,
+  "n_train_samples": 1676,
+  "n_test_samples": 370,
+  "pipeline_config": {
+    "iteration": 148,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      4
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1676,
+    "n_test": 370,
+    "n_features": 72
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.008800316601991653,
+    0.012203613296151161,
+    0.009247035719454288,
+    0.009837683290243149,
+    0.009851701557636261,
+    0.006332479417324066,
+    0.015387584455311298,
+    0.007534869946539402,
+    0.006201871205121279,
+    0.008766082115471363
+  ],
+  "reg_importances_top10": [
+    0.0009112031526412694,
+    0.0009809188289764766,
+    0.002651157491306062,
+    0.0017518320175592844,
+    0.0060194313074328374,
+    0.00229313707787142,
+    0.0025399206824179093,
+    0.0,
+    0.006125942217533791,
+    0.011009198051958678
+  ]
+}

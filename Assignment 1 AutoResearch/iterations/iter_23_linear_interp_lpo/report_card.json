@@ -1,0 +1,179 @@
+{
+  "iteration": 23,
+  "timestamp": "2026-04-10T23:03:48.007500",
+  "git_hash": "f611091",
+  "hypothesis": "Linear interpolation helped GRU (iter_08). Combine with leave-patients-out split (iter_15) to see if both improvements stack.",
+  "change_summary": "linear interp + leave-patients-out. Combining best cleaning for temporal + best split.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7154929577464789,
+      "f1_macro": 0.671584914018767,
+      "per_class_f1": [
+        0.8279569892473119,
+        0.625,
+        0.5617977528089888
+      ],
+      "per_class_precision": [
+        0.8105263157894737,
+        0.704225352112676,
+        0.5319148936170213
+      ],
+      "per_class_recall": [
+        0.8461538461538461,
+        0.5617977528089888,
+        0.5952380952380952
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          11,
+          17
+        ],
+        [
+          12,
+          50,
+          27
+        ],
+        [
+          24,
+          10,
+          50
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5887323943661972,
+      "f1_macro": 0.49589987209806274,
+      "per_class_f1": [
+        0.7735368956743003,
+        0.34782608695652173,
+        0.36633663366336633
+      ],
+      "per_class_precision": [
+        0.7203791469194313,
+        0.7692307692307693,
+        0.3135593220338983
+      ],
+      "per_class_recall": [
+        0.8351648351648352,
+        0.2247191011235955,
+        0.44047619047619047
+      ],
+      "confusion_matrix": [
+        [
+          152,
+          1,
+          29
+        ],
+        [
+          17,
+          20,
+          52
+        ],
+        [
+          42,
+          5,
+          37
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.2978603287211472,
+      "rmse": 0.545765818571617,
+      "mae": 0.38985227178868676,
+      "r2": 0.4266155557393747
+    },
+    "gru": {
+      "mse": 0.2885533571243286,
+      "rmse": 0.5371716272517831,
+      "mae": 0.39845365285873413,
+      "r2": 0.44453155994415283
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 23,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 107
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006037834566086531,
+    0.010966413654386997,
+    0.00798972137272358,
+    0.005677876994013786,
+    0.005339367315173149,
+    0.007216618396341801,
+    0.011786652728915215,
+    0.006594665814191103,
+    0.003966513555496931,
+    0.0059410869143903255
+  ],
+  "reg_importances_top10": [
+    0.0006831077447765667,
+    0.0027234266800327937,
+    0.019256522341591926,
+    0.0,
+    0.0007245194041967139,
+    0.002900468360400424,
+    0.0009517160046428595,
+    0.0003005159353922338,
+    0.004778385725333644,
+    0.0006896122091414608
+  ]
+}

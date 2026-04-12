@@ -1,0 +1,179 @@
+{
+  "iteration": 26,
+  "timestamp": "2026-04-10T23:08:09.133695",
+  "git_hash": "f611091",
+  "hypothesis": "5 lags instead of 3. Mood 4 and 5 days ago may still carry signal for next-day prediction.",
+  "change_summary": "n_lags=5 (was 3). More mood history as direct features.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7070422535211267,
+      "f1_macro": 0.6632851935184373,
+      "per_class_f1": [
+        0.8206521739130435,
+        0.6011560693641619,
+        0.5680473372781065
+      ],
+      "per_class_precision": [
+        0.8074866310160428,
+        0.6265060240963856,
+        0.5647058823529412
+      ],
+      "per_class_recall": [
+        0.8342541436464088,
+        0.5777777777777777,
+        0.5714285714285714
+      ],
+      "confusion_matrix": [
+        [
+          151,
+          15,
+          15
+        ],
+        [
+          16,
+          52,
+          22
+        ],
+        [
+          20,
+          16,
+          48
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5774647887323944,
+      "f1_macro": 0.47546418080096836,
+      "per_class_f1": [
+        0.77,
+        0.3247863247863248,
+        0.3316062176165803
+      ],
+      "per_class_precision": [
+        0.7031963470319634,
+        0.7037037037037037,
+        0.29357798165137616
+      ],
+      "per_class_recall": [
+        0.850828729281768,
+        0.2111111111111111,
+        0.38095238095238093
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          1,
+          26
+        ],
+        [
+          20,
+          19,
+          51
+        ],
+        [
+          45,
+          7,
+          32
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.32489670275959776,
+      "rmse": 0.5699971076765195,
+      "mae": 0.3959026728521301,
+      "r2": 0.4239242623088416
+    },
+    "gru": {
+      "mse": 0.3233383595943451,
+      "rmse": 0.5686284899601365,
+      "mae": 0.38876333832740784,
+      "r2": 0.4266873002052307
+    }
+  },
+  "baselines": {},
+  "n_features": 109,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 26,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 109
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.007176822982728481,
+    0.010087682865560055,
+    0.006300103850662708,
+    0.005313167814165354,
+    0.005442229565232992,
+    0.0059175374917685986,
+    0.011404137127101421,
+    0.004893606528639793,
+    0.004999248776584864,
+    0.005922704003751278
+  ],
+  "reg_importances_top10": [
+    0.0013232282936301222,
+    0.008056292923635985,
+    0.014863779391422192,
+    0.0003226069914325718,
+    0.006240122210165146,
+    0.008070768793487828,
+    0.004094226969663215,
+    0.000929712117869168,
+    0.001042825615227626,
+    0.0014737906901719849
+  ]
+}

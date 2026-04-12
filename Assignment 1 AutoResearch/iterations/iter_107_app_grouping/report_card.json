@@ -1,0 +1,188 @@
+{
+  "iteration": 107,
+  "timestamp": "2026-04-11T13:59:52.154486",
+  "git_hash": "88e6951",
+  "hypothesis": "Grouping 12 sparse app categories into 4 semantic super-categories preserves signal we currently discard.",
+  "change_summary": "App category grouping: 4 super-categories instead of 12",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7070422535211267,
+      "f1_macro": 0.6606020379862342,
+      "per_class_f1": [
+        0.8337874659400545,
+        0.6025641025641025,
+        0.5454545454545454
+      ],
+      "per_class_precision": [
+        0.827027027027027,
+        0.7014925373134329,
+        0.49514563106796117
+      ],
+      "per_class_recall": [
+        0.8406593406593407,
+        0.5280898876404494,
+        0.6071428571428571
+      ],
+      "confusion_matrix": [
+        [
+          153,
+          8,
+          21
+        ],
+        [
+          11,
+          47,
+          31
+        ],
+        [
+          21,
+          12,
+          51
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6450704225352113,
+      "f1_macro": 0.6051630408170313,
+      "per_class_f1": [
+        0.7905604719764012,
+        0.5051546391752577,
+        0.519774011299435
+      ],
+      "per_class_precision": [
+        0.8535031847133758,
+        0.4666666666666667,
+        0.4946236559139785
+      ],
+      "per_class_recall": [
+        0.7362637362637363,
+        0.550561797752809,
+        0.5476190476190477
+      ],
+      "confusion_matrix": [
+        [
+          134,
+          32,
+          16
+        ],
+        [
+          9,
+          49,
+          31
+        ],
+        [
+          14,
+          24,
+          46
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.31131463091841344,
+      "rmse": 0.5579557607180102,
+      "mae": 0.39498325601165063,
+      "r2": 0.40071587443097123
+    },
+    "gru": {
+      "mse": 0.2993505299091339,
+      "rmse": 0.5471293539092322,
+      "mae": 0.39020854234695435,
+      "r2": 0.42374682426452637
+    }
+  },
+  "baselines": {},
+  "n_features": 91,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 107,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 91
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.008756456896662712,
+    0.008315961807966232,
+    0.006811653263866901,
+    0.0068178558722138405,
+    0.006250625941902399,
+    0.013729860074818134,
+    0.010071923024952412,
+    0.006911484058946371,
+    0.004847364965826273,
+    0.006354418583214283
+  ],
+  "reg_importances_top10": [
+    0.00019841564356714417,
+    0.0018620523618755888,
+    0.019262145443110112,
+    0.0001033317560584455,
+    0.0005695381052379142,
+    0.0006888560288131218,
+    0.0008080717264731188,
+    0.00037955484220934956,
+    0.004490139972686236,
+    0.00037675827115419354
+  ]
+}

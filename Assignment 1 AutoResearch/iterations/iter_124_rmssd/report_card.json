@@ -1,0 +1,188 @@
+{
+  "iteration": 124,
+  "timestamp": "2026-04-11T14:25:24.052357",
+  "git_hash": "88e6951",
+  "hypothesis": "RMSSD captures mood oscillation patterns that std misses (clinically validated).",
+  "change_summary": "Add mood_rmssd: Root Mean Square of Successive Differences",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7436619718309859,
+      "f1_macro": 0.6987555201402668,
+      "per_class_f1": [
+        0.8579088471849866,
+        0.6540880503144654,
+        0.5842696629213483
+      ],
+      "per_class_precision": [
+        0.837696335078534,
+        0.7428571428571429,
+        0.5531914893617021
+      ],
+      "per_class_recall": [
+        0.8791208791208791,
+        0.5842696629213483,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          160,
+          6,
+          16
+        ],
+        [
+          11,
+          52,
+          26
+        ],
+        [
+          20,
+          12,
+          52
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.2700778375804116,
+      "rmse": 0.5196901361199879,
+      "mae": 0.3430121021279974,
+      "r2": 0.48009716005808856
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 97,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 124,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 97
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006298604886978865,
+    0.00792396068572998,
+    0.006583981681615114,
+    0.0077607231214642525,
+    0.0060899644158780575,
+    0.007040100172162056,
+    0.008882429450750351,
+    0.004065297078341246,
+    0.005395184271037579,
+    0.007320305332541466
+  ],
+  "reg_importances_top10": [
+    0.0,
+    0.0038512746273050595,
+    0.008031920003918436,
+    0.0,
+    0.0013950048385823722,
+    0.005911092977451341,
+    0.0016324278034890501,
+    0.0,
+    0.0022820265023636792,
+    0.001704009393121955
+  ]
+}

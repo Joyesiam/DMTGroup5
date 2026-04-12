@@ -1,0 +1,31 @@
+{
+  "iteration": 20,
+  "timestamp": "2026-04-10T22:34:13.305058",
+  "git_hash": "e7e5713",
+  "hypothesis": "MSE vs MAE regression comparison for Task 5B",
+  "change_summary": "Two GB models: MSE-optimized vs MAE-optimized. Task 5B deliverable.",
+  "classification": {},
+  "regression": {
+    "gb_mse": {
+      "mse": 0.3190747733566309,
+      "rmse": 0.5648670404233468,
+      "mae": 0.4068893649371782,
+      "r2": 0.4342471503132841
+    },
+    "gb_mae": {
+      "mse": 0.350156623660736,
+      "rmse": 0.5917403346576402,
+      "mae": 0.4148775183164911,
+      "r2": 0.3791357881767703
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "mse_vs_mae": {
+    "residual_std_mse": 0.5620151241237743,
+    "residual_std_mae": 0.5900327155539615,
+    "mean_abs_pred_diff": 0.10168297277532382
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "iteration": 81,
+  "timestamp": "2026-04-11T10:47:51.127477",
+  "git_hash": "88e6951",
+  "hypothesis": "Ablation-informed config: only keep features that help, drop redundant ones.",
+  "change_summary": "Ablation-optimized: log_transform + EMA + autocorrelation + class weights, no lags/volatility/interactions/momentum",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7267605633802817,
+      "f1_macro": 0.6773839546612512,
+      "per_class_f1": [
+        0.8443271767810027,
+        0.6329113924050633,
+        0.5549132947976878
+      ],
+      "per_class_precision": [
+        0.8121827411167513,
+        0.7246376811594203,
+        0.5393258426966292
+      ],
+      "per_class_recall": [
+        0.8791208791208791,
+        0.5617977528089888,
+        0.5714285714285714
+      ],
+      "confusion_matrix": [
+        [
+          160,
+          8,
+          14
+        ],
+        [
+          12,
+          50,
+          27
+        ],
+        [
+          25,
+          11,
+          48
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.26613356398552884,
+      "rmse": 0.5158813468090593,
+      "mae": 0.3510286035432778,
+      "r2": 0.4876899305788348
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 86,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 81,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 0,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": false,
+    "include_interactions": false,
+    "include_ema": true,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": true,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": true,
+    "reg_loss": null,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 86
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.007316678762435913,
+    0.009340892545878887,
+    0.005318534094840288,
+    0.007402683142572641,
+    0.006925415247678757,
+    0.006391607690602541,
+    0.010336861945688725,
+    0.006397704128175974,
+    0.005274086259305477,
+    0.006236167158931494
+  ],
+  "reg_importances_top10": [
+    0.002646177596080239,
+    0.007675013519742855,
+    0.006297444892273581,
+    0.0004232132546974947,
+    0.0016063162486043923,
+    0.005377780994549109,
+    0.0015243640764104397,
+    0.0025402958831920244,
+    0.002934289474806186,
+    0.0015791014435537884
+  ]
+}

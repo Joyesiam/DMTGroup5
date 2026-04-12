@@ -1,0 +1,188 @@
+{
+  "iteration": 118,
+  "timestamp": "2026-04-11T14:15:48.332745",
+  "git_hash": "88e6951",
+  "hypothesis": "3-day rolling std captures very short-term volatility that 7-day smooths out.",
+  "change_summary": "Add 3-day rolling std for mood, valence, arousal",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7295774647887324,
+      "f1_macro": 0.6841222575253353,
+      "per_class_f1": [
+        0.8463611859838275,
+        0.625,
+        0.5810055865921788
+      ],
+      "per_class_precision": [
+        0.8306878306878307,
+        0.704225352112676,
+        0.5473684210526316
+      ],
+      "per_class_recall": [
+        0.8626373626373627,
+        0.5617977528089888,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          157,
+          9,
+          16
+        ],
+        [
+          12,
+          50,
+          27
+        ],
+        [
+          20,
+          12,
+          52
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.26754636190662595,
+      "rmse": 0.5172488394444457,
+      "mae": 0.3438876709303518,
+      "r2": 0.48497027887389355
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 99,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 118,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 99
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006431153975427151,
+    0.0062003470957279205,
+    0.006154684815555811,
+    0.007618280127644539,
+    0.005415009334683418,
+    0.006975850556045771,
+    0.013739406131207943,
+    0.005256156902760267,
+    0.004539689980447292,
+    0.006305585149675608
+  ],
+  "reg_importances_top10": [
+    0.0002995861388716989,
+    0.004012608596289538,
+    0.008943890065259984,
+    0.00034286407484499664,
+    0.0013405050052608901,
+    0.005157781915482002,
+    0.0016446158989308645,
+    0.00031891543278983323,
+    0.0035628105742376115,
+    0.0012865261578810278
+  ]
+}

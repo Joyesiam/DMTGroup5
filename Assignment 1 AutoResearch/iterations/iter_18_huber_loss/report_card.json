@@ -1,0 +1,179 @@
+{
+  "iteration": 18,
+  "timestamp": "2026-04-10T22:28:25.228143",
+  "git_hash": "6ca9384",
+  "hypothesis": "Huber loss is robust to mood outliers, improving regression predictions.",
+  "change_summary": "tabular_reg='xgboost' with pseudohuber loss. Tests outlier-robust regression.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.6170212765957447,
+      "f1_macro": 0.5658452570217277,
+      "per_class_f1": [
+        0.75,
+        0.5945945945945946,
+        0.35294117647058826
+      ],
+      "per_class_precision": [
+        0.7894736842105263,
+        0.5,
+        0.5
+      ],
+      "per_class_recall": [
+        0.7142857142857143,
+        0.7333333333333333,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          15,
+          5,
+          1
+        ],
+        [
+          2,
+          11,
+          2
+        ],
+        [
+          2,
+          6,
+          3
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.42,
+      "f1_macro": 0.3728138528138529,
+      "per_class_f1": [
+        0.56,
+        0.2857142857142857,
+        0.2727272727272727
+      ],
+      "per_class_precision": [
+        0.5,
+        0.36363636363636365,
+        0.2727272727272727
+      ],
+      "per_class_recall": [
+        0.6363636363636364,
+        0.23529411764705882,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          14,
+          4,
+          4
+        ],
+        [
+          9,
+          4,
+          4
+        ],
+        [
+          5,
+          3,
+          3
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "xgboost": {
+      "mse": 0.34664819177359496,
+      "rmse": 0.5887683685233056,
+      "mae": 0.4133625585136685,
+      "r2": 0.20101920663756245
+    },
+    "gru": {
+      "mse": 0.4244823753833771,
+      "rmse": 0.6515231196077212,
+      "mae": 0.5024293661117554,
+      "r2": 0.0059798359870910645
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1918,
+  "n_test_samples": 47,
+  "pipeline_config": {
+    "iteration": 18,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "xgboost",
+    "temporal": "gru",
+    "split_method": "chronological",
+    "test_fraction": 0.2,
+    "n_train": 1918,
+    "n_test": 47,
+    "n_features": 107
+  },
+  "q33": 6.8,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.005075725261121988,
+    0.009554114192724228,
+    0.009226948954164982,
+    0.005372217390686274,
+    0.005748508498072624,
+    0.006741016171872616,
+    0.018128013238310814,
+    0.007507508620619774,
+    0.0062369126826524734,
+    0.00560385687276721
+  ],
+  "reg_importances_top10": [
+    0.002614538883790374,
+    0.004490886349231005,
+    0.021101584658026695,
+    0.0019679747056216,
+    0.005217135883867741,
+    0.007096424698829651,
+    0.013134052976965904,
+    0.006803289987146854,
+    0.0,
+    0.005482768639922142
+  ]
+}

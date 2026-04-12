@@ -1,0 +1,57 @@
+{
+  "iteration": 139,
+  "timestamp": "2026-04-11T14:34:06.764914",
+  "git_hash": "88e6951",
+  "hypothesis": "Optuna (50 trials) explores 3x more combinations than GridSearch.",
+  "change_summary": "Optuna Bayesian optimization for XGBoost (50 trials)",
+  "classification": {
+    "xgboost_optuna": {
+      "accuracy": 0.7323943661971831,
+      "f1_macro": 0.684821664402012,
+      "per_class_f1": [
+        0.848,
+        0.6075949367088608,
+        0.5988700564971752
+      ],
+      "per_class_precision": [
+        0.8238341968911918,
+        0.6956521739130435,
+        0.5698924731182796
+      ],
+      "per_class_recall": [
+        0.8736263736263736,
+        0.5393258426966292,
+        0.6309523809523809
+      ],
+      "confusion_matrix": [
+        [
+          159,
+          11,
+          12
+        ],
+        [
+          13,
+          48,
+          28
+        ],
+        [
+          21,
+          10,
+          53
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "xgboost_optuna": {
+      "mse": 0.3330361006020184,
+      "rmse": 0.5770928006846199,
+      "mae": 0.40080626818415777,
+      "r2": 0.3589018038008478
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 1610,
+  "n_test_samples": 355
+}

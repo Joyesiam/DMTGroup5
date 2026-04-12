@@ -1,0 +1,179 @@
+{
+  "iteration": 56,
+  "timestamp": "2026-04-11T09:16:20.848277",
+  "git_hash": "048bd35",
+  "hypothesis": "RF instead of XGBoost with all EDA features. RF may benefit from larger feature space.",
+  "change_summary": "tabular_cls='rf' with all EDA features. Random Forest comparison.",
+  "classification": {
+    "rf": {
+      "accuracy": 0.7154929577464789,
+      "f1_macro": 0.6569859777622445,
+      "per_class_f1": [
+        0.8291457286432161,
+        0.632258064516129,
+        0.5095541401273885
+      ],
+      "per_class_precision": [
+        0.7603686635944701,
+        0.7538461538461538,
+        0.547945205479452
+      ],
+      "per_class_recall": [
+        0.9116022099447514,
+        0.5444444444444444,
+        0.47619047619047616
+      ],
+      "confusion_matrix": [
+        [
+          165,
+          4,
+          12
+        ],
+        [
+          20,
+          49,
+          21
+        ],
+        [
+          32,
+          12,
+          40
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6732394366197183,
+      "f1_macro": 0.6035130328608589,
+      "per_class_f1": [
+        0.8516483516483516,
+        0.4492753623188406,
+        0.5096153846153846
+      ],
+      "per_class_precision": [
+        0.8469945355191257,
+        0.6458333333333334,
+        0.4274193548387097
+      ],
+      "per_class_recall": [
+        0.856353591160221,
+        0.34444444444444444,
+        0.6309523809523809
+      ],
+      "confusion_matrix": [
+        [
+          155,
+          4,
+          22
+        ],
+        [
+          10,
+          31,
+          49
+        ],
+        [
+          18,
+          13,
+          53
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.3064551206175882,
+      "rmse": 0.5535838876065561,
+      "mae": 0.37582557268776523,
+      "r2": 0.4566231107317853
+    },
+    "gru": {
+      "mse": 0.2618598937988281,
+      "rmse": 0.5117224773242115,
+      "mae": 0.3448915183544159,
+      "r2": 0.5356950759887695
+    }
+  },
+  "baselines": {},
+  "n_features": 94,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 56,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "rf",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 94
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006028116039564053,
+    0.00559276004060652,
+    0.007763829708054617,
+    0.0061486887379162865,
+    0.005254760527643636,
+    0.007148407817663886,
+    0.013460474802466043,
+    0.006641037053283888,
+    0.007173389177524883,
+    0.004257156731431512
+  ],
+  "reg_importances_top10": [
+    0.0025704946756870835,
+    0.0065074915410045986,
+    0.014573658918660951,
+    0.0,
+    0.006478740261411158,
+    0.005046827769395599,
+    0.0018791695567763967,
+    0.0004538700002828459,
+    0.002534162425671532,
+    0.0018070303530650534
+  ]
+}

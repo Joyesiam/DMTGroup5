@@ -1,0 +1,179 @@
+{
+  "iteration": 17,
+  "timestamp": "2026-04-10T22:27:56.483428",
+  "git_hash": "6ca9384",
+  "hypothesis": "1D-CNN has fewer parameters than GRU and may capture local temporal patterns better.",
+  "change_summary": "temporal='cnn1d'. Replaces GRU with 1D-CNN (2 conv layers, 32 filters).",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.6170212765957447,
+      "f1_macro": 0.5658452570217277,
+      "per_class_f1": [
+        0.75,
+        0.5945945945945946,
+        0.35294117647058826
+      ],
+      "per_class_precision": [
+        0.7894736842105263,
+        0.5,
+        0.5
+      ],
+      "per_class_recall": [
+        0.7142857142857143,
+        0.7333333333333333,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          15,
+          5,
+          1
+        ],
+        [
+          2,
+          11,
+          2
+        ],
+        [
+          2,
+          6,
+          3
+        ]
+      ]
+    },
+    "cnn1d": {
+      "accuracy": 0.4,
+      "f1_macro": 0.2780337941628264,
+      "per_class_f1": [
+        0.5483870967741935,
+        0.0,
+        0.2857142857142857
+      ],
+      "per_class_precision": [
+        0.425,
+        0.0,
+        0.3
+      ],
+      "per_class_recall": [
+        0.7727272727272727,
+        0.0,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          17,
+          0,
+          5
+        ],
+        [
+          15,
+          0,
+          2
+        ],
+        [
+          8,
+          0,
+          3
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.3177496997197239,
+      "rmse": 0.5636929126037721,
+      "mae": 0.3876476873090254,
+      "r2": 0.2676266220406125
+    },
+    "cnn1d": {
+      "mse": 0.5844526886940002,
+      "rmse": 0.7644950547217426,
+      "mae": 0.6412379741668701,
+      "r2": -0.3686262369155884
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1918,
+  "n_test_samples": 47,
+  "pipeline_config": {
+    "iteration": 17,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "cnn1d",
+    "split_method": "chronological",
+    "test_fraction": 0.2,
+    "n_train": 1918,
+    "n_test": 47,
+    "n_features": 107
+  },
+  "q33": 6.8,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.005075725261121988,
+    0.009554114192724228,
+    0.009226948954164982,
+    0.005372217390686274,
+    0.005748508498072624,
+    0.006741016171872616,
+    0.018128013238310814,
+    0.007507508620619774,
+    0.0062369126826524734,
+    0.00560385687276721
+  ],
+  "reg_importances_top10": [
+    0.0015364935895210118,
+    0.009878968431556364,
+    0.022667404803283716,
+    0.0,
+    0.0068222173849846355,
+    0.004471643495519939,
+    0.0018115341137898181,
+    0.001944203588432548,
+    0.0,
+    0.005623593238877011
+  ]
+}

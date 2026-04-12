@@ -1,0 +1,72 @@
+{
+  "iteration": 129,
+  "timestamp": "2026-04-11T14:23:44.644741",
+  "git_hash": "88e6951",
+  "hypothesis": "Greedy forward selection optimizes feature combination directly.",
+  "change_summary": "Greedy forward selection: 10 features",
+  "classification": {},
+  "regression": {},
+  "baselines": {},
+  "n_features": 10,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "selected_features": [
+    "mood_mean",
+    "mood_lag1",
+    "call_mean",
+    "activity_lag1",
+    "circumplex.valence_min",
+    "circumplex.arousal_trend",
+    "activity_mean",
+    "appCat.entertainment_trend",
+    "appCat.communication_max",
+    "mood_direction"
+  ],
+  "selection_history": [
+    {
+      "step": 1,
+      "feature": "mood_lag1",
+      "mse": 0.2586985088159266
+    },
+    {
+      "step": 2,
+      "feature": "call_mean",
+      "mse": 0.25147200621623544
+    },
+    {
+      "step": 3,
+      "feature": "activity_lag1",
+      "mse": 0.2481621534098481
+    },
+    {
+      "step": 4,
+      "feature": "circumplex.valence_min",
+      "mse": 0.2468648164375303
+    },
+    {
+      "step": 5,
+      "feature": "circumplex.arousal_trend",
+      "mse": 0.24440588287602846
+    },
+    {
+      "step": 6,
+      "feature": "activity_mean",
+      "mse": 0.24186615192410357
+    },
+    {
+      "step": 7,
+      "feature": "appCat.entertainment_trend",
+      "mse": 0.23909582583346548
+    },
+    {
+      "step": 8,
+      "feature": "appCat.communication_max",
+      "mse": 0.23482619066486793
+    },
+    {
+      "step": 9,
+      "feature": "mood_direction",
+      "mse": 0.2349821992022026
+    }
+  ]
+}

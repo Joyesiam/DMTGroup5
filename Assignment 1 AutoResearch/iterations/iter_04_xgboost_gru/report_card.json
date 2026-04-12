@@ -1,0 +1,99 @@
+{
+  "iteration": 4,
+  "timestamp": "2026-04-10T21:31:00.337189",
+  "git_hash": "1e9ea66",
+  "hypothesis": "XGBoost will outperform RF/GB by 3-8% due to better regularization and handling\nof feature interactions. GRU will outperform LSTM due to fewer parameters on this\nsmall dataset. Expected: XGB F1 > 0.50, GRU F1 > 0.20.",
+  "change_summary": "- Replace RF with XGBoost for classification\n- Replace GB with XGBoost for regression\n- Replace LSTM with GRU for temporal model\n- Same features as iter_02 (7-day window, volatility, interactions)",
+  "classification": {
+    "xgb": {
+      "accuracy": 0.6170212765957447,
+      "f1_macro": 0.5658452570217277,
+      "per_class_f1": [
+        0.75,
+        0.5945945945945946,
+        0.35294117647058826
+      ],
+      "per_class_precision": [
+        0.7894736842105263,
+        0.5,
+        0.5
+      ],
+      "per_class_recall": [
+        0.7142857142857143,
+        0.7333333333333333,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          15,
+          5,
+          1
+        ],
+        [
+          2,
+          11,
+          2
+        ],
+        [
+          2,
+          6,
+          3
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.42,
+      "f1_macro": 0.3728138528138529,
+      "per_class_f1": [
+        0.56,
+        0.2857142857142857,
+        0.2727272727272727
+      ],
+      "per_class_precision": [
+        0.5,
+        0.36363636363636365,
+        0.2727272727272727
+      ],
+      "per_class_recall": [
+        0.6363636363636364,
+        0.23529411764705882,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          14,
+          4,
+          4
+        ],
+        [
+          9,
+          4,
+          4
+        ],
+        [
+          5,
+          3,
+          3
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "xgb": {
+      "mse": 0.3489912833177727,
+      "rmse": 0.5907548419757325,
+      "mae": 0.41283512588933857,
+      "r2": 0.19561867322843207
+    },
+    "gru": {
+      "mse": 0.4244823753833771,
+      "rmse": 0.6515231196077212,
+      "mae": 0.5024293661117554,
+      "r2": 0.0059798359870910645
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1918,
+  "n_test_samples": 47
+}

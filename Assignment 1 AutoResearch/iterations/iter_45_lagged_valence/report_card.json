@@ -1,0 +1,179 @@
+{
+  "iteration": 45,
+  "timestamp": "2026-04-11T09:00:26.774894",
+  "git_hash": "048bd35",
+  "hypothesis": "Explicit lagged valence (r=0.284) is the 2nd best predictor after mood itself.",
+  "change_summary": "include_lagged_valence=True. Adds valence_lag1, valence_lag2, activity_lag1, activity_lag2.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7154929577464789,
+      "f1_macro": 0.6700250727134017,
+      "per_class_f1": [
+        0.8467966573816156,
+        0.6127167630057804,
+        0.550561797752809
+      ],
+      "per_class_precision": [
+        0.8539325842696629,
+        0.6385542168674698,
+        0.5212765957446809
+      ],
+      "per_class_recall": [
+        0.8397790055248618,
+        0.5888888888888889,
+        0.5833333333333334
+      ],
+      "confusion_matrix": [
+        [
+          152,
+          10,
+          19
+        ],
+        [
+          11,
+          53,
+          26
+        ],
+        [
+          15,
+          20,
+          49
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5774647887323944,
+      "f1_macro": 0.47546418080096836,
+      "per_class_f1": [
+        0.77,
+        0.3247863247863248,
+        0.3316062176165803
+      ],
+      "per_class_precision": [
+        0.7031963470319634,
+        0.7037037037037037,
+        0.29357798165137616
+      ],
+      "per_class_recall": [
+        0.850828729281768,
+        0.2111111111111111,
+        0.38095238095238093
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          1,
+          26
+        ],
+        [
+          20,
+          19,
+          51
+        ],
+        [
+          45,
+          7,
+          32
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.3224192160254536,
+      "rmse": 0.5678197038017029,
+      "mae": 0.3858373254317809,
+      "r2": 0.4283171046672579
+    },
+    "gru": {
+      "mse": 0.3233383595943451,
+      "rmse": 0.5686284899601365,
+      "mae": 0.38876333832740784,
+      "r2": 0.4266873002052307
+    }
+  },
+  "baselines": {},
+  "n_features": 111,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 45,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 111
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.005225367844104767,
+    0.008090000599622726,
+    0.0060319374315440655,
+    0.007070323918014765,
+    0.005699295550584793,
+    0.008371752686798573,
+    0.010771806351840496,
+    0.004994160495698452,
+    0.006668938789516687,
+    0.0040033720433712006
+  ],
+  "reg_importances_top10": [
+    0.001123350620703087,
+    0.008052510839564339,
+    0.016401614937282274,
+    0.0,
+    0.005703429665751886,
+    0.007131814049332864,
+    0.003126219761202351,
+    0.0,
+    0.0010687903547718456,
+    0.0018468271334788184
+  ]
+}

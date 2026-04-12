@@ -1,0 +1,107 @@
+{
+  "iteration": 6,
+  "timestamp": "2026-04-10T21:39:09.976181",
+  "git_hash": "1e9ea66",
+  "hypothesis": "Combining the best model per task and running with 3 seeds will confirm robustness\nand establish final performance numbers. Also adding baselines (majority class,\npredict mean) for proper comparison.",
+  "change_summary": "- Classification: XGBoost (tuned) + GRU\n- Regression: GradientBoosting (tuned) + GRU\n- Run with 3 random seeds [42, 123, 456]\n- Compute baselines: majority-class, predict-mean\n- This is the FINAL iter",
+  "classification": {
+    "xgb": {
+      "accuracy": 0.6170212765957447,
+      "f1_macro": 0.5658452570217277,
+      "per_class_f1": [
+        0.75,
+        0.5945945945945946,
+        0.35294117647058826
+      ],
+      "per_class_precision": [
+        0.7894736842105263,
+        0.5,
+        0.5
+      ],
+      "per_class_recall": [
+        0.7142857142857143,
+        0.7333333333333333,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          15,
+          5,
+          1
+        ],
+        [
+          2,
+          11,
+          2
+        ],
+        [
+          2,
+          6,
+          3
+        ]
+      ],
+      "f1_mean": 0.4828931694256772,
+      "f1_std": 0.06068781587486642
+    },
+    "gru": {
+      "accuracy": 0.42,
+      "f1_macro": 0.3728138528138529,
+      "per_class_f1": [
+        0.56,
+        0.2857142857142857,
+        0.2727272727272727
+      ],
+      "per_class_precision": [
+        0.5,
+        0.36363636363636365,
+        0.2727272727272727
+      ],
+      "per_class_recall": [
+        0.6363636363636364,
+        0.23529411764705882,
+        0.2727272727272727
+      ],
+      "confusion_matrix": [
+        [
+          14,
+          4,
+          4
+        ],
+        [
+          9,
+          4,
+          4
+        ],
+        [
+          5,
+          3,
+          3
+        ]
+      ],
+      "f1_mean": 0.3728138528138529,
+      "f1_std": 0.0
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.31097401628449867,
+      "rmse": 0.5576504427367548,
+      "mae": 0.3910370501526686,
+      "r2": 0.2832437262261285,
+      "r2_mean": 0.27134836933191586,
+      "r2_std": 0.008605401646287559
+    },
+    "gru": {
+      "mse": 0.4244823753833771,
+      "rmse": 0.6515231196077212,
+      "mae": 0.5024293661117554,
+      "r2": 0.0059798359870910645,
+      "r2_mean": 0.0059798359870910645,
+      "r2_std": 0.0
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1918,
+  "n_test_samples": 47
+}

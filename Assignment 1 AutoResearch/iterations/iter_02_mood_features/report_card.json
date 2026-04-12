@@ -1,0 +1,99 @@
+{
+  "iteration": 2,
+  "timestamp": "2026-04-10T21:23:36.502054",
+  "git_hash": "1e9ea66",
+  "hypothesis": "Adding mood volatility features (range, coefficient of variation, direction) and\ninteraction features (mood*valence, screen/activity ratio, social engagement) will\nimprove RF F1 by adding meaningful psychological signal without pruning. Expected: +2-5%.",
+  "change_summary": "- Enable include_volatility=True and include_interactions=True in feature builder\n- Use full feature set (no selection) plus new features\n- Builds on iter_00 baseline (NOT iter_01)",
+  "classification": {
+    "rf": {
+      "accuracy": 0.5957446808510638,
+      "f1_macro": 0.4909079016221873,
+      "per_class_f1": [
+        0.6938775510204082,
+        0.625,
+        0.15384615384615385
+      ],
+      "per_class_precision": [
+        0.6071428571428571,
+        0.5882352941176471,
+        0.5
+      ],
+      "per_class_recall": [
+        0.8095238095238095,
+        0.6666666666666666,
+        0.09090909090909091
+      ],
+      "confusion_matrix": [
+        [
+          17,
+          3,
+          1
+        ],
+        [
+          5,
+          10,
+          0
+        ],
+        [
+          6,
+          4,
+          1
+        ]
+      ]
+    },
+    "lstm": {
+      "accuracy": 0.36,
+      "f1_macro": 0.1818181818181818,
+      "per_class_f1": [
+        0.5454545454545454,
+        0.0,
+        0.0
+      ],
+      "per_class_precision": [
+        0.4090909090909091,
+        0.0,
+        0.0
+      ],
+      "per_class_recall": [
+        0.8181818181818182,
+        0.0,
+        0.0
+      ],
+      "confusion_matrix": [
+        [
+          18,
+          1,
+          3
+        ],
+        [
+          15,
+          0,
+          2
+        ],
+        [
+          11,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.3177496997197239,
+      "rmse": 0.5636929126037721,
+      "mae": 0.3876476873090254,
+      "r2": 0.2676266220406125
+    },
+    "lstm": {
+      "mse": 0.6049817204475403,
+      "rmse": 0.777805708675078,
+      "mae": 0.5712140798568726,
+      "r2": -0.4166996479034424
+    }
+  },
+  "baselines": {},
+  "n_features": 107,
+  "n_train_samples": 1918,
+  "n_test_samples": 47
+}

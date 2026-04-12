@@ -1,0 +1,179 @@
+{
+  "iteration": 46,
+  "timestamp": "2026-04-11T09:01:54.481126",
+  "git_hash": "048bd35",
+  "hypothesis": "Momentum: 72% reversal after 2 down days. Adding consecutive up/down + mean-reversion signal.",
+  "change_summary": "include_momentum=True. Adds consec_up_days, consec_down_days, mean_reversion.",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.6957746478873239,
+      "f1_macro": 0.6499524753113269,
+      "per_class_f1": [
+        0.8209366391184573,
+        0.5909090909090909,
+        0.5380116959064327
+      ],
+      "per_class_precision": [
+        0.8186813186813187,
+        0.6046511627906976,
+        0.5287356321839081
+      ],
+      "per_class_recall": [
+        0.8232044198895028,
+        0.5777777777777777,
+        0.5476190476190477
+      ],
+      "confusion_matrix": [
+        [
+          149,
+          14,
+          18
+        ],
+        [
+          15,
+          52,
+          23
+        ],
+        [
+          18,
+          20,
+          46
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.5774647887323944,
+      "f1_macro": 0.47546418080096836,
+      "per_class_f1": [
+        0.77,
+        0.3247863247863248,
+        0.3316062176165803
+      ],
+      "per_class_precision": [
+        0.7031963470319634,
+        0.7037037037037037,
+        0.29357798165137616
+      ],
+      "per_class_recall": [
+        0.850828729281768,
+        0.2111111111111111,
+        0.38095238095238093
+      ],
+      "confusion_matrix": [
+        [
+          154,
+          1,
+          26
+        ],
+        [
+          20,
+          19,
+          51
+        ],
+        [
+          45,
+          7,
+          32
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.31790028244692814,
+      "rmse": 0.5638264648337538,
+      "mae": 0.4062413784549404,
+      "r2": 0.436329645184644
+    },
+    "gru": {
+      "mse": 0.3233383595943451,
+      "rmse": 0.5686284899601365,
+      "mae": 0.38876333832740784,
+      "r2": 0.4266873002052307
+    }
+  },
+  "baselines": {},
+  "n_features": 110,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 46,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "ffill",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 3,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "patient_normalize": false,
+    "log_transform_before_agg": false,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 110
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006868344731628895,
+    0.0119501743465662,
+    0.006477272603660822,
+    0.005762535147368908,
+    0.0060351332649588585,
+    0.006982959341257811,
+    0.015027986839413643,
+    0.00505759147927165,
+    0.00520505802705884,
+    0.0060320645570755005
+  ],
+  "reg_importances_top10": [
+    0.0012934824322781962,
+    0.005637745441290862,
+    0.019794597011938413,
+    0.0001424610167994392,
+    0.0011774035702952093,
+    0.0033652808902875156,
+    0.0007829402567534573,
+    0.0002647841636034451,
+    0.002475416914912249,
+    0.00025629693786561757
+  ]
+}

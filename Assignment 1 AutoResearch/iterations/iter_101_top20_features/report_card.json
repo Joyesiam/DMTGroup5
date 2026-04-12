@@ -1,0 +1,79 @@
+{
+  "iteration": 101,
+  "timestamp": "2026-04-11T11:40:44.327920",
+  "git_hash": "88e6951",
+  "hypothesis": "Using only top 20 features reduces overfitting on small data.",
+  "change_summary": "XGBoost with only top 20 features by importance (from 96)",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7295774647887324,
+      "f1_macro": 0.6825550817093736,
+      "per_class_f1": [
+        0.8390501319261213,
+        0.6052631578947368,
+        0.6033519553072626
+      ],
+      "per_class_precision": [
+        0.8071065989847716,
+        0.7301587301587301,
+        0.5684210526315789
+      ],
+      "per_class_recall": [
+        0.8736263736263736,
+        0.5168539325842697,
+        0.6428571428571429
+      ],
+      "confusion_matrix": [
+        [
+          159,
+          11,
+          12
+        ],
+        [
+          14,
+          46,
+          29
+        ],
+        [
+          24,
+          6,
+          54
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.30670378580230223,
+      "rmse": 0.5538084378215108,
+      "mae": 0.3707243498333536,
+      "r2": 0.40959180254071403
+    }
+  },
+  "baselines": {},
+  "n_features": 20,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "top_20_features": [
+    "is_weekend",
+    "mood_range",
+    "social_engagement",
+    "appCat.social_min",
+    "call_max",
+    "mood_evening_mean",
+    "mood_intraday_slope_std",
+    "screen_std",
+    "consec_down_days",
+    "dow_sin",
+    "mood_morning_max",
+    "mood_morning_min",
+    "mood_x_valence",
+    "appCat.social_std",
+    "mood_lag2",
+    "mood_max",
+    "mood_evening_max",
+    "mood_lag1",
+    "mood_mean",
+    "mood_min"
+  ]
+}

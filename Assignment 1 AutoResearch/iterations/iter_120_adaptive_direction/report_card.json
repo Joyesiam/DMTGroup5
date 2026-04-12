@@ -1,0 +1,188 @@
+{
+  "iteration": 120,
+  "timestamp": "2026-04-11T14:25:21.924643",
+  "git_hash": "88e6951",
+  "hypothesis": "Adaptive thresholds (0.5 * patient-specific ewm_std) handle individual variability better than fixed terciles.",
+  "change_summary": "Add adaptive_mood_dir: mood change relative to patient variability",
+  "classification": {
+    "xgboost": {
+      "accuracy": 0.7380281690140845,
+      "f1_macro": 0.6955606880548295,
+      "per_class_f1": [
+        0.8509485094850948,
+        0.6455696202531646,
+        0.5901639344262295
+      ],
+      "per_class_precision": [
+        0.839572192513369,
+        0.7391304347826086,
+        0.5454545454545454
+      ],
+      "per_class_recall": [
+        0.8626373626373627,
+        0.5730337078651685,
+        0.6428571428571429
+      ],
+      "confusion_matrix": [
+        [
+          157,
+          7,
+          18
+        ],
+        [
+          11,
+          51,
+          27
+        ],
+        [
+          19,
+          11,
+          54
+        ]
+      ]
+    },
+    "gru": {
+      "accuracy": 0.6676056338028169,
+      "f1_macro": 0.5932321005084882,
+      "per_class_f1": [
+        0.8524590163934426,
+        0.42962962962962964,
+        0.49760765550239233
+      ],
+      "per_class_precision": [
+        0.8478260869565217,
+        0.6304347826086957,
+        0.416
+      ],
+      "per_class_recall": [
+        0.8571428571428571,
+        0.3258426966292135,
+        0.6190476190476191
+      ],
+      "confusion_matrix": [
+        [
+          156,
+          3,
+          23
+        ],
+        [
+          10,
+          29,
+          50
+        ],
+        [
+          18,
+          14,
+          52
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "gb": {
+      "mse": 0.27061528294165405,
+      "rmse": 0.5202069616428197,
+      "mae": 0.34283898538334584,
+      "r2": 0.4790625717626297
+    },
+    "gru": {
+      "mse": 0.25062450766563416,
+      "rmse": 0.5006241181421788,
+      "mae": 0.3401634097099304,
+      "r2": 0.5175449848175049
+    }
+  },
+  "baselines": {},
+  "n_features": 97,
+  "n_train_samples": 1610,
+  "n_test_samples": 355,
+  "pipeline_config": {
+    "iteration": 120,
+    "seed": 42,
+    "outlier_method": "iqr",
+    "iqr_multiplier": 3.0,
+    "imputation_method": "linear",
+    "max_gap_days": null,
+    "log_transform_durations": false,
+    "window_sizes": [
+      7
+    ],
+    "n_lags": 5,
+    "agg_functions": [
+      "mean",
+      "std",
+      "min",
+      "max",
+      "trend"
+    ],
+    "include_volatility": true,
+    "include_interactions": true,
+    "include_ema": false,
+    "include_day_changes": false,
+    "include_ratios": false,
+    "include_autocorrelation": false,
+    "ema_weighted_agg": false,
+    "patient_normalize": false,
+    "log_transform_before_agg": true,
+    "tabular_cls": "xgboost",
+    "tabular_reg": "gb",
+    "temporal": "gru",
+    "temporal_params": null,
+    "cls_class_weight": false,
+    "reg_loss": null,
+    "n_classes": 3,
+    "split_method": "leave_patients_out",
+    "test_fraction": 0.2,
+    "n_train": 1610,
+    "n_test": 355,
+    "n_features": 97
+  },
+  "q33": 7.0,
+  "q66": 7.4,
+  "feature_cols": [
+    "activity_mean",
+    "activity_std",
+    "activity_min",
+    "activity_max",
+    "activity_trend",
+    "circumplex.arousal_mean",
+    "circumplex.arousal_std",
+    "circumplex.arousal_min",
+    "circumplex.arousal_max",
+    "circumplex.arousal_trend",
+    "circumplex.valence_mean",
+    "circumplex.valence_std",
+    "circumplex.valence_min",
+    "circumplex.valence_max",
+    "circumplex.valence_trend",
+    "mood_mean",
+    "mood_std",
+    "mood_min",
+    "mood_max",
+    "mood_trend"
+  ],
+  "cls_importances_top10": [
+    0.006667000707238913,
+    0.008509705774486065,
+    0.0069237155839800835,
+    0.007739345543086529,
+    0.005817551165819168,
+    0.006676378659904003,
+    0.008831899613142014,
+    0.003998462576419115,
+    0.006194485817104578,
+    0.00705721927806735
+  ],
+  "reg_importances_top10": [
+    1.4634553578918912e-05,
+    0.004721352912729607,
+    0.008454009475398549,
+    0.0003308108532669692,
+    0.0013971413450446061,
+    0.005802431073814501,
+    0.002118789158354039,
+    0.00010038747826738992,
+    0.0022062191526638552,
+    0.0024760367403366614
+  ]
+}

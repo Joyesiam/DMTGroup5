@@ -1,0 +1,37 @@
+{
+  "iteration": 146,
+  "timestamp": "2026-04-11T14:40:29.857290",
+  "git_hash": "88e6951",
+  "hypothesis": "Walk-forward is the most realistic evaluation for deployment.",
+  "change_summary": "Walk-forward expanding window (6 steps, 7-day increments)",
+  "classification": {
+    "xgboost": {
+      "f1_macro": 0.43086951126788153
+    }
+  },
+  "regression": {
+    "gb": {
+      "r2": 0.10963118710954252
+    }
+  },
+  "baselines": {},
+  "n_features": 96,
+  "n_train_samples": 0,
+  "n_test_samples": 0,
+  "walk_forward_r2": [
+    0.33924030209277034,
+    0.11149262573780383,
+    0.2863142621050586,
+    0.3576486963654477,
+    -0.13435122438678615,
+    -0.3025575392570392
+  ],
+  "walk_forward_f1": [
+    0.5480510752688171,
+    0.4570248190600441,
+    0.5277777777777778,
+    0.6433998100664767,
+    0.3137254901960784,
+    0.09523809523809523
+  ]
+}
