@@ -298,7 +298,8 @@ class TemporalModelWrapper(BaseEstimator):
     Handles training with early stopping and prediction.
     """
     def __init__(self, model_class, model_kwargs, task="regression",
-                 lr=0.001, epochs=100, patience=15, batch_size=32):
+                 lr=0.001, epochs=100, patience=15, batch_size=32,
+                 weight_decay=0.0):
         self.model_class = model_class
         self.model_kwargs = model_kwargs
         self.task = task
@@ -306,6 +307,7 @@ class TemporalModelWrapper(BaseEstimator):
         self.epochs = epochs
         self.patience = patience
         self.batch_size = batch_size
+        self.weight_decay = weight_decay
         self.model_ = None
         self.train_losses_ = []
         self.val_losses_ = []
@@ -319,7 +321,8 @@ class TemporalModelWrapper(BaseEstimator):
         kwargs["output_dim"] = n_outputs
 
         self.model_ = self.model_class(**kwargs)
-        optimizer = torch.optim.Adam(self.model_.parameters(), lr=self.lr)
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=self.lr,
+                                      weight_decay=self.weight_decay)
 
         if self.task == "classification":
             criterion = nn.CrossEntropyLoss()
@@ -421,7 +424,7 @@ def get_gru(input_dim, task="regression", **kwargs):
     model_kwargs.update({k: v for k, v in kwargs.items()
                          if k in ["hidden_dim", "n_layers", "dropout", "bidirectional"]})
     wrapper_kwargs = {k: v for k, v in kwargs.items()
-                      if k in ["lr", "epochs", "patience", "batch_size"]}
+                      if k in ["lr", "epochs", "patience", "batch_size", "weight_decay"]}
     return TemporalModelWrapper(GRUModel, model_kwargs, task=task, **wrapper_kwargs)
 
 
