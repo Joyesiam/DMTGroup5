@@ -1752,6 +1752,16 @@ def run_iter_152():
     )
     return card
 
+def run_iter_153():
+    """Merge appCat.other and appCat.unknown into a single variable."""
+    return run_full_pipeline(
+        iteration=153,
+        hypothesis="Merging appCat.other and appCat.unknown reduces noise from two semantically identical sparse categories.",
+        change_summary="appCat.other + appCat.unknown merged into appCat.other",
+        use_v6_cleaning=True, merge_other_unknown=True,
+        **BEST_BASE,
+    )
+
 
 # ============================================================
 # MAIN RUNNER
@@ -1775,11 +1785,11 @@ ITERATION_MAP = {
     # Phase 4: Evaluation
     146: run_iter_146, 147: run_iter_147, 148: run_iter_148, 149: run_iter_149,
     # Phase 5: Wrap-up
-    150: run_iter_150, 151: run_iter_151, 152: run_iter_152,
+    150: run_iter_150, 151: run_iter_151, 152: run_iter_152, 153: run_iter_153
 }
 
 
-def run_all(start=107, end=152):
+def run_all(start=107, end=153):
     """Run all iterations from start to end."""
     for i in range(start, end + 1):
         if i not in ITERATION_MAP:
@@ -1813,7 +1823,7 @@ if __name__ == "__main__":
         else:
             print(f"Iteration {args.only} not found. Available: {sorted(ITERATION_MAP.keys())}")
     elif args.phase:
-        phase_ranges = {1: (107, 113), 2: (114, 131), 3: (132, 145), 4: (146, 149), 5: (150, 152)}
+        phase_ranges = {1: (107, 113), 2: (114, 131), 3: (132, 145), 4: (146, 149), 5: (150, 153)}
         s, e = phase_ranges[args.phase]
         run_all(s, e)
     else:

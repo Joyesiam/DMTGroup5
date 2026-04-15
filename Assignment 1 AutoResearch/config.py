@@ -31,10 +31,16 @@ TARGET_COL = "target_mood"
 MOOD_VARS = ["mood"]
 SELF_REPORT_VARS = ["circumplex.arousal", "circumplex.valence"]
 SENSOR_VARS = ["activity", "screen", "call", "sms"]
+# APP_VARS = [
+#     "appCat.builtin", "appCat.communication", "appCat.entertainment",
+#     "appCat.finance", "appCat.game", "appCat.office", "appCat.other",
+#     "appCat.social", "appCat.travel", "appCat.unknown",
+#     "appCat.utilities", "appCat.weather",
+# ]
 APP_VARS = [
     "appCat.builtin", "appCat.communication", "appCat.entertainment",
     "appCat.finance", "appCat.game", "appCat.office", "appCat.other",
-    "appCat.social", "appCat.travel", "appCat.unknown",
+    "appCat.social", "appCat.travel",
     "appCat.utilities", "appCat.weather",
 ]
 ALL_VARS = MOOD_VARS + SELF_REPORT_VARS + SENSOR_VARS + APP_VARS

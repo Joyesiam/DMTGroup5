@@ -106,6 +106,7 @@ def run_full_pipeline(
     test_fraction: float = 0.2,
     n_holdout_patients: int = 5,
     seed: int = RANDOM_SEED,
+    merge_other_unknown: bool = False,
 ) -> dict:
     """
     Run complete pipeline: clean -> features -> models -> evaluate.

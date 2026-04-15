@@ -89,7 +89,7 @@ def add_morning_evening_mood(daily: pd.DataFrame) -> pd.DataFrame:
 
 SPARSE_APP_COLS = [
     "appCat.weather", "appCat.game", "appCat.finance",
-    "appCat.unknown", "appCat.office", "appCat.travel", "appCat.utilities",
+   "appCat.office", "appCat.travel", "appCat.utilities",
 ]
 
 
@@ -396,6 +396,15 @@ def group_app_categories(daily: pd.DataFrame) -> pd.DataFrame:
     print(f"    Grouped 12 app categories into 4 super-categories")
     return df
 
+def merge_other_unknown(daily: pd.DataFrame) -> pd.DataFrame:
+    """Merge appCat.unknown into appCat.other and drop appCat.unknown."""
+    df = daily.copy()
+    if "appCat.unknown" in df.columns:
+        df["appCat.other"] = df["appCat.other"].fillna(0) + df["appCat.unknown"].fillna(0)
+        df = df.drop(columns=["appCat.unknown"])
+        print("    Merged appCat.unknown into appCat.other")
+    return df
+
 
 def density_based_sparse_merge(daily: pd.DataFrame, threshold: float = 0.25) -> pd.DataFrame:
     """
@@ -546,6 +555,7 @@ def load_and_clean_v6(
     remove_negatives: bool = False,
     conditional_fill: bool = False,
     conditional_fill_min: int = 4,
+    merge_other_unknown: bool = False,
     save_path: Path = None,
 ) -> pd.DataFrame:
     """
@@ -620,6 +630,11 @@ def load_and_clean_v6(
     # v6: Density-based sparse merge (iter 108)
     if density_merge:
         daily = density_based_sparse_merge(daily, threshold=density_threshold)
+
+
+    # in the function body, after imputation:
+    if merge_other_unknown:
+        daily = merge_other_unknown(daily)
 
     # Drop sparse app categories
     if drop_sparse and not app_grouping:

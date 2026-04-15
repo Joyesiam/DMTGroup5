@@ -4,12 +4,20 @@ Monitors memory usage and raises an error before the system runs out.
 """
 import os
 import gc
-import resource
+# import resource
 import subprocess
+
+try:
+    import resource
+    HAS_RESOURCE = True
+except ImportError:
+    HAS_RESOURCE = False  # Windows — resource module not available
 
 
 def get_memory_info():
     """Get current memory usage of this process in MB."""
+    if not HAS_RESOURCE:
+        return 
     # ru_maxrss is in bytes on macOS
     usage_bytes = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     usage_mb = usage_bytes / (1024 * 1024)
@@ -45,6 +53,9 @@ def check_memory(label="", limit_mb=8000):
     Check if process memory exceeds limit. Log current usage.
     Returns current usage in MB.
     """
+
+    if not HAS_RESOURCE:
+        return 
     usage = get_memory_info()
     available = get_system_available_mb()
     if label:
