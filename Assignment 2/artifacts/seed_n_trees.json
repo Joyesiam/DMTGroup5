@@ -1,0 +1,6 @@
+{
+  "42": 291,
+  "123": 279,
+  "456": 375,
+  "_provenance": "iter_07_prior_features_score_sprint best_iteration values from the 80/10/10 phase (group-aware split on srch_id, fold_seed=42, alpha=20). Used for full-train deployment runs that produced submit_iter07_prior_3seed.csv (Kaggle public NDCG@5 = 0.39690)."
+}

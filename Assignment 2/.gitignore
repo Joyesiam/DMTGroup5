@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Data (never commit raw or processed)
+data/
+*.csv
+!results/submissions/*.csv
+!report/figures/*.csv
+*.parquet
+*.feather
+
+# Artifacts
+artifacts/models/
+artifacts/feature_maps/
+artifacts/final_predictions/
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+
+# LaTeX intermediates
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.pdf
+!report/scientific_report.pdf
+!report/process_report.pdf
+
+# Local secrets
+CLAUDE.local.md
+.env

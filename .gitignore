@@ -8,6 +8,13 @@ __pycache__/
 Assignment 1 AutoResearch/data/
 Assignment 1 AutoResearch/data_source
 
+# Internal tooling folders (not for project mates)
+Assignment 2 AutoResearch/
+
+# Build artifacts and duplicate snapshots
+Assignment_2_clean_submission*.zip
+Assignment_2/
+
 # OS
 .DS_Store
 Thumbs.db
