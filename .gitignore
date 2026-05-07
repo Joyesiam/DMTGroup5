@@ -18,6 +18,9 @@ Thumbs.db
 *.swp
 *.swo
 
+Assingment 2/Data/
+*.csv
+
 # Jupyter
 .ipynb_checkpoints/
 
