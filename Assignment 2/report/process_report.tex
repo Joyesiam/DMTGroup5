@@ -1,0 +1,187 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\title{Process Report: VU-DM-2026-Group-5}
+\author{Hendrico Burger \quad Hidde Franke \quad Joanne Pals}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\section*{Workflow and discipline}
+
+We worked through nine model-development stages, beginning with a
+bootstrap and EDA stage and progressing through anchor modelling,
+feature-hypothesis testing, model comparison and bias mitigation,
+ensemble extensions, the historical-prior model, and a final
+exploratory stage. Each stage changed one main element on the main
+branch, never two, and was preceded by a short written plan that
+listed scope, hypotheses, expected impact, and an acceptance
+criterion. Acceptance was decided by same-seed deltas on a locked
+holdout (sha256 prefix \texttt{bc8ea6f6}, 19{,}980 \texttt{srch\_id}
+queries, group-disjoint from train and validation), not by raw means
+against a moving anchor. Train-only columns were dropped before
+features were built; target encoding used 5-fold group K-fold on
+\texttt{srch\_id}, never train-test joint statistics. We pinned
+thread counts (\texttt{num\_threads=6}) and never used \texttt{-1}.
+Memory peaked under 10\,GB during training; the working laptop was
+usable throughout.
+
+\section*{Timeline}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Bootstrap and EDA stage (2026-05-06).} EDA on full
+    data plus a five percent stratified sample, locked holdout JSON
+    with sha256 \texttt{bc8ea6f6}, four heuristic baselines on the
+    locked holdout (random 0.1579, star 0.1949, price 0.1987,
+    location score 2 0.2836).
+\item \textbf{LambdaMART anchor stage (2026-05-06).} LightGBM
+    LambdaMART on the 49 raw-feature anchor, three seeds, mean
+    holdout NDCG@5 = 0.392667 with std 0.001070, three-seed
+    score-average 0.395289.
+\item \textbf{Feature-hypothesis stage (2026-05-06).} Five
+    hypothesis blocks: per-search normalisation features,
+    leave-one-out property priors, a mean-position proxy, negative
+    downsampling, and competitor and price-composite features. All
+    five rejected on same-seed delta against the anchor.
+\item \textbf{Model comparison and bias stage
+    (2026-05-06 to 2026-05-07).} Hyperparameter exploration
+    (label-gain variants, depth, learning rate) rejected;
+    documentation check confirmed that
+    \texttt{lambdarank\_unbiased} is not a parameter in
+    LightGBM 4.x. XGBoost \texttt{rank:ndcg} compared as a
+    sample-only second technique (LightGBM 0.329601 versus
+    XGBoost 0.356409 on the 5\,\% sample). Bias detection by
+    visitor country and by property popularity tertile;
+    post-processing exposure rerank with $\lambda = 0.20$
+    (global NDCG@5 drop 0.003090; medium and low tertile exposure
+    rise by 5.3 and 2.2 percentage points respectively).
+    Safe-baseline checkpoint and Kaggle upload
+    (\texttt{submit\_anchor\_3seed\_avg.csv}, public 0.39500),
+    version-control checkpoint
+    \texttt{final\_safe\_baseline\_public\_039500}.
+\item \textbf{Ensemble extension stage (2026-05-07).} Five-seed
+    extension (seeds 42, 123, 456, 789, 2026) holdout 0.397348;
+    with a post-hoc additive blend over per-search z-scored
+    signals holdout 0.398246. Kept as a local result, not
+    uploaded.
+\item \textbf{Diverse-ensemble stage (2026-05-07).} Diverse-config
+    LightGBM (depth 8, 63 leaves, learning rate 0.035,
+    $\lambda_2 = 10$, bag 0.85, feature 0.75) over 3 seeds,
+    weighted 0.60 anchor plus 0.40 diverse with the same blend,
+    holdout 0.399638. Manual Kaggle upload, public 0.39685.
+\item \textbf{Historical-prior stage (2026-05-07).} Twelve
+    leakage-safe historical priors over \texttt{prop\_id},
+    \texttt{srch\_destination\_id}, and the pair, with K-fold
+    encoding. Three-seed score-average holdout 0.400682 (first
+    local result above 0.4). Manual Kaggle upload, public
+    0.39690 (final selected submission).
+\item \textbf{Final exploratory stage (2026-05-07).} A
+    pre-specified rank blend over weight sets W0--W6 reached
+    holdout 0.401482 at its maximum but we did not select it; the
+    conservative pick at 0.400453 was also not uploaded. A fourth
+    prior block keyed by
+    \texttt{(prop\_id, visitor\_location\_country\_id)} gave a
+    same-seed delta of $+0.000745$, below the $+0.0010$ extension
+    threshold, and was rejected.
+\item \textbf{Finalisation stage (2026-05-07).} Clean folder
+    \texttt{Assignment~2/} produced from the working folder:
+    structure plus notebook outlines; figure generation from
+    cached parquet and earlier report card JSON; scientific and
+    process report drafts; verified Bellucci 2021 citation; final
+    read-through and submission package.
+\end{itemize}
+
+\section*{Critical reflection}
+
+The most important lesson is the local-to-public shrinkage we
+observed: the public-versus-local gap moved from $+0.000289$
+(safe baseline) to $-0.002788$ (diverse ensemble) to $-0.003782$
+(final submission). Each individual decision was leakage-safe, but
+the cumulative search budget on a fixed locked holdout inflated
+expected public gains. The conservative choice in the final
+exploratory stage (not uploading the holdout-max blend, keeping the
+simpler historical-prior 3-seed model as the headline) is our
+explicit response to this: we treated holdout NDCG@5 as a selection
+signal that loses calibration over many stages and preferred the
+candidate whose simplicity reduced the reasoning chain.
+
+A second lesson is the importance of feature provenance: every
+feature in the final pipeline traces back to a primary source or
+to a verified leakage-safety argument, and each rejected feature
+has an experiment record documenting the same-seed delta. This
+made it cheap to discard hypotheses without lingering doubt.
+
+\section*{Tooling and process}
+
+\textbf{Documentation.} Short Markdown files in the working folder
+track state across sessions: current status, prioritised work,
+accept/reject decisions, durable lessons, pitfalls, report-worthy
+claims, and a session-by-session timeline that this report draws
+on. Each stage also appends a row to a structured CSV log of
+experiments, and each public leaderboard upload is recorded on the
+same row.
+
+\textbf{Version-control checkpoints.} Each accepted milestone is
+captured by a git commit and tag, beginning with a checkpoint at
+the safe baseline submission, followed by a local-only checkpoint
+after the five-seed blend, a checkpoint after the diverse ensemble
+submission, and a checkpoint after the historical-prior submission.
+We preserved versioned outputs (the three uploaded submission
+CSVs and the relevant per-stage JSON summaries) by sha256 between
+sessions and re-verified them at the start and end of each working
+session.
+
+\textbf{Leaderboard usage.} We treated the public leaderboard
+strictly as an external check, not as a tuning signal. We uploaded
+three submissions in total over the project (safe baseline,
+diverse ensemble, historical-prior submission). The final
+exploratory stage produced two candidate CSVs that we deliberately
+did not upload, both because the holdout-max selection was the
+wrong move under our shrinkage observation and because
+public-leaderboard tuning was outside our chosen protocol.
+
+\section*{Task division}
+
+The work was a collaborative effort and most steps were
+cross-reviewed. The lead-contributor split below reflects who
+drove each thread day to day.
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Hidde Franke}: project orchestration, the staged
+    development plan, the LightGBM modelling track from the
+    LambdaMART anchor stage through the historical-prior stage,
+    the leakage-safe prior encoding, ensembling, the three Kaggle
+    uploads, the clean folder and \texttt{src/} pipeline, and
+    report assembly.
+\item \textbf{Hendrico Burger}: EDA support and figure inspection,
+    feature-engineering review and ablation sanity checks within
+    the feature-hypothesis stage, validation of same-seed deltas
+    and the locked holdout, and process documentation across the
+    development stages.
+\item \textbf{Joanne Pals}: the bias and deployment thread within
+    the model comparison and bias stage, fairness interpretation
+    including the popularity-tertile rerank with $\lambda = 0.20$,
+    scientific and process report editing, and process report
+    review.
+\end{itemize}
+
+\section*{Reproducibility}
+
+The clean folder \texttt{Assignment~2/} contains the deliverable
+code under \texttt{src/}, the explanatory notebooks under
+\texttt{notebooks/}, and the final submission CSV in
+\texttt{results/}. The locked holdout JSON, its sha256 hash, and
+the per-seed best-iteration values are in \texttt{artifacts/}. The
+command \texttt{python src/pipeline.py --train --predict}
+reproduces the final submission from the processed parquet files;
+thread counts are pinned and we never use $-1$.
+\texttt{python src/pipeline.py --validate
+results/submit\_iter07\_prior\_3seed.csv} validates the included
+submission CSV without retraining.
+
+\end{document}
