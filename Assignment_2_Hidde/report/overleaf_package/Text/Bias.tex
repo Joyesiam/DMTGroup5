@@ -1,0 +1,37 @@
+% !TEX root = ../main.tex
+
+\subsection{Setup}
+
+Marketplace rankers are a textbook setting for exposure feedback loops: items that historically receive impressions accumulate clicks and bookings, which become the training signal for the next model, which exposes them again. Singh and Joachims~\cite{singh2018fairness} formalise this as a fairness-of-exposure problem and recommend pairing two metrics: the share of top-$k$ positions a segment occupies (exposure@$k$) and the conditional NDCG within that segment. We use exactly that pairing on two segmentations. First, a popularity tertile of \texttt{prop\_id} by impression count on the train slice, with low ($\leq 5$ impressions), medium (6 to 22), and high ($\geq 23$). Second, the top-10 countries by impression share plus a tail bucket. Segment definitions are computed from the train slice only, so the audit data (holdout) is not used to define the segments.
+
+\subsection{Audit results}
+
+The popularity dimension carries the headline disparity, but in an unexpected direction (Fig.~\ref{fig:audit}, right). Conditional NDCG@5 is in fact slightly higher for low-popularity hotels (0.443) than for the high tertile (0.412), because long-tail relevance tends to be concentrated in a small number of unambiguous picks per search. The bias therefore does not surface as a quality disparity. Instead, it surfaces as an exposure disparity: searches with a high-tertile positive have 96.8\% of their top-five slots filled by high-tertile items, while searches with low-tertile positives have only 67.7\%. This is the gap we target with the rerank. The country audit (Fig.~\ref{fig:audit}, left) is comparatively muted, with most supported segments within 0.01 of the global NDCG@5 of 0.41521 and one outlier (\texttt{prop\_country\_id} = 99) at $-0.057$. The exposure shares for all supported country segments sit between 99.5\% and 100\%, leaving no meaningful country-level lever for the rerank.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{bias_audit.png}
+\caption{Bias audit on the locked holdout. Left, conditional NDCG@5 per supported country segment relative to the global value (dashed line). Right, per-tertile conditional NDCG@5 (blue) and top-five exposure share (orange); the popularity bias surfaces in exposure rather than in conditional NDCG.}
+\label{fig:audit}
+\end{figure}
+
+\subsection{Inference-time exposure rerank}
+
+The mitigation introduces a single regularisation strength $\lambda$ that controls an additive popularity-tertile boost applied to the blended score after sorting:
+\[ s'(i) = s(i) + \lambda \cdot \bigl(-\log P_t(i)\bigr), \]
+where $P_t(i)$ is the val-baseline top-five exposure of the tertile of item $i$, computed on val to keep the holdout untouched. Following the discipline of selecting on val with the holdout untouched, we sweep $\lambda \in \{0, 0.01, 0.02, 0.05, 0.10, 0.20\}$ on val and apply a pre-specified rule: pick the largest $\lambda$ with val NDCG@5 drop at most 0.005 AND val top-five exposure for both the low and medium tertiles strictly improved. The 0.005 tolerance is a fairness-versus-accuracy contract chosen before the sweep is run; it cannot be retuned after seeing the numbers. The selected value is $\lambda = 0.20$.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{bias_mitigation.png}
+\caption{Holdout effect of the val-tuned exposure rerank at $\lambda = 0.20$. Left, per-tertile NDCG@5 before (blue) versus after (orange) with delta annotations. Middle, per-tertile top-five exposure share. Right, val lambda sweep showing that all three exposure curves are nearly flat across the grid, which is why the rerank effect is modest at the chosen lambda.}
+\label{fig:mitig}
+\end{figure}
+
+On the locked holdout (Fig.~\ref{fig:mitig}, left and middle) the rerank produces small but directionally consistent changes. The medium tertile is the clearest mover: conditional NDCG@5 rises by 0.0089 and top-five exposure by 0.0137. The low tertile is essentially unchanged (NDCG +0.0011, exposure -0.0002). The high tertile loses a small amount on both metrics ($-$0.0016 NDCG, $-$0.0044 exposure). The global NDCG@5 cost is 0.0002, well within the 0.005 fairness tolerance set in advance.
+
+\subsection{Why the mitigation effect is modest}
+
+The magnitude of these effects is smaller than one might expect from a fairness rerank, and the reason is informative. The Optuna-tuned LightGBM configuration uses aggressive L2 regularisation (\texttt{lambda\_l2} = 65.3) and a tight \texttt{feature\_fraction} of 0.56, which together force the model to rely less on raw \texttt{prop\_id} memorisation and more on the leakage-safe historical priors. Inspecting the audit shows that, as a side effect, this tuned configuration already produces substantially more equitable top-five exposure than an untuned LambdaRank baseline would, with medium-tertile and low-tertile exposures of 65.5\% and 67.7\% rather than the 20\% to 30\% range typically reported in the literature on similar marketplaces. The rerank has less imbalance to redistribute on this model than it would on a baseline.
+
+Even with that ceiling, the rerank remains a useful deployment lever. It runs entirely at inference time at the cost of one additive lookup per scored item; $\lambda$ can be re-tuned on a validation slice without touching the trained model; and a fairness team can dial the accuracy-fairness trade-off on a contract basis without retraining anything.

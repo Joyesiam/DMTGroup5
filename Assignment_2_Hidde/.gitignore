@@ -30,7 +30,7 @@ report/*.toc
 
 # Large CSV outputs except the final submission
 results/*.csv
-!results/submission.csv
+!results/submission*.csv
 
 # OS junk
 .DS_Store

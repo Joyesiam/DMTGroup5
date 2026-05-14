@@ -1,0 +1,76 @@
+\documentclass[pdflatex,sn-vancouver-num]{sn-jnl}
+
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage[title]{appendix}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{manyfoot}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{makecell}
+
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\graphicspath{{Figures/}}
+
+\theoremstyle{thmstyleone}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{thmstyletwo}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{thmstylethree}
+\newtheorem{definition}{Definition}
+
+\raggedbottom
+
+\begin{document}
+
+\title[Learning-to-Rank for Expedia Hotel Search]{A Notebook-Driven Learning-to-Rank Pipeline for the Expedia Personalised Hotel Search Task}
+
+\author[1]{\fnm{Hidde} \sur{Franke (2840386)}}
+
+\affil[1]{\orgdiv{Data Mining Techniques Group 5}, \orgname{VU Amsterdam}, \country{Netherlands}}
+
+\abstract{The Expedia Personalised Hotel Searches dataset, introduced at ICDM 2013 and reused as the second assignment of the VU MSc Data Mining Techniques course, asks the model to order the candidate hotels of each search so that booked and clicked properties surface near the top. This report describes a fully reproducible pipeline that takes the raw five million row CSV files through exploration, cleaning, feature engineering, two-model hyperparameter tuning, locked-holdout evaluation, and a deployment-time fairness rerank. The feature set of 69 columns is motivated by published work on this dataset: 4 within-search relativisations following Wang and Kalousis, and 12 leakage-safe historical priors built with 5-fold out-of-fold target encoding following Bellucci et al. Both LightGBM LambdaRank and XGBoost \texttt{rank:ndcg} are tuned with 50 Optuna TPE trials on a locked validation slice. A weighted blend of the three-seed LightGBM ensemble and a single XGBoost model reaches NDCG@5 = 0.41521 on a 19{,}980-search locked holdout and NDCG@5 = 0.41706 on the Kaggle public leaderboard, slightly above the holdout estimate. A popularity-tertile audit reveals an exposure imbalance even though conditional NDCG@5 is in fact higher for the low-popularity tail; a val-tuned additive inference-time rerank lifts medium-tertile NDCG by 0.009 and exposure by 0.014 at a global NDCG cost of 0.0002.}
+
+\keywords{Learning-to-rank, LambdaMART, Target encoding, Hyperparameter optimisation, Fairness of exposure}
+
+\maketitle
+
+\section{Introduction}\label{sec:introduction}
+\input{Text/Introduction.tex}
+
+\section{Data and Feature Engineering}\label{sec:data}
+\input{Text/Data.tex}
+
+\section{Models, Tuning, and Blend}\label{sec:models}
+\input{Text/Models.tex}
+
+\section{Holdout Evaluation}\label{sec:eval}
+\input{Text/Evaluation.tex}
+
+\section{Bias Detection and Mitigation}\label{sec:bias}
+\input{Text/Bias.tex}
+
+\section{Final Pipeline and Kaggle Result}\label{sec:final}
+\input{Text/FinalPipeline.tex}
+
+\section{Discussion and Conclusion}\label{sec:disc}
+\input{Text/Discussion.tex}
+
+\bibliography{sn-bibliography}
+
+\end{document}

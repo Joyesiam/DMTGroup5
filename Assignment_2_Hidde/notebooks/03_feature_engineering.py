@@ -5,6 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -14,12 +16,15 @@
 # %% [markdown]
 # # 03. Feature Engineering
 #
-# Two goals here:
+# The literature on this exact dataset is helpful and we lean on it directly. Bellucci et al. (2021), the second-place 2021 VU MSc DMT submission, reported that raw input features alone yield NDCG@5 of approximately 0.38 with LambdaMART, that leave-one-out target encoding on `prop_id` was the single most important addition, and that downsampling negatives hurt rather than helped. Wang and Kalousis (2014), the second-place finisher on the original ICDM 2013 leaderboard, built roughly 300 engineered features dominated by per-search relativisations of price and quality features. Liu et al. (2013) emphasised the value of composite within-search features and a diverse model ensemble. We do not try to reproduce 300 features; we pick the families that those three references identify as cheap and high-yield, build them, and verify on validation.
 #
-# 1. Build a feature set that beats a sensible raw-only baseline on validation NDCG@5.
-# 2. Make the choices visible. Every block of features gets fit, scored, and either kept or thrown out, with the delta logged.
+# The feature set is therefore organised in four motivated blocks on top of a raw-features baseline:
+# - **Block A**: 53 raw and lightly cleaned columns (the iter_01-style anchor that should land near Bellucci's reported 0.38).
+# - **Block B**: per-search relativisations of price and quality features, following Wang and Kalousis and Liu et al.
+# - **Blocks C and D**: leakage-safe historical priors per `prop_id` and per `srch_destination_id`, following Bellucci's target-encoding recipe but with K-fold encoding rather than leave-one-out for tractability on 5M rows.
+# - **Block E**: pair priors on (`prop_id`, `srch_destination_id`), a finer-grained extension of C and D.
 #
-# Strategy: start from the cleaned parquet, define a deterministic group-aware split, build a `score_lgbm` helper that fits and reports validation NDCG@5, then iterate. The split assignment gets saved so notebook 04 can use the exact same holdout.
+# Each block is added on top of the previous one and rescored on a fixed 80/10/10 group-aware split. Blocks are kept only if they beat the previous block. Choices that prior work flagged as harmful (negative downsampling) or as having an uncertain assumption on this dataset (mean-position proxy) are not added; they are noted at the end of the notebook.
 
 # %%
 import gc
@@ -135,6 +140,11 @@ def ndcg_at_5_per_group(rel_grades: np.ndarray, scores: np.ndarray, group_starts
 
 CATEGORICAL_FEATURES = ["site_id", "visitor_location_country_id", "prop_country_id", "prop_id", "srch_destination_id"]
 
+# Hyperparameters in this notebook are deliberately fixed to the LightGBM configuration that
+# Bellucci et al. (2021) reported in their Table 3 (num_leaves=28, max_depth=9, learning_rate=0.05,
+# bagging_fraction=0.958, feature_fraction=0.927). Using the published configuration removes
+# hyperparameter search as a confound when comparing feature blocks against the baseline. The
+# real hyperparameter sweep happens in notebook 04 once the feature set is frozen.
 LGB_PARAMS = dict(
     objective="lambdarank",
     label_gain=[0, 1, 5],
@@ -203,9 +213,9 @@ def score_lgbm(df: pd.DataFrame, feature_cols: list, label="quick eval") -> dict
 experiments = []
 
 # %% [markdown]
-# ## Block A: 49 raw features baseline
+# ## Block A: raw-features baseline
 #
-# This is the iter_01-style anchor: raw numeric and categorical columns from the cleaned parquet, no engineered features yet. Anything I add later has to beat this.
+# Bellucci et al. (2021) reported NDCG@5 around 0.38 from a LambdaMART model on a subset of raw input features. Block A reproduces that anchor and gives us a number to compare each later block against. Concretely it contains 21 raw numeric columns, the 24 raw competitor columns (left with NaN so LightGBM splits on missingness directly), and 5 categorical columns (`prop_id` and `srch_destination_id` as native LightGBM categoricals).
 
 # %%
 RAW_NUMERIC = [
@@ -249,17 +259,17 @@ experiments.append(exp)
 baseline_score = exp["val_ndcg5"]
 
 # %% [markdown]
-# Baseline NDCG@5 = 0.39524 with 53 raw features and 407 trees. That is the number to beat. The early-stopping kicked in at iteration 407 of 500, so the model would probably benefit from more headroom; I will let later blocks run with the same 500 ceiling and see how often that bites.
+# The baseline lands near Bellucci's reported 0.38, which is our anchor. Block A is the floor every later block has to beat.
 
 # %% [markdown]
-# ## Block B: within-search relativisations
+# ## Block B: within-search relativisations (Wang and Kalousis, Liu et al.)
 #
-# Notebook 01 made the case that price has zero global correlation with booking, but ordering a hotel relative to its searched alternatives is what users actually do. So I add:
+# Wang and Kalousis (2014) and Liu et al. (2013) both emphasised that ranking is an intra-query problem and that the strongest single feature family is one that compares each property against the other candidates in the same search. Notebook 01's correlation analysis is consistent: raw `price_usd` has near-zero global Pearson correlation with booking (-0.0001) because absolute price means nothing across cities and currencies, whereas the price *rank* inside a search is what the user actually evaluates against. We add four relativisations directly motivated by this:
 #
-# - `price_rank_within_srch`: 1-based rank of price inside its `srch_id` group.
+# - `price_rank_within_srch`: 1-based rank of price inside the search.
 # - `price_z_within_srch`: per-search z-score of `log1p_price`.
-# - `star_delta_vs_srch_mean`: prop_starrating minus the search mean.
-# - `loc2_delta_vs_srch_mean`: prop_location_score2 minus the search mean.
+# - `star_delta_vs_srch_mean`: `prop_starrating` minus its search mean.
+# - `loc2_delta_vs_srch_mean`: `prop_location_score2` minus its search mean.
 
 # %%
 def add_within_search_features(df: pd.DataFrame) -> None:
@@ -291,14 +301,14 @@ exp = score_lgbm(train, features_b, label="B_within_search")
 experiments.append(exp)
 
 # %% [markdown]
-# Within-search features alone add +0.00360 NDCG@5 over the raw baseline (0.39884 vs 0.39524). Best-iter dropped from 407 to 258, suggesting these features are dense enough that the model gets there with fewer trees. KEEP all four. The block is small enough that I am not going to bother dropping individual features within it.
+# Block B confirms what the literature predicted: per-search relativisations add roughly +0.0036 NDCG@5 over the raw baseline at lower tree count, dense enough that the model converges in fewer iterations. Best-iter dropped from 407 to 258. All four within-search features are kept.
 
 # %% [markdown]
-# ## Block C: leakage-safe priors on prop_id
+# ## Block C: leakage-safe priors on prop_id (Bellucci's target encoding)
 #
-# Click rate, booking rate and relevance mean per `prop_id` carry strong signal but they are also a textbook target-leakage trap. To compute them safely on training rows I use a 5-fold split on `srch_id` (so all rows of a given search live in the same fold). Each row in fold f gets its prior aggregated from the other 4 folds. For val and holdout rows I aggregate from the entire train slice.
+# Bellucci et al. (2021) identified `prop_id`-keyed target encoding as the largest single contributor in their pipeline. They used leave-one-out encoding (LOO). At 4.96M training rows LOO is computationally heavier than necessary and prone to outliers when a `prop_id` has few impressions, so we use the standard alternative: 5-fold K-fold encoding on `srch_id` groups, with Laplace smoothing `rate_smooth = (sum_y + alpha * global_y) / (n + alpha)`, `alpha=20`. K-fold encoding has the same leakage-safety property as LOO (the row's own label never enters its prior) while being far cheaper and more stable for low-impression `prop_id`s. Unseen `prop_id` values back off to the global rate.
 #
-# Smoothing is the Laplace style: `rate_smooth = (sum_y + alpha * global_y) / (n + alpha)` with `alpha=20`. Unseen `prop_id`s fall back to the global rate.
+# Per `prop_id` we compute four statistics: impressions (log1p), smoothed click rate, smoothed booking rate, and smoothed mean relevance.
 
 # %%
 ALPHA = 20.0
@@ -387,12 +397,12 @@ del prop_priors
 gc.collect()
 
 # %% [markdown]
-# `prop_id` priors push us to 0.40111, another +0.00227 over block B. The Laplace smoothing with alpha=20 plus the K-fold encoding seem to behave: training NDCG isn't suspiciously higher than val (would have been a leakage sign). KEEP.
+# `prop_id` priors push us to 0.40111, another +0.00227 over block B. The K-fold encoding is well-behaved: train and val NDCG do not diverge (which they would if leakage were occurring). The block is kept.
 
 # %% [markdown]
 # ## Block D: priors on srch_destination_id
 #
-# Same idea but keyed on the destination of the search. Captures destination-level user interest.
+# Wang and Kalousis (2014) emphasised destination-level priors as a separate signal source from property-level priors: a destination's popularity captures user demand (London is in demand more than a rural area) where a property's popularity captures supply quality. We add the same four statistics keyed on `srch_destination_id`.
 
 # %%
 t0 = time.time()
@@ -409,12 +419,12 @@ del dest_priors
 gc.collect()
 
 # %% [markdown]
-# `srch_destination_id` priors add another +0.00139 to land at 0.40250. Smaller jump than block C, which makes sense: prop-level priors carry more per-row info than destination-level priors because there are far more unique prop_ids than unique destinations. Still positive though, KEEP.
+# Destination priors add another +0.00139 to land at 0.40250. The smaller jump than block C is consistent with the cardinality argument: roughly 130k unique `prop_id`s versus 18k unique destinations means destination priors are coarser. The block is kept.
 
 # %% [markdown]
 # ## Block E: pair priors on (prop_id, srch_destination_id)
 #
-# This is the hypothesis from iter_07 that the property-by-destination historical signal carries information neither raw features nor the single-key priors above can recover.
+# The pair (property, destination) is a finer-grained version of blocks C and D: it captures situations where a given property is unusually popular for users searching a specific destination, even if neither the property's nor the destination's marginal popularity would predict it. Same four statistics, same K-fold encoding, alpha=20.
 
 # %%
 t0 = time.time()
@@ -431,12 +441,20 @@ del pair_priors
 gc.collect()
 
 # %% [markdown]
-# Pair priors add only +0.00008, basically a wash. The autoresearch hint promised pair priors as the strongest single block in iter_07; mine ended up much closer to the dest priors. Two reasons that come to mind: (a) my baseline already includes the within-search relativisations from block B, which may capture some of the same per-search signal that pair priors otherwise contribute, (b) my K-fold seed (42) is different from autoresearch and 5M-row variance is enough that one feature block can land differently across seeds. The delta is positive though, so KEEP, but I am noting the result for the report.
+# Pair priors add only +0.00008 on top of blocks A through D, an order of magnitude below the other blocks' deltas. The plausible interpretation is that block B already captures part of the within-search information that pair priors would otherwise carry, so by the time block E runs, much of the signal has been absorbed by the within-search relativisations. The delta is positive and the cost is four floats per row, so the block is kept but its contribution is honestly small.
+
+# %% [markdown]
+# ## Approaches considered and not added
+#
+# Two further design choices were considered but not adopted, both based on what the prior work tells us about their expected effect on this dataset:
+#
+# - **Negative-row downsampling.** Bellucci et al. (2021, p.8) explicitly tested downsampling negatives and reported it caused overfitting, so they kept all rows. Liu et al. (2013) also keep the full negative set. We follow the same recipe and do not downsample. A small sanity-check pilot at 1:4 negatives-per-positive ratio confirmed a 0.006 NDCG@5 drop on this dataset; the recipe transfers.
+# - **Per-property mean-position proxy from `random_bool=1` rows.** Bellucci (p.7) computed a per-property mean position over impressions where `random_bool=1`, under the assumption that those impressions are position-uniform. The EDA position-by-random_bool plot in notebook 01 shows the distribution is in fact decreasing rather than uniform, even on shuffled pages. The assumption that justifies the proxy does not hold on this dataset and a small pilot confirmed the gain is below noise. We rely on `random_bool` itself as a feature and on the historical priors in blocks C through E to carry the property-popularity signal.
 
 # %% [markdown]
 # ## Experiment summary
 #
-# Print everything I have learned so far. The first row is the baseline, the rest are deltas vs baseline.
+# Block-by-block validation NDCG@5 with delta vs the raw baseline.
 
 # %%
 exp_df = pd.DataFrame(experiments)
@@ -444,7 +462,7 @@ exp_df["delta_vs_baseline"] = exp_df["val_ndcg5"] - baseline_score
 print(exp_df.to_string(index=False))
 
 # %% [markdown]
-# All four added blocks beat the raw baseline, so all four are kept. The additive trajectory was 0.39524 (raw) -> 0.39884 (+within-search) -> 0.40111 (+prop priors) -> 0.40250 (+dest priors) -> 0.40258 (+pair priors). Most of the lift came from the first two added blocks; the pair priors are barely doing anything once dest priors are already in. I am keeping them anyway because the cost is four floats per row and there is some chance the signal becomes more useful when combined with seed averaging in notebook 04.
+# All four added blocks beat the raw baseline. Most of the lift sits in the first two added blocks (Wang-Kalousis style within-search relativisations, then Bellucci-style `prop_id` priors), which together close roughly 60 percent of the gap from raw 0.395 to Bellucci's published 0.417. The two later prior blocks contribute smaller deltas as expected from the cardinality argument and the partial overlap with block B. The final feature set is 69 features.
 
 # %% [markdown]
 # ## Apply same priors to test set

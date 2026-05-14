@@ -5,6 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -187,13 +189,30 @@ print(f"queries: {len(group_sizes):,}")
 print(f"min={group_sizes.min()}, median={group_sizes.median()}, "
       f"mean={group_sizes.mean():.1f}, max={group_sizes.max()}")
 
-fig, ax = plt.subplots(figsize=(9, 4))
-group_sizes.clip(upper=60).hist(bins=60, ax=ax)
-ax.set_xlabel("hotels per search (clipped at 60)")
+p50 = float(group_sizes.median())
+p95 = float(group_sizes.quantile(0.95))
+p99 = float(group_sizes.quantile(0.99))
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+ax = axes[0]
+sns.histplot(group_sizes.clip(upper=45), bins=40, ax=ax, color="#4878d0", edgecolor="white")
+ax.axvline(p50, color="black", linestyle="--", linewidth=1, label=f"median = {p50:.0f}")
+ax.axvline(p95, color="#c44e52", linestyle="--", linewidth=1, label=f"p95 = {p95:.0f}")
+ax.set_xlabel("hotels per search")
 ax.set_ylabel("number of searches")
 ax.set_title("Distribution of search-page sizes")
+ax.legend(loc="upper left")
+ax = axes[1]
+ecdf = group_sizes.sort_values()
+y = np.linspace(0, 1, len(ecdf), endpoint=False)
+ax.plot(ecdf.values, y, color="#4878d0")
+ax.axhline(0.5, color="black", linestyle=":", linewidth=0.8)
+ax.axvline(p50, color="black", linestyle="--", linewidth=1, label=f"median = {p50:.0f}")
+ax.set_xlabel("hotels per search")
+ax.set_ylabel("cumulative share of searches")
+ax.set_title("Search-page size ECDF")
+ax.legend(loc="lower right")
 plt.tight_layout()
-plt.savefig(FIG_DIR / "eda_group_sizes.png", dpi=110)
+plt.savefig(FIG_DIR / "eda_group_sizes.png", dpi=150)
 plt.show()
 
 # %% [markdown]
@@ -211,12 +230,27 @@ print(f"{len(miss)} columns with at least one missing value")
 miss.head(20)
 
 # %%
-fig, ax = plt.subplots(figsize=(8, max(4, 0.32 * len(miss))))
-miss.iloc[::-1].plot.barh(ax=ax, color="#4878d0")
+def miss_group(col: str) -> str:
+    if col.startswith("comp"):
+        return "competitor block"
+    if col.startswith("visitor_hist"):
+        return "visitor history"
+    if col in {"srch_query_affinity_score", "orig_destination_distance"}:
+        return "query/origin"
+    return "other"
+
+
+miss_top = miss.head(30).iloc[::-1]
+group_colors = {"competitor block": "#4878d0", "visitor history": "#dd8452", "query/origin": "#55a868", "other": "#999999"}
+colors_top = [group_colors[miss_group(c)] for c in miss_top.index]
+fig, ax = plt.subplots(figsize=(8.5, 6.5))
+ax.barh(miss_top.index, miss_top.values, color=colors_top)
 ax.set_xlabel("fraction missing")
-ax.set_title("Missing value rate by column (train)")
+ax.set_title("Missing value rate by column (train, top 30)")
+handles = [plt.Rectangle((0, 0), 1, 1, color=c) for c in group_colors.values()]
+ax.legend(handles, group_colors.keys(), loc="lower right")
 plt.tight_layout()
-plt.savefig(FIG_DIR / "eda_missingness.png", dpi=110)
+plt.savefig(FIG_DIR / "eda_missingness.png", dpi=150)
 plt.show()
 
 # %% [markdown]
@@ -297,24 +331,36 @@ quality_cols = [
     "prop_review_score",
     "prop_location_score1",
     "prop_location_score2",
+    "prop_brand_bool",
+    "prop_log_historical_price",
     "promotion_flag",
     "price_usd",
+    "srch_length_of_stay",
+    "srch_booking_window",
+    "srch_adults_count",
 ]
-sample = train[quality_cols + ["booking_bool", "click_bool"]].sample(
-    1_000_000, random_state=42
-)
-corr = sample.corr(numeric_only=True)["booking_bool"].drop(["booking_bool", "click_bool"])
-corr = corr.sort_values()
-print(corr)
+sample = train[quality_cols + ["booking_bool", "click_bool"]].sample(1_000_000, random_state=42)
+sample["relevance"] = 5 * sample["booking_bool"] + 1 * (sample["click_bool"] & ~sample["booking_bool"].astype(bool))
+sample["log1p_price"] = np.log1p(sample["price_usd"].clip(lower=0))
 
-# %%
-fig, ax = plt.subplots(figsize=(7, 4))
-corr.plot.barh(ax=ax, color="#4878d0")
-ax.set_title("Pearson corr with booking_bool (1M sample)")
+corr_targets = sample.corr(numeric_only=True)[["click_bool", "booking_bool", "relevance"]]
+corr_targets = corr_targets.drop(["click_bool", "booking_bool", "relevance"]).sort_values("relevance")
+print(corr_targets)
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+ax = axes[0]
+sns.heatmap(corr_targets, annot=True, fmt=".3f", cmap="RdBu_r", center=0, vmin=-0.10, vmax=0.10, ax=ax, cbar_kws={"label": "Pearson r"})
+ax.set_title("Per-feature correlation with click, booking, relevance")
+ax.set_xlabel("")
+
+feature_subset = ["prop_starrating", "prop_review_score", "prop_location_score1", "prop_location_score2", "prop_log_historical_price", "log1p_price", "promotion_flag"]
+ax = axes[1]
+sns.heatmap(sample[feature_subset].corr(), annot=True, fmt=".2f", cmap="RdBu_r", center=0, vmin=-1, vmax=1, ax=ax, cbar_kws={"label": "Pearson r"})
+ax.set_title("Quality and price feature correlations")
 plt.tight_layout()
-plt.savefig(FIG_DIR / "eda_corr_booking.png", dpi=110)
+plt.savefig(FIG_DIR / "eda_corr_booking.png", dpi=150)
 plt.show()
-del sample, corr
+del sample, corr_targets
 gc.collect()
 
 # %% [markdown]

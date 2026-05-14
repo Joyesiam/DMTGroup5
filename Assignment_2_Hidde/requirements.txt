@@ -11,3 +11,4 @@ psutil>=5.9
 jupyter>=1.0
 jupytext>=1.16
 nbconvert>=7.16
+optuna>=3.6

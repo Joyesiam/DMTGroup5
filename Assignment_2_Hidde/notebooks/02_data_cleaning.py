@@ -5,6 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -25,9 +27,11 @@ import time
 import warnings
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import psutil
+import seaborn as sns
 
 warnings.filterwarnings("ignore", category=RuntimeWarning, message="Mean of empty slice")
 
@@ -35,6 +39,9 @@ PROJECT_ROOT = Path.cwd().parent if Path.cwd().name == "notebooks" else Path.cwd
 RAW_DIR = PROJECT_ROOT / "data" / "raw"
 PROC_DIR = PROJECT_ROOT / "data" / "processed"
 PROC_DIR.mkdir(parents=True, exist_ok=True)
+FIG_DIR = PROJECT_ROOT / "results" / "figures"
+FIG_DIR.mkdir(parents=True, exist_ok=True)
+sns.set_theme(style="whitegrid", context="notebook")
 
 TRAIN_RAW = RAW_DIR / "training_set_VU_DM.csv"
 TEST_RAW = RAW_DIR / "test_set_VU_DM.csv"
@@ -103,7 +110,29 @@ for df in (train, test):
 print(train[["price_usd", "log1p_price"]].describe(percentiles=[0.5, 0.9, 0.99]))
 
 # %% [markdown]
-# log1p price now sits between 0 and around 16, which is a much friendlier range for any follow-up arithmetic (within-search z-scores, differences against `prop_log_historical_price`, and so on).
+# log1p price now sits between 0 and around 16, which is a much friendlier range for any follow-up arithmetic (within-search z-scores, differences against `prop_log_historical_price`, and so on). The pair of histograms below shows the before-and-after on a 1M-row sample.
+
+# %%
+sample = train["price_usd"].sample(1_000_000, random_state=42)
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+ax = axes[0]
+sns.histplot(sample.clip(upper=800), bins=80, ax=ax, color="#c44e52", edgecolor="white")
+ax.axvline(sample.median(), color="black", linestyle="--", linewidth=1, label=f"median = {sample.median():.0f} USD")
+ax.set_xlabel("price_usd, clipped at 800")
+ax.set_title("price_usd before transformation")
+ax.legend(loc="upper right")
+ax = axes[1]
+log_sample = np.log1p(sample)
+sns.histplot(log_sample, bins=80, ax=ax, color="#4878d0", edgecolor="white")
+ax.axvline(log_sample.median(), color="black", linestyle="--", linewidth=1, label=f"median = {log_sample.median():.2f}")
+ax.set_xlabel("log1p(price_usd)")
+ax.set_title("log1p(price_usd) after transformation")
+ax.legend(loc="upper right")
+plt.tight_layout()
+plt.savefig(FIG_DIR / "cleaning_price_log_transform.png", dpi=150)
+plt.show()
+del sample, log_sample
+gc.collect()
 
 # %% [markdown]
 # I am NOT clipping or winsorising `price_usd` here. The plan from notebook 01 was to test winsorise vs log vs raw on a small sanity ranker; I will run that comparison in notebook 03 once the feature set is in place, because the choice depends on what other features are around. For now both columns survive into the parquet.

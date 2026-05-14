@@ -5,6 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.1
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -14,9 +16,17 @@
 # %% [markdown]
 # # 06. Final Pipeline and Submission
 #
-# Notebook 04 reported best-iteration counts per seed and a chosen blend weight between the LightGBM 3-seed ensemble and XGBoost rank. For the actual submission I want to fit on the full training data using those cached values, so the final models get to see every available row. Then I predict the test set with each model, blend with the val-chosen weight, sort within each `srch_id`, and write the submission.
+# This notebook produces the Kaggle submission by refitting both models on the full training data with the configurations that notebook 04 chose. The configurations come from three artefacts on disk:
+#
+# - `data/processed/optuna_lgbm_best.json` -> LightGBM hyperparameters (50-trial Optuna TPE study, val NDCG@5 = 0.40999 at seed 42 with 423 trees).
+# - `data/processed/optuna_xgb_best.json` -> XGBoost hyperparameters (50-trial Optuna TPE study, val NDCG@5 = 0.41223 at 694 trees).
+# - `data/processed/seed_best_iters.json` -> per-seed `n_estimators` for the three LightGBM seeds (42, 123, 456).
+# - `data/processed/xgb_meta.json` -> XGBoost best iteration and chosen blend weight `w_xgb`.
+#
+# The full-train models use the same hyperparameters as the seed-42-on-train fits, with `n_estimators` set explicitly to the cached `best_iter` so the full-train fit produces a model of comparable complexity. No early stopping at this stage because the holdout has already been spent during model selection. Final score per (srch_id, prop_id) is `(1 - w_xgb) * lgbm_avg + w_xgb * xgb` with `w_xgb` read from disk, sorted descending within each search.
 
 # %%
+import datetime
 import gc
 import json
 import os
@@ -55,11 +65,20 @@ with open(PROC_DIR / "seed_best_iters.json") as f:
     seed_best_iters = json.load(f)
 with open(PROC_DIR / "xgb_meta.json") as f:
     xgb_meta = json.load(f)
+with open(PROC_DIR / "optuna_lgbm_best.json") as f:
+    optuna_lgbm = json.load(f)
+with open(PROC_DIR / "optuna_xgb_best.json") as f:
+    optuna_xgb = json.load(f)
+
 print(f"seed best_iters: {seed_best_iters}")
 print(f"xgb meta: {xgb_meta}")
+print(f"optuna lgbm best_params: {optuna_lgbm['best_params']}")
+print(f"optuna xgb  best_params: {optuna_xgb['best_params']}")
 
 CHOSEN_W_XGB = float(xgb_meta["chosen_w_xgb_blend"])
 XGB_BEST_ITER = int(xgb_meta["best_iter"])
+LGBM_TUNED = dict(optuna_lgbm["best_params"])
+XGB_TUNED = dict(optuna_xgb["best_params"])
 
 # %% [markdown]
 # ## Feature columns and full-train layout
@@ -93,16 +112,11 @@ for seed in SEEDS:
         objective="lambdarank",
         label_gain=[0, 1, 5],
         n_estimators=n_trees,
-        learning_rate=0.05,
-        num_leaves=28,
-        max_depth=9,
-        min_child_samples=50,
-        bagging_fraction=0.958,
-        feature_fraction=0.927,
         bagging_freq=1,
         n_jobs=4,
         verbose=-1,
         random_state=seed,
+        **LGBM_TUNED,
     )
     model = lgb.LGBMRanker(**params)
     model.fit(X_full, y_full, group=g_full, categorical_feature=CATEGORICAL)
@@ -119,7 +133,7 @@ avg_lgbm_test_scores = np.mean(list(test_scores_lgbm.values()), axis=0)
 # %% [markdown]
 # ## Refit XGBoost rank on full train
 #
-# Same params as notebook 04 but `num_boost_round` is fixed to the val-best iteration; no early stopping.
+# Same Optuna-tuned parameters as notebook 04 but `num_boost_round` is fixed to the val-best iteration from `xgb_meta.json`; no early stopping at this stage because the val signal has already been spent in selection.
 
 # %%
 print(f"\n--- XGBoost, num_boost_round = {XGB_BEST_ITER} ---")
@@ -134,14 +148,10 @@ dtest.set_group(g_test)
 
 xgb_params = dict(
     objective="rank:ndcg",
-    eta=0.05,
-    max_depth=8,
-    min_child_weight=10,
-    subsample=0.95,
-    colsample_bytree=0.92,
     eval_metric="ndcg@5",
     nthread=4,
     seed=42,
+    **XGB_TUNED,
 )
 xgb_model = xgb.train(xgb_params, dtrain, num_boost_round=XGB_BEST_ITER, verbose_eval=False)
 fit_time = time.time() - t0
@@ -184,13 +194,31 @@ print(f"submission rows: {len(submission):,}, searches: {submission['srch_id'].n
 
 # %% [markdown]
 # ## Write
+#
+# Two files are written every run. `results/submission.csv` is the canonical latest pointer that gets uploaded to Kaggle. Alongside that, an archived timestamped copy with the holdout NDCG@5 baked into the filename lands in `results/archive/`. Together they keep the upload step simple while preserving an audit trail across reruns.
 
 # %%
+ARCHIVE_DIR = RESULTS_DIR / "archive"
+ARCHIVE_DIR.mkdir(exist_ok=True)
+
+holdout_tag = ""
+eval_summary_path = PROC_DIR / "evaluation_summary.json"
+if eval_summary_path.exists():
+    with open(eval_summary_path) as f:
+        eval_summary = json.load(f)
+    holdout_blend = eval_summary.get("blend_holdout_ndcg5")
+    if holdout_blend is not None:
+        holdout_tag = f"_holdout{int(round(holdout_blend * 100000)):05d}"
+
+timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+archive_path = ARCHIVE_DIR / f"submission_{timestamp}{holdout_tag}.csv"
 sub_path = RESULTS_DIR / "submission.csv"
+
 submission.to_csv(sub_path, index=False)
+submission.to_csv(archive_path, index=False)
 size_mb = sub_path.stat().st_size / 1e6
-print(f"wrote {sub_path}")
-print(f"size: {size_mb:.1f} MB")
+print(f"wrote {sub_path}  ({size_mb:.1f} MB) -- this is the canonical latest")
+print(f"wrote {archive_path}  (archived copy with timestamp + holdout tag)")
 print()
 print("first 8 rows:")
 print(submission.head(8).to_string(index=False))
@@ -198,12 +226,12 @@ print(submission.head(8).to_string(index=False))
 # %% [markdown]
 # ## What this submission represents
 #
-# - 3 LightGBM LambdaRank seeds (42, 123, 456) score-averaged, fit on the full 4.96M training rows with `n_estimators` per seed taken from notebook 04's val-best iteration.
-# - 1 XGBoost rank model fit on the same full data, `num_boost_round` taken from notebook 04 val-best.
+# - 3 LightGBM LambdaRank seeds (42, 123, 456) score-averaged, fit on the full 4.96M training rows with the Optuna-tuned hyperparameters from notebook 04 and `n_estimators` per seed taken from each seed's val best iteration.
+# - 1 XGBoost rank:ndcg model fit on the same full data with the Optuna-tuned hyperparameters from notebook 04 and `num_boost_round` taken from `xgb_meta.json`.
 # - Final score per (srch_id, prop_id) = `(1 - w_xgb) * lgbm_avg + w_xgb * xgb`, with `w_xgb` chosen on val in notebook 04.
-# - Features: 69 columns from notebook 03 (raw, within-search relativisations, leakage-safe historical priors).
+# - Features: 69 columns from notebook 03 (raw, within-search relativisations, leakage-safe historical priors per `prop_id`, `srch_destination_id`, and their pair).
 #
-# Based on notebook 05's holdout NDCG@5 minus an expected -0.003 shrinkage, my best guess for the public Kaggle score is in the 0.40 to 0.41 range, depending on how much of the val-time XGBoost edge survives the locked holdout.
+# Local holdout NDCG@5 came in at 0.41521 and the realised Kaggle public NDCG@5 on the matching submission was 0.41706, slightly above the holdout. The +0.00185 delta is in the direction of holdout being a mildly pessimistic estimate rather than an optimistic one, which is consistent with the locked group-aware split and Optuna-tuned regularisation keeping the model honest.
 
 # %%
 del train, test, submission
