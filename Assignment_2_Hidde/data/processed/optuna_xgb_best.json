@@ -1,0 +1,15 @@
+{
+  "best_params": {
+    "eta": 0.06867780539963897,
+    "max_depth": 9,
+    "min_child_weight": 18,
+    "subsample": 0.9754828852273139,
+    "colsample_bytree": 0.7645462358249081,
+    "reg_alpha": 7.503756432701788,
+    "reg_lambda": 99.2452600379972,
+    "gamma": 1.6273833286439432
+  },
+  "best_value": 0.4085585258275858,
+  "best_iteration": 310,
+  "n_trials": 50
+}

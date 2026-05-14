@@ -1,0 +1,8 @@
+experiment,val_ndcg5,best_iter
+LightGBM Optuna best (seed 42),0.40999535935744114,423.0
+XGBoost Optuna best (seed 42),0.4122253426440223,694.0
+LightGBM bias-corrected (random x2),0.40448072975520083,
+LightGBM seed 123,0.40629258072161956,316.0
+LightGBM seed 456,0.40650909047355627,398.0
+LightGBM 3-seed score-average,0.40932901636615143,
+Final blend (w_xgb=0.5),0.4149815602638532,

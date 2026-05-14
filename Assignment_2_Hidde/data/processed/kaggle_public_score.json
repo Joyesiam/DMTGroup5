@@ -1,0 +1,8 @@
+{
+  "submission_file": "submission_20260514_143116_holdout41521.csv",
+  "kaggle_public_ndcg5": 0.41706,
+  "local_holdout_blend_ndcg5": 0.41521,
+  "delta_kaggle_minus_holdout": 0.00185,
+  "assumed_shrinkage_used_in_05": -0.0028,
+  "submitted_on": "2026-05-14"
+}

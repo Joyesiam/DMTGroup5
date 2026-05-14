@@ -1,0 +1,19 @@
+model,hyperparameter,search space,selected
+LightGBM,learning_rate,"loguniform [0.01, 0.10]",0.0565
+LightGBM,num_leaves,"int [15, 127]",110.0
+LightGBM,max_depth,"int [4, 12]",7.0
+LightGBM,min_child_samples,"int [10, 200]",74.0
+LightGBM,bagging_fraction,"uniform [0.5, 1.0]",0.8172
+LightGBM,feature_fraction,"uniform [0.5, 1.0]",0.5631
+LightGBM,lambda_l2,"loguniform [1e-3, 100]",65.275
+LightGBM,min_gain_to_split,"uniform [0, 1.0]",0.0921
+LightGBM,n_estimators,"early stop, max 1000",423.0
+XGBoost,eta,"loguniform [0.01, 0.10]",0.0687
+XGBoost,max_depth,"int [4, 12]",9.0
+XGBoost,min_child_weight,"int [1, 50]",18.0
+XGBoost,subsample,"uniform [0.5, 1.0]",0.9755
+XGBoost,colsample_bytree,"uniform [0.5, 1.0]",0.7645
+XGBoost,reg_alpha,"loguniform [1e-3, 100]",7.5038
+XGBoost,reg_lambda,"loguniform [1e-3, 100]",99.2453
+XGBoost,gamma,"uniform [0, 5]",1.6274
+XGBoost,n_estimators,"early stop, max 1000",310.0
