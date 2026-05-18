@@ -1,0 +1,188 @@
+{
+  "per_seed_holdout_ndcg5": {
+    "123": 0.40599560737609863,
+    "42": 0.4078856110572815,
+    "456": 0.407112181186676
+  },
+  "lgbm_3seed_holdout_ndcg5": 0.40853872895240784,
+  "xgb_alone_holdout_ndcg5": 0.412341445684433,
+  "blend_holdout_ndcg5": 0.41521281003952026,
+  "random_pages_ndcg5": 0.3556051254272461,
+  "ranked_pages_ndcg5": 0.44170084595680237,
+  "estimated_kaggle_public_ndcg5": 0.4124128222465515,
+  "size_bin_ndcg": {
+    "1-10": 0.6374602317810059,
+    "11-20": 0.47843971848487854,
+    "21-30": 0.3820570409297943,
+    "31-40": 0.3467242419719696
+  },
+  "window_bin_ndcg": {
+    "same day": 0.4350582957267761,
+    "1-7d": 0.4232604503631592,
+    "8-30d": 0.4160059988498688,
+    "31-90d": 0.40323588252067566,
+    "90d+": 0.40175530314445496
+  },
+  "bias_country_audit": [
+    {
+      "segment": "country=219",
+      "n_q_plus": 11970,
+      "n_pos": 13095,
+      "ndcg5": 0.42442262172698975,
+      "delta_vs_global": 0.009209811687469482,
+      "exposure5": 0.9995655806182121
+    },
+    {
+      "segment": "country=100",
+      "n_q_plus": 1218,
+      "n_pos": 1331,
+      "ndcg5": 0.4149183928966522,
+      "delta_vs_global": -0.000294417142868042,
+      "exposure5": 0.9990147783251233
+    },
+    {
+      "segment": "country=55",
+      "n_q_plus": 803,
+      "n_pos": 891,
+      "ndcg5": 0.42001020908355713,
+      "delta_vs_global": 0.004797399044036865,
+      "exposure5": 1.0
+    },
+    {
+      "segment": "country=31",
+      "n_q_plus": 616,
+      "n_pos": 705,
+      "ndcg5": 0.42037492990493774,
+      "delta_vs_global": 0.0051621198654174805,
+      "exposure5": 1.0
+    },
+    {
+      "segment": "country=99",
+      "n_q_plus": 541,
+      "n_pos": 624,
+      "ndcg5": 0.35781076550483704,
+      "delta_vs_global": -0.05740204453468323,
+      "exposure5": 0.9944547134935305
+    },
+    {
+      "segment": "country=tail",
+      "n_q_plus": 3291,
+      "n_pos": 3702,
+      "ndcg5": 0.3894094228744507,
+      "delta_vs_global": -0.02580338716506958,
+      "exposure5": 0.9978729869340626
+    }
+  ],
+  "bias_popularity_audit": [
+    {
+      "segment": "popularity=high",
+      "n_q_plus": 16682,
+      "n_pos": 18365,
+      "ndcg5": 0.4117128252983093,
+      "delta_vs_global": -0.0034999847412109375,
+      "exposure5": 0.9683611077808417
+    },
+    {
+      "segment": "popularity=medium",
+      "n_q_plus": 2509,
+      "n_pos": 2703,
+      "ndcg5": 0.4268321096897125,
+      "delta_vs_global": 0.01161929965019226,
+      "exposure5": 0.6550817058589079
+    },
+    {
+      "segment": "popularity=low",
+      "n_q_plus": 945,
+      "n_pos": 1000,
+      "ndcg5": 0.4432081878185272,
+      "delta_vs_global": 0.027995377779006958,
+      "exposure5": 0.6774603174603175
+    }
+  ],
+  "bias_tertile_cuts": {
+    "q33": 5.0,
+    "q66": 22.0
+  },
+  "fairness_chosen_lambda": 0.2,
+  "fairness_boost_weights": {
+    "low": 0.4070340874729496,
+    "medium": 0.4346117356899711,
+    "high": 0.03276712160506947
+  },
+  "fairness_holdout_before_after": [
+    {
+      "segment": "popularity=low",
+      "ndcg5_before": 0.4432081878185272,
+      "exposure5_before": 0.6774603174603175,
+      "ndcg5_after": 0.4443194270133972,
+      "exposure5_after": 0.6772486772486772,
+      "ndcg_delta": 0.0011112391948699951,
+      "exposure_delta": -0.0002116402116403293
+    },
+    {
+      "segment": "popularity=medium",
+      "ndcg5_before": 0.4268321096897125,
+      "exposure5_before": 0.6550817058589079,
+      "ndcg5_after": 0.43572792410850525,
+      "exposure5_after": 0.6687923475488242,
+      "ndcg_delta": 0.008895814418792725,
+      "exposure_delta": 0.013710641689916314
+    },
+    {
+      "segment": "popularity=high",
+      "ndcg5_before": 0.4117128252983093,
+      "exposure5_before": 0.9683611077808417,
+      "ndcg5_after": 0.41009005904197693,
+      "exposure5_after": 0.9639971226471646,
+      "ndcg_delta": -0.0016227662563323975,
+      "exposure_delta": -0.004363985133677084
+    }
+  ],
+  "fairness_global_after_ndcg5": 0.4149951636791229,
+  "fairness_val_sweep": [
+    {
+      "lambda": 0.0,
+      "val_ndcg5": 0.41498154401779175,
+      "exp_low": 0.6656215005599104,
+      "exp_medium": 0.6475160256410256,
+      "exp_high": 0.9677639046538026
+    },
+    {
+      "lambda": 0.01,
+      "val_ndcg5": 0.41496866941452026,
+      "exp_low": 0.6660694288913773,
+      "exp_medium": 0.6486378205128205,
+      "exp_high": 0.9675846824780453
+    },
+    {
+      "lambda": 0.02,
+      "val_ndcg5": 0.41493529081344604,
+      "exp_low": 0.6658454647256438,
+      "exp_medium": 0.6491185897435897,
+      "exp_high": 0.9674174084473386
+    },
+    {
+      "lambda": 0.05,
+      "val_ndcg5": 0.41496774554252625,
+      "exp_low": 0.6662933930571109,
+      "exp_medium": 0.6513621794871796,
+      "exp_high": 0.9667483123245116
+    },
+    {
+      "lambda": 0.1,
+      "val_ndcg5": 0.4147789776325226,
+      "exp_low": 0.6662933930571109,
+      "exp_medium": 0.6545673076923076,
+      "exp_high": 0.9654818089491607
+    },
+    {
+      "lambda": 0.2,
+      "val_ndcg5": 0.4147961735725403,
+      "exp_low": 0.6660694288913773,
+      "exp_medium": 0.6628205128205129,
+      "exp_high": 0.9630324392138122
+    }
+  ],
+  "kaggle_public_ndcg5_realised": 0.41706,
+  "kaggle_minus_holdout_delta": 0.00185
+}

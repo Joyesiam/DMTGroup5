@@ -1,0 +1,15 @@
+{
+  "best_params": {
+    "learning_rate": 0.05646069147848251,
+    "num_leaves": 110,
+    "max_depth": 7,
+    "min_child_samples": 74,
+    "bagging_fraction": 0.8171502188950333,
+    "feature_fraction": 0.5631319470528909,
+    "lambda_l2": 65.27504384088257,
+    "min_gain_to_split": 0.09209235998925683
+  },
+  "best_value": 0.40999535935744114,
+  "best_iteration": 423,
+  "n_trials": 50
+}

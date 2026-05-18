@@ -1,7 +1,0 @@
-{
-  "holdout_json": "/Users/hidde/Documents/STUDIE/MSc/5. Data Mining Techniques/DMTGroup5/Assignment 2 AutoResearch/data/processed/holdout_split_seed42.json",
-  "n_holdout": 19980,
-  "n_train": 159835,
-  "n_val": 19980,
-  "sha256": "bc8ea6f633f6c6d7909b0a3c8de3231c9367e888143766126e692f6c38d921f6"
-}
